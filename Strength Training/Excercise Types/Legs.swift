@@ -6,6 +6,18 @@
 //
 
 class Legs: Excercise {
-    // subclass definition goes here
+    
+    override init(type: String, time: Double) {
+        super.init(type: String, time: Double)
+    }
+    
+    override func getTime() -> Double {
+        return time
+    }
+    
+    override func getType() -> String {
+        return type
+    }
+
 }
 
