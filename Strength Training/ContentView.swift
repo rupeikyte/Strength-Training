@@ -8,50 +8,54 @@
 import SwiftUI
 import SwiftData
 
+let backgroundApp = Color.blue
+let colors: [Color] = [.gray, .red, .orange, .yellow,
+                           .green, .blue, .purple, .pink]
+
+
 struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-
+    @State private var fgColor: Color = .gray
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        ZStack {
+            backgroundApp.opacity(0.8)
+            VStack {
+                Text("Schedule")
+                    .font(.title)
+                VStack {
+                    Text("insert month var here")
+//                    Group {
+                        ForEach(1..<6) { _ in
+                            HStack(spacing: 10) {
+                                ForEach(1..<8) { _ in
+                                    RoundedRectangle(cornerRadius: 5).fill(fgColor).opacity(0.9).frame(width:100, height: 100).overlay(content: { Text("Workout(s)") })
+                                        
+                                        
+                                    
+                                }
+                                
+//                            }
+                        }
+                        .onTapGesture {
+                            fgColor = colors.randomElement()!
+                            
+                        }
                     }
                 }
-                .onDelete(perform: deleteItems)
+                
             }
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-            .toolbar {
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+            
         }
     }
 }
+
+
+//func myFunction() {
+//    backgroundApp.opacity(0.05)
+//}
+
 
 #Preview {
     ContentView()
