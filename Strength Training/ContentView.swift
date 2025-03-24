@@ -25,28 +25,28 @@ struct ContentView: View {
     let months: [String] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
     
-    let workoutInfo: String
+    let workoutInfo: [String] = ["following workouts:", "1:"]
     
     
     
     
-        var body: some View {
-    
-            ZStack {
-    //            backgroundApp.opacity(0.8)
+    var body: some View {
+        
+        ZStack {
+            //            backgroundApp.opacity(0.8)
+            VStack {
+                Text("Schedule")
+                    .font(.title)
                 VStack {
-                    Text("Schedule")
-                        .font(.title)
-                    VStack {
-                        Text("insert month var here")
-    
-                        allDays
-    
-                    }
+                    Text("insert month var here")
+                    
+                    allDays
+                    
                 }
             }
         }
-    
+    }
+    //assign exercises between days
     
     
     var allDays: some View {
@@ -56,34 +56,36 @@ struct ContentView: View {
                     ForEach(1..<8) { index2 in
                         NavigationLink(destination:  {
                             VStack{
-                                //                                Text("day" )
+                                //                                    ForEach(0..<self.workoutInfo.count, id: \.self) { index in
+                                //                                        Text(self.workoutInfo[index])
                                 Text(workoutInfo)
+                                //                                    }
                             }
-                            .font(.title)
-                            .multilineTextAlignment(.center)
+                            //                            .font(.title)
+                            //                            .multilineTextAlignment(.center)
                             
-
+                            
                             HStack{
                                 Button("Arm") {
-                                    Text("armInfo")
+                                    workoutInfo.append("testing")
+                                    //                                    Text("armInfo")
                                 }
-                                Button("Shoulder") {
-                                    Text("shoulderInfo")
-                                }
-                                Button("Leg") {
-                                    Text("legsInfo")
-                                }
-                                Button("Back") {
-                                    Text("backInfo")
-                                }
-                                Button("Abs") {
-                                    Text("abInfo")
-                                }
-                                Button("Chest") {
-                                    Text("chestInfo")
-                                }
+                                //                                Button("Shoulder") {
+                                //                                    Text("shoulderInfo")
+                                //                                }
+                                //                                Button("Leg") {
+                                //                                    Text("legsInfo")
+                                //                                }
+                                //                                Button("Back") {
+                                //                                    Text("backInfo")
+                                //                                }
+                                //                                Button("Abs") {
+                                //                                    Text("abInfo")
+                                //                                }
+                                //                                Button("Chest") {
+                                //                                    Text("chestInfo")
+                                //                                }
                             }
-//                                Button("Shoulder", action: register)
                             
                             
                         }, label: {
@@ -96,11 +98,12 @@ struct ContentView: View {
             }
             .navigationTitle("testing1")
             
-                
+            
         }
         
     }
 }
+//}
     
     struct MyRectangle: View {
         
@@ -123,10 +126,10 @@ struct ContentView: View {
             .background(fgColor)
             .frame(width: tall, height: 100)
             .cornerRadius(5)
-            .onTapGesture {
-                fgColor = colors.randomElement()!
-                
-            }
+//            .onTapGesture {
+//                fgColor = colors.randomElement()!
+//                
+//            }
             
         }
     }
@@ -134,6 +137,6 @@ struct ContentView: View {
 
 
 #Preview {
-    ContentView( workoutInfo: "test")
+    ContentView()
         .modelContainer(for: Item.self, inMemory: true)
 }

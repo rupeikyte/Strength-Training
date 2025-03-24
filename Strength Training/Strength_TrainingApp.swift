@@ -25,7 +25,7 @@ struct Strength_TrainingApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(workoutInfo: "test")
+            ContentView()
         }
         .modelContainer(sharedModelContainer)
     }
