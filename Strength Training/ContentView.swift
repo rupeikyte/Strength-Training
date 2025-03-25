@@ -30,22 +30,22 @@ struct ContentView: View {
     
     
     
-    var body: some View {
-        
-        ZStack {
-            //            backgroundApp.opacity(0.8)
-            VStack {
-                Text("Schedule")
-                    .font(.title)
+        var body: some View {
+    
+            ZStack {
+    //            backgroundApp.opacity(0.8)
                 VStack {
-                    Text("insert month var here")
-                    
-                    allDays
-                    
+                    Text("Schedule")
+                        .font(.title)
+                    VStack {
+                        Text("insert month var here")
+    
+                        allDays
+    
+                    }
                 }
             }
         }
-    }
     //assign exercises between days
     
     
@@ -56,35 +56,34 @@ struct ContentView: View {
                     ForEach(1..<8) { index2 in
                         NavigationLink(destination:  {
                             VStack{
-                                //                                    ForEach(0..<self.workoutInfo.count, id: \.self) { index in
-                                //                                        Text(self.workoutInfo[index])
-                                Text(workoutInfo)
-                                //                                    }
+                                    ForEach(0..<self.workoutInfo.count, id: \.self) { index in
+                                        Text(self.workoutInfo[index])
+                                    }
                             }
-                            //                            .font(.title)
-                            //                            .multilineTextAlignment(.center)
+                            .font(.title)
+                            .multilineTextAlignment(.center)
                             
-                            
+
                             HStack{
                                 Button("Arm") {
-                                    workoutInfo.append("testing")
-                                    //                                    Text("armInfo")
+                                    workoutInfo.append("testing6")
+//                                    Text("armInfo")
                                 }
-                                //                                Button("Shoulder") {
-                                //                                    Text("shoulderInfo")
-                                //                                }
-                                //                                Button("Leg") {
-                                //                                    Text("legsInfo")
-                                //                                }
-                                //                                Button("Back") {
-                                //                                    Text("backInfo")
-                                //                                }
-                                //                                Button("Abs") {
-                                //                                    Text("abInfo")
-                                //                                }
-                                //                                Button("Chest") {
-                                //                                    Text("chestInfo")
-                                //                                }
+//                                Button("Shoulder") {
+//                                    Text("shoulderInfo")
+//                                }
+//                                Button("Leg") {
+//                                    Text("legsInfo")
+//                                }
+//                                Button("Back") {
+//                                    Text("backInfo")
+//                                }
+//                                Button("Abs") {
+//                                    Text("abInfo")
+//                                }
+//                                Button("Chest") {
+//                                    Text("chestInfo")
+//                                }
                             }
                             
                             
@@ -98,12 +97,11 @@ struct ContentView: View {
             }
             .navigationTitle("testing1")
             
-            
+                
         }
         
     }
 }
-//}
     
     struct MyRectangle: View {
         
