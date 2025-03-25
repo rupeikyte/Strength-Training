@@ -66,8 +66,8 @@ struct ContentView: View {
 
                             HStack{
                                 Button("Arm") {
-                                    workoutInfo.append("testing6")
-//                                    Text("armInfo")
+//                                    workoutInfo.append("testing6")
+                                    Text("armInfo")
                                 }
 //                                Button("Shoulder") {
 //                                    Text("shoulderInfo")
