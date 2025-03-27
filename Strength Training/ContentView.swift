@@ -34,7 +34,7 @@ struct ContentView: View {
                 Text("Schedule")
                     .font(.title)
                 MonthView()
-                            }
+            }
         }
     }
 }
