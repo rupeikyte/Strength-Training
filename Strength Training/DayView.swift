@@ -5,13 +5,12 @@
 //  Created by Rūta Rupeikytė on 3/27/25.
 //
 
-
 import SwiftUI
-import SwiftData
-
 
 //let colors: [Color] = [.gray, .red, .orange, .yellow,
 //                           .green, .blue, .purple, .pink]
+
+
 
 struct DayView: View {
     @State private var workoutInfo: [String] = []
@@ -47,6 +46,3 @@ struct DayView: View {
         }
     }
 }
-
-
-
