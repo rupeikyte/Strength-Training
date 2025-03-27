@@ -18,10 +18,10 @@ let backgroundApp = Color.blue
 
 
 struct ContentView: View {
-//    @StateObject var workoutInfo = workouts()
-
+    //    @StateObject var workoutInfo = workouts()
+    
     @State var workoutInfo: [String] = []
-
+    
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     let array: [Int] = Array(1...35)
@@ -29,10 +29,10 @@ struct ContentView: View {
     @State private var fgColor: Color = .gray
     
     let months: [String] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
-
+    
     
     var body: some View {
-
+        
         
         ZStack {
             VStack {
@@ -82,22 +82,33 @@ struct ContentView: View {
     
     
     var allDays: some View {
-        NavigationStack {
-            ForEach(1..<6) { index1 in
-                HStack(spacing: 10) {
-                    ForEach(1..<8) { index2 in
-                        NavigationLink(destination:  {
-                            buttons
-                                .font(.title)
-                            workoutText
-                        }, label: {
-                            DayView(day: (index2)+(7*(index1-1)))
-                        })
+        
+            NavigationStack {
+                ForEach(1..<6) { index1 in
+                    
+                    HStack(spacing: 10) {
+                        
+                        ForEach(1..<8) { index2 in
+                            
+                            
+                                NavigationLink(destination:  {
+                                    ScrollView {
+                                        
+                                        buttons
+                                            .font(.title)
+                                        
+                                        workoutText
+                                    }
+                                    
+                                }, label: {
+                                    DayView(day: (index2)+(7*(index1-1)))
+                                })
+                            
+                        }
                     }
                 }
             }
         }
-    }
 }
     
     
