@@ -91,13 +91,21 @@ struct ContentView: View {
                             
                             
                                 NavigationLink(destination:  {
+                                    
+                                        
                                     ScrollView {
                                         
-                                        buttons
-                                            .font(.title)
-                                        
-                                        workoutText
+                                    
+                                    workoutText
                                     }
+                                        
+                                        
+                                    ScrollView {
+                                        buttons
+                                    }
+                                    .font(.title)
+                                    .lineLimit(1)
+                                    .fixedSize(horizontal: true, vertical: true)
                                     
                                 }, label: {
                                     DayView(day: (index2)+(7*(index1-1)))
@@ -156,9 +164,15 @@ struct ContentView: View {
 ////    }
 ////}
 //
-////class workouts : ObservableObject {
-////    @Published var dayWorkouts: [String] = []
-////}
+
+class Workouts : ObservableObject {
+    @Published var dayWorkouts: [String]
+    
+    init(dayWorkouts: [String]) {
+        self.dayWorkouts = dayWorkouts
+    }
+}
+
 //
 //
 //
