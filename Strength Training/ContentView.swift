@@ -30,86 +30,92 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack{
-            VStack{
-                Text("Schedule")
-                    .font(.title)
-                MonthView()
-            }
+            NavigationLink(destination:  {
+                ScrollView {
+                    VStack{
+                        Text("Schedule")
+                            .font(.title)
+                    }
+                }}, label: {
+                    
+                    MonthView()
+                })
+            
         }
     }
 
     //assign exercises between days
-    
-    
-    var workoutText: some View {
-        VStack{
-            ForEach(0..<self.workoutInfo.count, id: \.self) { index in
-                Text(self.workoutInfo[index])
-            }
-            .font(.title)
-        }
-    }
-    
-    var buttons: some View {
-        HStack{
-            Button("Arm") {
-                workoutInfo.append("armInfo")
-            }
-            Button("Shoulder") {
-                workoutInfo.append("shoulderInfo")
-            }
-            Button("Leg") {
-                workoutInfo.append("legInfo")
-            }
-            Button("Back") {
-                workoutInfo.append("backInfo")
-            }
-            Button("Chest") {
-                workoutInfo.append("chestInfo")
-            }
-            Button("Abs") {
-                workoutInfo.append("absInfo")
-            }
-        }
-    }
-    
-    
-    var allDays: some View {
-        
-            NavigationStack {
-                ForEach(1..<6) { index1 in
-                    
-                    HStack(spacing: 10) {
-                        
-                        ForEach(1..<8) { index2 in
-                            
-                            
-                                NavigationLink(destination:  {
-                                    
-                                        
-                                    ScrollView {
-                                        
-                                    
-                                    workoutText
-                                    }
-                                        
-                                        
-                                    ScrollView {
-                                        buttons
-                                    }
-                                    .font(.title)
-                                    .lineLimit(1)
-                                    .fixedSize(horizontal: true, vertical: true)
-                                    
-                                }, label: {
-                                    DayView(day: (index2)+(7*(index1-1)))
-                                })
-                            
-                        }
-                    }
-                }
-            }
-        }
+//    
+//    
+//    var workoutText: some View {
+//        VStack{
+//            ForEach(0..<self.workoutInfo.count, id: \.self) { index in
+//                Text(self.workoutInfo[index])
+//            }
+//            .font(.title)
+//        }
+//    }
+//    
+//    var buttons: some View {
+//        HStack{
+//            Button("Arm") {
+//                workoutInfo.append("armInfo")
+//            }
+//            Button("Shoulder") {
+//                workoutInfo.append("shoulderInfo")
+//            }
+//            Button("Leg") {
+//                workoutInfo.append("legInfo")
+//            }
+//            Button("Back") {
+//                workoutInfo.append("backInfo")
+//            }
+//            Button("Chest") {
+//                workoutInfo.append("chestInfo")
+//            }
+//            Button("Abs") {
+//                workoutInfo.append("absInfo")
+//            }
+//        }
+//    }
+//    
+//    
+//    var allDays: some View {
+//        
+//            NavigationStack {
+//                ForEach(1..<6) { index1 in
+//                    
+//                    HStack(spacing: 10) {
+//                        
+//                        ForEach(1..<8) { index2 in
+//                            
+//                            
+//                                NavigationLink(destination:  {
+//                                    
+//                                        
+//                                    ScrollView {
+//                                        
+//                                    
+//                                    workoutText
+//                                    }
+//                                        
+//                                        
+//                                    ScrollView {
+//                                        buttons
+//                                    }
+//                                    .font(.title)
+//                                    .lineLimit(1)
+//                                    .fixedSize(horizontal: true, vertical: true)
+//                                    
+//                                }, label: {
+//                                    DayView(day: (index2)+(7*(index1-1)))
+//                                })
+//                            
+//                        }
+//                    }
+//                }
+//            }
+//        }
 
 
 }
