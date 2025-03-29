@@ -13,11 +13,9 @@ import SwiftData
 
 //var getDayInformation = Day
 
-//@State var workoutInfo: [String] = []
 
 
 struct ContentView: View {
-    //    @StateObject var workoutInfo = workouts()
     
     @State var workoutInfo: [String] = []
     
@@ -31,19 +29,15 @@ struct ContentView: View {
     
     
     var body: some View {
-        
-        
-        ZStack {
-            VStack {
+        NavigationStack{
+            VStack{
                 Text("Schedule")
                     .font(.title)
-                VStack {
-                    Text("insert month var here")
-                    allDays
-                }
+                MonthView()
             }
         }
     }
+
     //assign exercises between days
     
     
@@ -116,32 +110,36 @@ struct ContentView: View {
                 }
             }
         }
+
+
 }
-    
-//    
+
+
+
+//
 //struct DayView: View {
-//    
+//
 //    @State private var fgColor: Color = .gray
 //    @State private var tall: CGFloat = 100
-//    
+//
 //    let day: Int
-//    
-//    
+//
+//
 ////    @StateObject var workoutInfo = workouts()
-//    
+//
 //    var body: some View {
-//        
+//
 //        VStack {
 //            Text("\(day)")
 ////            Text(workoutInfo.dayWorkouts[day])
 //            Text("test")
 //        }
-//        
+//
 //        .padding()
 //        .background(fgColor)
 //        .frame(width: tall, height: 100)
 //        .cornerRadius(5)
-//        
+//
 //    }
 //}
 //
@@ -149,9 +147,9 @@ struct ContentView: View {
 //////    @StateObject var workoutInfo = workouts()
 //////    cancellable = workoutInfo.objectWillChange
 //////        .sink { _ in
-//////        
+//////
 //////    }
-////    
+////
 ////    var body: some View {
 ////        @StateObject var workoutInfo = workouts()
 ////
@@ -177,13 +175,14 @@ class Workouts : ObservableObject {
 //
 //
 ////struct workout {
-////    
+////
 ////}
 ////
 ////struct schedule {
-////    
+////
 ////}
 //
+
 //#Preview {
 //    ContentView()
 //        .modelContainer(for: Item.self, inMemory: true)
