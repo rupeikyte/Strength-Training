@@ -33,7 +33,6 @@ struct DayView: View {
                         workoutInfo.remove(at: armIndex ?? 0);
                     }
                 }
-                static let circle : ButtonBorderShape
                 Button("Shoulder") {
                     if(workoutInfo.contains("Shoulder Programming") == false){
                         workoutInfo.append("Shoulder Programming")

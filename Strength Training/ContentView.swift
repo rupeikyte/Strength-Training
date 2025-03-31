@@ -75,18 +75,19 @@ struct ContentView: View {
             
         }
     }
-
-
-
-class Workouts : ObservableObject {
-    @Published var dayWorkouts: [String]
     
-    init(dayWorkouts: [String]) {
-        self.dayWorkouts = dayWorkouts
+    
+    
+    class Workouts : ObservableObject {
+        @Published var dayWorkouts: [String]
+        
+        init(dayWorkouts: [String]) {
+            self.dayWorkouts = dayWorkouts
+        }
     }
+    
+    //#Preview {
+    //    ContentView()
+    //        .modelContainer(for: Item.self, inMemory: true)
+    //}
 }
-
-//#Preview {
-//    ContentView()
-//        .modelContainer(for: Item.self, inMemory: true)
-//}
