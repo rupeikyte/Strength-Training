@@ -53,111 +53,38 @@ struct ContentView: View {
         }
     }
     
-  //  var buttons: some View {
-//        HStack{
-//            Button("Arm") {
-//                workoutInfo.append("armInfo")
-//            }
-//            Button("Shoulder") {
-//                workoutInfo.append("shoulderInfo")
-//            }
-//            Button("Leg") {
-//                workoutInfo.append("legInfo")
-//            }
-//            Button("Back") {
-//                workoutInfo.append("backInfo")
-//            }
-//            Button("Chest") {
-//                workoutInfo.append("chestInfo")
-//            }
-//            Button("Abs") {
-//                workoutInfo.append("absInfo")
-//            }
-        //}
-    //}
-    
     
     var allDays: some View {
         NavigationStack {
             ForEach(1..<6) { index1 in
                 HStack(spacing: 10) {
                     ForEach(1..<8) { index2 in
-//                        NavigationLink(destination:  {
-//                            buttons
-//                                .font(.title)
-//                            workoutText
-//                        }, label: {
-//                            DayView(day: (index2)+(7*(index1-1)))
-                        //})
                     }
                 }
             }
+            NavigationLink(destination:  {
+                ScrollView {
+                    VStack{
+                        Text("Schedule")
+                            .font(.title)
+                    }
+                }}, label: {
+                    
+                    MonthView()
+                })
+            
         }
     }
+
+
+
+class Workouts : ObservableObject {
+    @Published var dayWorkouts: [String]
+    
+    init(dayWorkouts: [String]) {
+        self.dayWorkouts = dayWorkouts
+    }
 }
-
-
-
-//
-//struct DayView: View {
-//
-//    @State private var fgColor: Color = .gray
-//    @State private var tall: CGFloat = 100
-//
-//    let day: Int
-//
-//
-////    @StateObject var workoutInfo = workouts()
-//
-//    var body: some View {
-//
-//        VStack {
-//            Text("\(day)")
-////            Text(workoutInfo.dayWorkouts[day])
-//            Text("test")
-//        }
-//
-//        .padding()
-//        .background(fgColor)
-//        .frame(width: tall, height: 100)
-//        .cornerRadius(5)
-//
-//    }
-//}
-//
-////struct workoutText: View {
-//////    @StateObject var workoutInfo = workouts()
-//////    cancellable = workoutInfo.objectWillChange
-//////        .sink { _ in
-//////
-//////    }
-////
-////    var body: some View {
-////        @StateObject var workoutInfo = workouts()
-////
-////        VStack{
-////            ForEach(0..<self.workoutInfo.dayWorkouts.count, id: \.self) { index in
-////                Text(self.workoutInfo.dayWorkouts[index])
-////            }
-////            .font(.title)
-////        }
-////    }
-////}
-//
-////class workouts : ObservableObject {
-////    @Published var dayWorkouts: [String] = []
-////}
-//
-//
-//
-////struct workout {
-////
-////}
-////
-////struct schedule {
-////
-////}
-//
 
 //#Preview {
 //    ContentView()
