@@ -25,22 +25,59 @@ struct DayView: View {
             }
             HStack {
                 Button("Arm") {
-                    workoutInfo.append("Arms Programming")
+                    if(workoutInfo.contains("Arms Programming") == false){
+                        workoutInfo.append("Arms Programming")
+                    }
+                    else{
+                        let armIndex = workoutInfo.firstIndex(of: "Arms Programming");
+                        workoutInfo.remove(at: armIndex ?? 0);
+                    }
                 }
+                static let circle : ButtonBorderShape
                 Button("Shoulder") {
-                    workoutInfo.append("Shoulder Programming")
+                    if(workoutInfo.contains("Shoulder Programming") == false){
+                        workoutInfo.append("Shoulder Programming")
+                    }
+                    else{
+                        let shoulderIndex = workoutInfo.firstIndex(of: "Shoulder Programming");
+                        workoutInfo.remove(at: shoulderIndex ?? 0);
+                    }
                 }
                 Button("Leg") {
-                    workoutInfo.append("Leg Programming")
+                    if(workoutInfo.contains("Leg Programming") == false){
+                        workoutInfo.append("Leg Programming")
+                    }
+                    else{
+                        let legIndex = workoutInfo.firstIndex(of: "Leg Programming");
+                        workoutInfo.remove(at: legIndex ?? 0);
+                    }
                 }
                 Button("Back") {
-                    workoutInfo.append("Back Programming")
+                    if(workoutInfo.contains("Back Programming") == false){
+                        workoutInfo.append("Back Programming")
+                    }
+                    else{
+                        let backIndex = workoutInfo.firstIndex(of: "Back Programming");
+                        workoutInfo.remove(at: backIndex ?? 0);
+                    }
                 }
                 Button("Chest") {
-                    workoutInfo.append("Chest Programming")
+                    if(workoutInfo.contains("Chest Programming") == false){
+                        workoutInfo.append("Chest Programming")
+                    }
+                    else{
+                        let chestIndex = workoutInfo.firstIndex(of: "Chest Programming");
+                        workoutInfo.remove(at: chestIndex ?? 0);
+                    }
                 }
                 Button("Abs") {
-                    workoutInfo.append("Abs Programming")
+                    if(workoutInfo.contains("Abs Programming") == false){
+                        workoutInfo.append("Abs Programming")
+                    }
+                    else{
+                        let absIndex = workoutInfo.firstIndex(of: "Abs Programming");
+                        workoutInfo.remove(at: absIndex ?? 0);
+                    }
                 }
             }
         }
