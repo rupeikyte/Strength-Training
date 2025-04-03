@@ -7,42 +7,59 @@
 
 import SwiftUI
 
-//let colors: [Color] = [.gray, .red, .orange, .yellow,
-//                           .green, .blue, .purple, .pink]
 
-
+//The destination that clicking on a day showcases. This includes the buttons to add muscle group information to the day, and the corresponding text from the dayWorkouts string array.
 
 struct DayView: View {
-    @State private var workoutInfo: [String] = []
+
+//    @ObservedObject var workoutInfo: Workouts
+    @StateObject private var workoutInfo = Workouts()
     
     let dayNumber: Int
     
     var body: some View {
+        
         VStack {
-            ForEach(workoutInfo, id: \.self) { info in
+            ForEach(workoutInfo.dayWorkouts, id: \.self) { info in
                 Text(info)
-                    .multilineTextAlignment(.center)
+//                Text(dayNumber.description)
             }
+            
+            
+            
             HStack {
                 Button("Arm") {
-                    workoutInfo.append("Arms Programming")
+                    workoutInfo.dayWorkouts.append("Arms Programming")
                 }
                 Button("Shoulder") {
-                    workoutInfo.append("Shoulder Programming")
+                    workoutInfo.dayWorkouts.append("Shoulder Programming")
                 }
                 Button("Leg") {
-                    workoutInfo.append("Leg Programming")
+                    workoutInfo.dayWorkouts.append("Leg Programming")
                 }
                 Button("Back") {
-                    workoutInfo.append("Back Programming")
+                    workoutInfo.dayWorkouts.append("Back Programming")
                 }
                 Button("Chest") {
-                    workoutInfo.append("Chest Programming")
+                    workoutInfo.dayWorkouts.append("Chest Programming")
                 }
                 Button("Abs") {
-                    workoutInfo.append("Abs Programming")
+                    workoutInfo.dayWorkouts.append("Abs Programming")
                 }
             }
         }
     }
 }
+
+
+//class Workouts: ObservableObject {
+//    @Published var dayWorkouts: [String] = []
+//    
+//    init() {
+//        
+//    }
+// }
+
+
+
+
