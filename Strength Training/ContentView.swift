@@ -11,11 +11,9 @@ import SwiftData
 
 struct ContentView: View {
     
-    @State var workoutInfo: [String] = []
     
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    let array: [Int] = Array(1...35)
     
     @State private var fgColor: Color = .gray
     
