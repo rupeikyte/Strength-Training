@@ -12,8 +12,7 @@ import SwiftUI
 
 struct DayView: View {
 
-//    @ObservedObject var workoutInfo: Workouts
-    @StateObject private var workoutInfo = Workouts()
+    @ObservedObject private var workoutInfo = Workouts()
     
     let dayNumber: Int
     
@@ -22,7 +21,6 @@ struct DayView: View {
         VStack {
             ForEach(workoutInfo.dayWorkouts, id: \.self) { info in
                 Text(info)
-//                Text(dayNumber.description)
             }
             
             
@@ -52,13 +50,6 @@ struct DayView: View {
 }
 
 
-//class Workouts: ObservableObject {
-//    @Published var dayWorkouts: [String] = []
-//    
-//    init() {
-//        
-//    }
-// }
 
 
 
