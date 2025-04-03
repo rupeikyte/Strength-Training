@@ -33,6 +33,8 @@ struct ContentView: View {
 
 class Workouts: ObservableObject {
     @Published var dayWorkouts: [String] = []
+    
+    
 }
 
 

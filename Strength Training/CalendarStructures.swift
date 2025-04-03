@@ -31,21 +31,34 @@ struct MonthView: View {
 
 // The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
 struct DayCell: View {
+    
+    @ObservedObject var workoutInfo: Workouts = Workouts()
+    
+    
+    
     @State private var tall: CGFloat = 100
     
     let dayNumber: Int
-        
+    
     var body: some View {
         
-        NavigationLink(destination: {
-            DayView(dayNumber: dayNumber)
-        }, label: {
-            Text("\(dayNumber)")
-                .padding()
-                .frame(width: tall, height: tall)
-                .cornerRadius(5)
-
-        })
+       
+            NavigationLink(
+                destination:
+                    DayView(workoutInfo: workoutInfo, dayNumber: dayNumber),
+                label: {
+                    Text("\(dayNumber)")
+                        .padding()
+                        .frame(width: tall, height: tall)
+                        .cornerRadius(5)
+                    
+                    VStack {
+                        ForEach(workoutInfo.dayWorkouts, id: \.self) { info in
+                            Text(info)
+                        }
+                    }
+                })
+        
     }
 }
 

@@ -12,7 +12,8 @@ import SwiftUI
 
 struct DayView: View {
 
-    @ObservedObject private var workoutInfo = Workouts()
+//    @ObservedObject private var workoutInfo = Workouts()
+    @ObservedObject var workoutInfo: Workouts 
     
     let dayNumber: Int
     
@@ -86,6 +87,7 @@ struct DayView: View {
         }
     }
 }
+
 
 
 
