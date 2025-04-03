@@ -13,7 +13,10 @@ struct MonthView: View {
     @State private var fgColor: Color = .gray
     
     var body: some View {
-        VStack {
+        Text("Schedule")
+            .font(.title)
+        
+        VStack(spacing: 10) {
             ForEach(0..<6) { week in
                 HStack(spacing: 10) {
                     ForEach(0..<7) { day in
@@ -42,23 +45,23 @@ struct DayCell: View {
     
     var body: some View {
         
-       
-            NavigationLink(
-                destination:
-                    DayView(workoutInfo: workoutInfo, dayNumber: dayNumber),
-                label: {
-                    Text("\(dayNumber)")
-                        .padding()
-                        .frame(width: tall, height: tall)
-                        .cornerRadius(5)
-                    
-                    VStack {
-                        ForEach(workoutInfo.dayWorkouts, id: \.self) { info in
-                            Text(info)
-                        }
-                    }
-                })
         
+        NavigationLink(
+            destination:
+                DayView(workoutInfo: workoutInfo, dayNumber: dayNumber),
+            
+            label: {
+                VStack {
+                    Text("\(dayNumber)")
+                    ForEach(workoutInfo.dayWorkouts, id: \.self) { info in
+                        Text(info)
+                    }
+                }
+
+                .padding()
+                .background(in: RoundedRectangle(cornerRadius: 5))
+//                .frame(width: 100, height: 100)
+            })
     }
 }
 
