@@ -37,6 +37,8 @@ struct DayCell: View {
     
     @ObservedObject var workoutInfo: Workouts = Workouts()
     
+
+    
     
     
     @State private var tall: CGFloat = 100
