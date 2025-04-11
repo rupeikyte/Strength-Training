@@ -14,10 +14,12 @@ struct WorkoutManager {
         
         for muscle in muscleGroupNames {
             for i in 0..<days.count {
-                if days[i - 1].muscleGroups[muscle] == true &&
-                    days[i].muscleGroups[muscle] == true {
-                    result.insert(days[i - 1].dayNumber)
-                    result.insert(days[i].dayNumber)
+                if (i>0) {
+                    if days[i - 1].muscleGroups[muscle] == true &&
+                        days[i].muscleGroups[muscle] == true {
+                        result.insert(days[i - 1].dayNumber)
+                        result.insert(days[i].dayNumber)
+                    }
                 }
             }
         }
