@@ -20,6 +20,7 @@ struct ContentView: View {
     @StateObject var calendar = WorkoutCalendar()
     
     let months: [String] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
     
     var body: some View {
         NavigationStack{
@@ -28,6 +29,13 @@ struct ContentView: View {
         }
     }
 }
+
+class Workouts: ObservableObject {
+     @Published var dayWorkouts: [String] = []
+ }
+
+
+
 
 
 

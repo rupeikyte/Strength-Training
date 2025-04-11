@@ -13,12 +13,18 @@ import SwiftUI
 struct DayView: View {
     let dayNumber: Int
     @ObservedObject var calendar: WorkoutCalendar
+//    @ObservedObject var workoutInfo: Workouts
+
     
     var body: some View {
         let index = calendar.days.firstIndex { $0.dayNumber == dayNumber }!
         let groups = muscleGroupNames
         
-        VStack(spacing: 20) {
+            VStack(spacing: 20) {
+//                ForEach(workoutInfo.dayWorkouts, id: \.self) { info in
+//                    Text(info)
+//                }
+
             ForEach(groups, id: \.self) { group in
                 if calendar.days[index].muscleGroups[group] == true {
                     Text("\(group) Programming")

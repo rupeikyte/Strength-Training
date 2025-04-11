@@ -45,17 +45,39 @@ struct DayCell: View {
     @ObservedObject var calendar: WorkoutCalendar
     var isFlagged: Bool
     
+//    @ObservedObject var workoutInfo: Workouts = Workouts()
+    
     var body: some View {
+        let index = calendar.days.firstIndex { $0.dayNumber == day.dayNumber }!
+        let groups = muscleGroupNames
+        
         NavigationLink(
-            destination: DayView(dayNumber: day.dayNumber, calendar: calendar)
-        ) {
-            Text("\(day.dayNumber)")
+            destination:
+                DayView(dayNumber: day.dayNumber, calendar: calendar),
+            label: {
+                VStack {
+                    Text("\(day.dayNumber)")
+                    
+                    
+                    ForEach(groups, id: \.self) { group in
+                        if calendar.days[index].muscleGroups[group] == true {
+                            Text("\(group) Programming")
+                        }
+                    }
+                    
+                    
+                }
                 .padding()
                 .background(
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(isFlagged ? Color.red : Color.gray)
-                )
-        }
+                                     RoundedRectangle(cornerRadius: 5)
+                                         .fill(isFlagged ? Color.red : Color.white)
+                                 )
+                .frame(width: 100, height: 100)
+            }
+            
+                
+                
+        )
     }
 }
 
