@@ -17,23 +17,18 @@ struct ContentView: View {
     
     @State private var fgColor: Color = .gray
     
+    @StateObject var calendar = WorkoutCalendar()
+    
     let months: [String] = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     
-
     var body: some View {
-    
         NavigationStack{
-
-            MonthView()
+            MonthView(calendar: calendar)
+            
         }
     }
 }
 
-
-
-class Workouts: ObservableObject {
-    @Published var dayWorkouts: [String] = []
-}
 
 
 #Preview {
