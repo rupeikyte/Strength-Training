@@ -14,7 +14,7 @@ struct DayView: View {
     let dayNumber: Int
     @ObservedObject var calendar: WorkoutCalendar
 //    @ObservedObject var workoutInfo: Workouts
-
+    @State private var showModificationOptions = false;
     
     var body: some View {
         let index = calendar.days.firstIndex { $0.dayNumber == dayNumber }!
@@ -30,14 +30,22 @@ struct DayView: View {
                     Text("\(group) Programming")
                 }
             }
+
             
-            HStack {
-                ForEach(groups, id: \.self) { group in
-                    Button(group) {
-                        calendar.days[index].muscleGroups[group]?.toggle()
+            if(!showModificationOptions){
+                Button("Do you want to modify your workout?") {
+                    showModificationOptions = true;
+                }
+            }
+            else{
+                HStack {
+                    ForEach(groups, id: \.self) { group in
+                        Button(group) {
+                            calendar.days[index].muscleGroups[group]?.toggle()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .tint(calendar.days[index].muscleGroups[group] == true ? .red : .green)
                     }
-                    .buttonStyle(.borderedProminent)
-                    .tint(calendar.days[index].muscleGroups[group] == true ? .red : .green)
                 }
             }
         }
