@@ -24,4 +24,43 @@ struct WorkoutManager {
         }
         return result
     }
+    
+    func dayOverload(in days: [WorkoutDay]) -> Bool {
+        var consecutiveWorkoutDays = 0
+        
+        for day in days {
+            //check if any muscle group is trained on this day
+            let isWorkoutDay = day.muscleGroups.values.contains(true)
+            
+            if isWorkoutDay {
+                consecutiveWorkoutDays += 1
+                if consecutiveWorkoutDays >= 4 {
+                    return true //overload detected
+                }
+            } else {
+                consecutiveWorkoutDays = 0 //reset counter on rest day
+            }
+        }
+        
+        return false
+    }
+    
+    func isEverythingGettingTrained(in days: [WorkoutDay]) -> Bool {
+        //create a dictionary to track if each muscle group has been trained
+        var muscleGroupsCovered = Dictionary(
+            uniqueKeysWithValues: muscleGroupNames.map { ($0, false) }
+        )
+        
+        //check each day's muscle groups
+        for day in days {
+            for (muscle, isWorked) in day.muscleGroups {
+                if isWorked {
+                    muscleGroupsCovered[muscle] = true
+                }
+            }
+        }
+        
+        //return false if any muscle group hasn't been trained
+        return !muscleGroupsCovered.values.contains(false)
+    }
 }
