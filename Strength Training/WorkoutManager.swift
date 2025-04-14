@@ -5,7 +5,6 @@
 //  Created by Noel Raehl on 4/11/25.
 //
 
-
 // Provides logic for evaluating workout patterns across days.
 // Currently keeps track of days with back to back programming of identical muscle groups
 struct WorkoutManager {
@@ -23,7 +22,6 @@ struct WorkoutManager {
                 }
             }
         }
-        
         return result
     }
 }

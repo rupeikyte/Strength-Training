@@ -21,7 +21,6 @@ struct WorkoutDay: Identifiable {
     var id: Int { dayNumber }
 }
 
-
 // Holds the full list of 'WorkoutDay' structs (42 total) for the calendar.
 class WorkoutCalendar: ObservableObject {
     @Published var days: [WorkoutDay] = (0...41).map {
