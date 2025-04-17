@@ -102,6 +102,9 @@ struct DayView: View {
 
                     }
                 }
+                Button("Back"){
+                    showModificationOptions = false;
+                }
             }
         }
     }
