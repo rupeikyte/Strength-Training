@@ -17,10 +17,12 @@ struct DayCard: View {
     var body: some View {
         
         RoundedRectangle(cornerRadius: 10)
-            .padding([.top], 30)
+            .padding(.top, 50)
+
             .border(Color.brown, width:1)
             .foregroundStyle(bgBlue.opacity(0.2))
-        
+            .clipShape(RoundedRectangle(cornerRadius:20))
+
             .overlay(
                 VStack(spacing: 50) {
                     ForEach(cycleWorkout, id: \.self) { oneWorkout in
@@ -38,6 +40,9 @@ struct DayView: View {
     @ObservedObject var calendar: WorkoutCalendar
     @State private var showModificationOptions = false;
 
+    let bgBlue = Color(red: 121/255, green: 190/255, blue: 242/255)
+
+    
     var body: some View {
         let index = calendar.days.firstIndex { $0.dayNumber == dayNumber }!
         let groups = muscleGroupNames
@@ -47,23 +52,31 @@ struct DayView: View {
                 ForEach(groups, id: \.self) { group in
                     if calendar.days[index].muscleGroups[group] == true {
                         ZStack{
+                            
                             DayCard()
                             
                                 .overlay(alignment: .top) {
                                     Text(group)
                                         .fontDesign(.rounded)
-                                        .font(.largeTitle)
-                                        .frame(maxWidth: .infinity)
+                                        .font(.title)
+                                        .frame(maxWidth: .infinity, maxHeight: 50)
                                         .border(Color.brown, width:1)
                                         .background(Color.gray.opacity(0.2))
                                         
-                                        
+                                        .clipShape(RoundedRectangle(cornerRadius:5))
                                 }
                         }
-                        
+                        .padding(.leading, 60)
+                        .padding([.top, .bottom], 80)
+
+//
                     }
                 }
+                
+
             }
+            .padding(.trailing, 60)
+            
             
 
             if(!showModificationOptions){
@@ -72,15 +85,22 @@ struct DayView: View {
                 } label: {
                     Text("Do you want to modify?")
                         .font(.largeTitle)
-                        .frame(height: 100)
+                        .frame(height: 60)
                         .fontDesign(.rounded)
+
                 }
-                .opacity(0.1)
+                .padding(.bottom, 15)
                 .buttonStyle(.borderedProminent)
                 .buttonStyle(PlainButtonStyle())
                 .controlSize(.extraLarge)
-                .offset(x: 10, y: 10)
+//                .offset(x: 10, y: 10)
+//                .background(bgBlue.opacity(0.2))
+
+//                .tint(Color.white)
+                .tint(bgBlue.opacity(0.2))
+                
             }
+                
             else{
                 HStack {
                     ForEach(groups, id: \.self) { group in
@@ -90,15 +110,18 @@ struct DayView: View {
                         } label: {
                             Text(group)
                                 .font(.largeTitle)
+                                .frame(width: 150, height: 60)
                                 .fontDesign(.rounded)
+                        
                         }
-                        .frame(width: 75, height: 50)
-                        .padding([.leading, .trailing], 50)
-                        .padding(.bottom, 10)
+                        
+                        .padding([.leading, .trailing], 36)
+                        .padding(.bottom, 15)
                         .buttonStyle(.borderedProminent)
                         .buttonStyle(PlainButtonStyle())
-                        .tint(calendar.days[index].muscleGroups[group] == true ? .red.opacity(0.2) : .green.opacity(0.2))
-                        .offset(x: 10, y: 10)
+                        .controlSize(.extraLarge)
+                        .tint((calendar.days[index].muscleGroups[group] == true ? (.red.opacity(0.1)) : (.green.opacity(0.1))))
+//                        .offset(x: 10, y: 10)
 
                     }
                 }

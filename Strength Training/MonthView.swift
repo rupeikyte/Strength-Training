@@ -26,7 +26,7 @@ struct MonthView: View {
                 VStack(spacing: 0) {
                     
                     Text(monthToday.description + " " + yearToday.description)
-                        .font(.title)
+                        .font(.largeTitle)
                         .frame(width: geometry.size.width)
                         .padding(.vertical, 10)
                         .border(Color.brown, width: 0.5)
@@ -36,7 +36,6 @@ struct MonthView: View {
                             VStack(spacing: 0) {
                                 Text(weekDays[day])
                                     .font(.title)
-                                //                                        .background(Color.blue)
                                     .frame(width: geometry.size.width/7)
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
