@@ -7,7 +7,7 @@
 
 // Provides logic for evaluating workout patterns across days.
 // Currently keeps track of days with back to back programming of identical muscle groups
-struct WorkoutManager {
+struct WorkoutEvaluator {
     static func getAllBackToBack(in days: [WorkoutDay]) -> Set<Int> {
         var result: Set<Int> = []
         

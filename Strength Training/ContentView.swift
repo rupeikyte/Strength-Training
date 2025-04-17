@@ -15,17 +15,26 @@ struct ContentView: View {
     @Query private var items: [Item]
     
     @StateObject var calendar = WorkoutCalendar()
-    
+//    let bgBlue = Color(red: 121/255, green: 190/255, blue: 242/255)
     var body: some View {
-        NavigationStack{
-            MonthView(calendar: calendar)
+        ZStack{
+//            GeometryReader { geometry in
+            Color.white
+                NavigationStack{
+                    MonthView(calendar: calendar)
+                        .padding(.leading, 5)
+                  
+                        .padding(.trailing, 5)
+                        
+                        .padding(.bottom, 5)
+
+                        
+                }
+                
+//            }
         }
     }
 }
-
-class Workouts: ObservableObject {
-     @Published var dayWorkouts: [String] = []
- }
 
 
 #Preview {
