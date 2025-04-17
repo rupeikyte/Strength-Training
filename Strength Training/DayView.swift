@@ -125,6 +125,11 @@ struct DayView: View {
 
                     }
                 }
+                Button("Back"){
+                    showModificationOptions = false;
+                }
+                .buttonStyle(.borderedProminent)
+                .buttonStyle(PlainButtonStyle())
             }
         }
     }
