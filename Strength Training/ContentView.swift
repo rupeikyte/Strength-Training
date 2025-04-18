@@ -15,13 +15,17 @@ struct ContentView: View {
     @Query private var items: [Item]
     
     @StateObject var calendar = WorkoutCalendar()
-//    let bgBlue = Color(red: 121/255, green: 190/255, blue: 242/255)
+    
+    //TODO, this should not be 0?
+    @State var month = 0
+    @State var year = 0
+
     var body: some View {
         ZStack{
 //            GeometryReader { geometry in
             Color.white
                 NavigationStack{
-                    MonthView(calendar: calendar)
+                    MonthView(calendar: calendar, month: month, year: year)
                         .padding(.leading, 5)
                   
                         .padding(.trailing, 5)

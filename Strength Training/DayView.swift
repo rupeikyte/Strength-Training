@@ -11,26 +11,25 @@ import SwiftUI
 //The destination that clicking on a daycell showcases. This includes the buttons to add muscle group information to the day, and the corresponding text from the day of the WorkoutCalendar.
 
 struct DayCard: View {
-    let bgBlue = Color(red: 121/255, green: 190/255, blue: 242/255)
+    let bgBlue = Color(red: 167/255, green: 192/255, blue: 196/255)
 
     @State var cycleWorkout: [String] = ["bicep curl", "plank", "other specific workout"]
     var body: some View {
         
         RoundedRectangle(cornerRadius: 10)
             .padding(.top, 50)
-
+        
             .border(Color.brown, width:1)
             .foregroundStyle(bgBlue.opacity(0.2))
             .clipShape(RoundedRectangle(cornerRadius:20))
-
+        
             .overlay(
                 VStack(spacing: 50) {
                     ForEach(cycleWorkout, id: \.self) { oneWorkout in
                         Text("•" + oneWorkout)
                             .font(.title)
                     }
-                }
-            )
+                })
     }
 }
 
@@ -40,7 +39,8 @@ struct DayView: View {
     @ObservedObject var calendar: WorkoutCalendar
     @State private var showModificationOptions = false;
 
-    let bgBlue = Color(red: 121/255, green: 190/255, blue: 242/255)
+//    let bgBlue = Color(red: 121/255, green: 190/255, blue: 242/255)
+let bgBlue = Color(red: 167/255, green: 192/255, blue: 196/255)
 
     
     var body: some View {
@@ -66,18 +66,14 @@ struct DayView: View {
                                         .clipShape(RoundedRectangle(cornerRadius:5))
                                 }
                         }
+                        
                         .padding(.leading, 60)
                         .padding([.top, .bottom], 80)
 
-//
                     }
                 }
-                
-
             }
             .padding(.trailing, 60)
-            
-            
 
             if(!showModificationOptions){
                 Button {
@@ -93,10 +89,6 @@ struct DayView: View {
                 .buttonStyle(.borderedProminent)
                 .buttonStyle(PlainButtonStyle())
                 .controlSize(.extraLarge)
-//                .offset(x: 10, y: 10)
-//                .background(bgBlue.opacity(0.2))
-
-//                .tint(Color.white)
                 .tint(bgBlue.opacity(0.2))
                 
             }
