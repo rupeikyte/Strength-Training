@@ -19,7 +19,7 @@ struct DayCard: View {
         RoundedRectangle(cornerRadius: 10)
             .padding(.top, 50)
         
-            .border(Color.brown, width:1)
+            .border(Color.brown, width:5)
             .foregroundStyle(bgBlue.opacity(0.2))
             .clipShape(RoundedRectangle(cornerRadius:20))
         
@@ -42,7 +42,6 @@ struct DayView: View {
 //    let bgBlue = Color(red: 121/255, green: 190/255, blue: 242/255)
 let bgBlue = Color(red: 167/255, green: 192/255, blue: 196/255)
 
-    
     var body: some View {
         let index = calendar.days.firstIndex { $0.dayNumber == dayNumber }!
         let groups = muscleGroupNames

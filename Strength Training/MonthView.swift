@@ -17,83 +17,67 @@ struct MonthView: View {
     @State var month: Int
     @State var year: Int
     
-    
-//    let weekDays: [String] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
-//    var dayToday = Calendar.current.component(.day, from: Date())
-//    @State var monthToday = Calendar.current.monthSymbols[Calendar.current.component(.month, from: Date()) - 1]
-//    @State var yearToday = Calendar.current.component(.year, from: Date())
-//    var firstWeekday = Calendar.current.firstWeekday
-//    var firstMonthDay = Calendar.current.component(.weekday, from: Date())-1
-//    var monthDays = Calendar.current.component(.day, from: Date())
-//locale calendar
-    //datecomponents, date formatters
-    //date().formatted
-    //date object for month and year, Date formatted
-    //put in function for calendarTitle
-    
-    
     var body: some View {
         
         let flaggedDays = WorkoutEvaluator.getAllBackToBack(in: calendar.days)
+        let firstWeekday = getFirstDayOfWeek()
+        let totalMonthDay = getLastDayofMonth()
+        
         ZStack {
             GeometryReader { geometry in
                 VStack(spacing: 0) {
                     
-                    Text(
-                        calendarTitle()
-//                        "\(monthToday) \(yearToday) \(dayToday)"
-//                        monthToday.description + " " + yearToday.description
-//                        + " " + firstWeekday.description + " " + firstMonthDay.description + " " + monthDays.description + " " + dayToday.description
-                    )
+                    Text(calendarTitle())
                         .font(.largeTitle)
                         .frame(width: geometry.size.width)
                         .padding(.vertical, 10)
-                        .border(Color.brown, width: 0.5)
+                        .border(Color.brown, width: 1)
+                        .background(Color.brown.opacity(0.2))
                     
                     HStack(spacing: 0) {
                         ForEach(0..<7) { day in
                             VStack(spacing: 0) {
-                                Text("\(getFirstDayOfWeek())")
+                                Text("\(getAllWeekDays()[day])")
                                     .font(.title)
                                     .frame(width: geometry.size.width/7)
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
-                                    .border(Color.brown, width: 0.5)
+                                    .border(Color.brown, width: 1)
                                     .background(Color.gray.opacity(0.2))
                                     .clipShape(RoundedRectangle(cornerRadius:5))
                                 
-
-                                        ForEach(0..<5) { week in
-                                            //first and last day here
-                                            
-                                            let index = week * 7 + day
-                                            if index < calendar.days.count {
-                                                let day = calendar.days[index]
-                                        NavigationLink(
-                                            destination:
-                                                DayView(dayNumber: day.dayNumber, calendar: calendar),
-                                            label: {
-                                                DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
-                                                    
-                                                    .border(Color.brown, width: 0.5)
-                                                    .frame(alignment: .bottom)
-                                                    .clipShape(RoundedRectangle(cornerRadius:5))
-                                                    .overlay(alignment: .bottomTrailing) {
-                                                        Text("\(day.dayNumber)")
+                                        ForEach(0..<6) { week in
+                                            let index = (week * 7 + day+1) - firstWeekday
+                                                let day = calendar.days[index+firstWeekday]
+                                            if index >= 1 && index <= (totalMonthDay) {
+                                                NavigationLink(
+                                                    destination:
+                                                        DayView(dayNumber: day.dayNumber, calendar: calendar),
+                                                    label: {
+                                                        DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
                                                         
-                                                            .font(.title3)
-                                                            .padding(.trailing, 5)
-                                                            .padding(.bottom, 5)
-                                                            
-                                                    }
-                                                    
-                                            })
-                                        
-                                        }
-                                   
+                                                            .border(Color.brown, width: 1)
+                                                            .frame(alignment: .bottom)
+                                                            .clipShape(RoundedRectangle(cornerRadius:5))
+                                                            .overlay(alignment: .bottomTrailing) {
+                                                                    Text("\(day.dayNumber-firstWeekday)")
+                                                                        .font(.title3)
+                                                                        .padding(.trailing, 5)
+                                                                        .padding(.bottom, 5)
+                                                                }
+                                                           
+                                                    })
+                                            } else {
+                                                
+                                                DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
+                                                        
+                                                            .border(Color.brown, width: 1)
+                                                            .frame(alignment: .bottom)
+                                                            .clipShape(RoundedRectangle(cornerRadius:5))
+                                                            .background(Color.black)
+                                                         
+                                            }
                                     }
-                                        
-                                       
                                 .buttonStyle(PlainButtonStyle())
                               
                             }
@@ -114,21 +98,38 @@ struct MonthView: View {
 
     }
 
-    func getFirstDayOfWeek() -> String {
+    func getFirstDayOfWeek() -> Int {
         let calendar = Locale.current.calendar
         let weekShown = calendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
-       
-     
-        return calendar.date(from: weekShown)!
+//        let weekShown = DateComponents(year: 2024, month: 2, weekOfMonth: 1)
+
+//
+        let firstWeekday = calendar.date(from: weekShown)!
             .formatted(
-                .dateTime.weekday(.wide)
-            )
+                .dateTime.weekday(.wide))
+        
+        return getAllWeekDays().firstIndex(of: firstWeekday)!
+        
     }
+    
+    func getAllWeekDays() -> [String] {
+        let calendar = Locale.current.calendar
+        var allWeekDays: [String] = []
+        for i in 1...7 {
+            allWeekDays.append(calendar.weekdaySymbols[i-1])
+        }
+        
+        return allWeekDays
+    }
+    
     
     func getLastDayofMonth() -> Int {
         let calendar = Locale.current.calendar
 
         let monthShown = calendar.dateComponents([.year, .month], from: Date())
+//        let monthShown = DateComponents(year: 2024, month: 2)
+        
+        
         let lastDay = calendar.range(of: .day, in: .month, for: calendar.date(from: monthShown)!)!
         return lastDay.startIndex.distance(to: lastDay.endIndex)
     }
@@ -163,6 +164,7 @@ struct DayCell: View {
 
 
 //Index first vstack --> Find the first Hstack that is associated index of firstWeekday's int --> put associated dayNumber to be the origin (1) --> loop through remaining 'day/daynumbers', incrementing, stopping at maxDayNum
+
 
 
 

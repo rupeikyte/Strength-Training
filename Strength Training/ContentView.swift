@@ -23,14 +23,16 @@ struct ContentView: View {
     var body: some View {
         ZStack{
 //            GeometryReader { geometry in
-            Color.white
+            Color.brown.opacity(0.2)
                 NavigationStack{
                     MonthView(calendar: calendar, month: month, year: year)
-                        .padding(.leading, 5)
-                  
-                        .padding(.trailing, 5)
                         
-                        .padding(.bottom, 5)
+                        .padding(.leading, 1)
+                  
+                        .padding(.trailing, 1)
+                        
+                        .padding(.bottom, 1)
+                        .border(Color.brown.opacity(1), width:2)
 
                         
                 }
