@@ -65,19 +65,19 @@ struct WorkoutEvaluator {
     }
     
     
-    func isThereCorrectMuscleRepetition(in days: [WorkoutDay]) -> Bool {
-        var muscleGroupsCovered = Dictionary(
-            uniqueKeysWithValues: muscleGroupNames.map { ($0, uniqueKeysWithValues: muscleGroupNames.map { ($0, false) }) }
-        )
-        
-        for day in days {
-            for (muscle, isWorked) in day.muscleGroups {
-                if isWorked {
-                    muscleGroupsCovered[muscle].value = true
-                }
-            }
-
-        }
-        return !muscleGroupsCovered.values.values.contains(false)
-    }
+//    func isThereCorrectMuscleRepetition(in days: [WorkoutDay]) -> Bool {
+//        var muscleGroupsCovered = Dictionary(
+//            uniqueKeysWithValues: muscleGroupNames.map { ($0, uniqueKeysWithValues: muscleGroupNames.map { ($0, false) }) }
+//        )
+//        
+//        for day in days {
+//            for (muscle, isWorked) in day.muscleGroups {
+//                if isWorked {
+//                    muscleGroupsCovered[muscle].value = true
+//                }
+//            }
+//
+//        }
+//        return !muscleGroupsCovered.values.values.contains(false)
+//    }
 }
