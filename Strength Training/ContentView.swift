@@ -19,25 +19,25 @@ struct ContentView: View {
     //TODO, this should not be 0?
     @State var month = 0
     @State var year = 0
-
+    let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
+    
     var body: some View {
         ZStack{
-//            GeometryReader { geometry in
-            Color.brown.opacity(0.2)
-                NavigationStack{
-                    MonthView(calendar: calendar, month: month, year: year)
-                        
-                        .padding(.leading, 1)
-                  
-                        .padding(.trailing, 1)
-                        
-                        .padding(.bottom, 1)
-                        .border(Color.brown.opacity(1), width:2)
-
-                        
-                }
+            bgBrown
+            NavigationStack{
+                MonthView(calendar: calendar, month: month, year: year)
+                    .border(Color.brown, width: 2)
                 
-//            }
+                    .padding(.leading, 25)
+
+                    .padding(.trailing, 25)
+                
+                    .padding(.bottom, 25)
+                
+                    .padding(.top, 25)
+                
+                    .border(Color.brown, width:2)
+            }
         }
     }
 }
