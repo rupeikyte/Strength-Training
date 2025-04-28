@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-// List of all muscle groups tracked in the app.
+// All muscle groups tracked in the app.
 let muscleGroupNames = ["Arms", "Shoulder", "Leg", "Back", "Chest", "Abs"]
 
 
@@ -21,7 +21,7 @@ struct WorkoutDay: Identifiable {
     var id: Int { dayNumber }
 }
 
-// Holds the full list of 'WorkoutDay' structs (42 total) for the calendar.
+
 class WorkoutCalendar: ObservableObject {
     @Published var days: [WorkoutDay] = (0...42).map {
         WorkoutDay(dayNumber: $0)
