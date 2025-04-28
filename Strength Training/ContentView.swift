@@ -25,18 +25,25 @@ struct ContentView: View {
         ZStack{
             bgBrown
             NavigationStack{
-                MonthView(calendar: calendar, month: month, year: year)
-                    .border(Color.brown, width: 2)
-                
-                    .padding(.leading, 100)
 
-                    .padding(.trailing, 100)
+                HStack{
+                    MonthView(calendar: calendar, month: month, year: year)
+                        .border(Color.brown, width: 2)
+                    
+                        .padding(.leading, 25)
+
+                        .padding(.trailing, 25)
+                    
+                        .padding(.bottom, 25)
+                    
+                        .padding(.top, 25)
+                    
+                        .border(Color.brown, width:2)
+                    
+                    NotificationView(calendar:calendar)
+                }
+
                 
-                    .padding(.bottom, 25)
-                
-                    .padding(.top, 25)
-                
-                    .border(Color.brown, width:2)
             }
         }
     }
