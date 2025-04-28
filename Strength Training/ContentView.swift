@@ -28,9 +28,9 @@ struct ContentView: View {
                 MonthView(calendar: calendar, month: month, year: year)
                     .border(Color.brown, width: 2)
                 
-                    .padding(.leading, 25)
+                    .padding(.leading, 100)
 
-                    .padding(.trailing, 25)
+                    .padding(.trailing, 100)
                 
                     .padding(.bottom, 25)
                 

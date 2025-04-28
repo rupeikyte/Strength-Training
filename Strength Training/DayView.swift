@@ -32,7 +32,7 @@ struct DayCard: View {
                 VStack(spacing: 50) {
                     ForEach(workouts(for: muscleGroup), id: \.self) { oneWorkout in
                         Text("• \(oneWorkout)")
-                            .font(.title)
+                            .font(.custom("Georgia", size: 25))
                     }
                 })
     }
@@ -60,8 +60,7 @@ let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
                             
                                 .overlay(alignment: .top) {
                                     Text(group)
-                                        .fontDesign(.rounded)
-                                        .font(.title)
+                                        .font(.custom("Georgia", size: 30))
                                         .frame(maxWidth: .infinity, maxHeight: 50)
                                         .border(Color.brown, width:2)
                                         .background(Color(white: 0.85))
@@ -85,10 +84,9 @@ let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
                                 
                         } label: {
                             Text(group)
-                                .font(.largeTitle)
+                                
                                 .frame(width: 150, height: 60)
-                                .fontDesign(.rounded)
-                        
+                                .font(.custom("Georgia", size: 25))
                         }
                         
                         .padding([.leading, .trailing], 36)
@@ -97,12 +95,10 @@ let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
                         .buttonStyle(PlainButtonStyle())
                         .controlSize(.extraLarge)
                         .tint((calendar.days[index].muscleGroups[group] == true ? Color.red : Color.green))
-
                     }
                 }
                 .buttonStyle(.borderedProminent)
                 .buttonStyle(PlainButtonStyle())
-//            }
         }
         .clipShape(Rectangle())
 
