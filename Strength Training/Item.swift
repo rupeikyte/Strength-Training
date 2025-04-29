@@ -11,8 +11,10 @@ import SwiftData
 @Model
 final class Item {
     var timestamp: Date
-    
-    init(timestamp: Date) {
-        self.timestamp = timestamp
+        var muscleGroups: [String: Bool]
+        
+        init(timestamp: Date = .now, muscleGroups: [String: Bool] = [:]) {
+            self.timestamp = timestamp
+            self.muscleGroups = muscleGroups
     }
 }
