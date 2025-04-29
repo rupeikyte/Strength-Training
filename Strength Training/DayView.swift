@@ -81,7 +81,8 @@ let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
                 HStack {
                     ForEach(groups, id: \.self) { group in
                         Button {
-                            calendar.days[index].muscleGroups[group]?.toggle()
+                            calendar.days[index].muscleGroups[group]!.toggle()
+                            calendar.save()
                                 
                         } label: {
                             Text(group)
