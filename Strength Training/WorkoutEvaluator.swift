@@ -8,22 +8,34 @@
 // Provides logic for evaluating workout patterns across days.
 // Currently keeps track of days with back to back programming of identical muscle groups
 struct WorkoutEvaluator {
-    static func getAllBackToBack(in days: [WorkoutDay]) -> Set<Int> {
-        var result: Set<Int> = []
+    
+    static func getAllBackToBack(in days: [WorkoutDay]) -> [String: [[Int]]] {
+        var result: [String: [[Int]]] = [:]
         
         for muscle in muscleGroupNames {
+            var currentStreak: [Int] = []
+            
             for i in 0..<days.count {
-                if (i>0) {
-                    if days[i - 1].muscleGroups[muscle] == true &&
-                        days[i].muscleGroups[muscle] == true {
-                        result.insert(days[i - 1].dayNumber)
-                        result.insert(days[i].dayNumber)
+                if days[i].muscleGroups[muscle] == true {
+                    if currentStreak.isEmpty || days[i].dayNumber == currentStreak.last! + 1 {
+                        currentStreak.append(days[i].dayNumber)
+                    } else {
+                        if currentStreak.count > 1 {
+                            result[muscle, default: []].append(currentStreak)
+                        }
+                        currentStreak = [days[i].dayNumber]
                     }
                 }
             }
+            
+            if currentStreak.count > 1 {
+                result[muscle, default: []].append(currentStreak)
+            }
         }
+        
         return result
     }
+    
     
     func dayOverload(in days: [WorkoutDay]) -> Bool {
         var consecutiveWorkoutDays = 0
@@ -65,19 +77,19 @@ struct WorkoutEvaluator {
     }
     
     
-//    func isThereCorrectMuscleRepetition(in days: [WorkoutDay]) -> Bool {
-//        var muscleGroupsCovered = Dictionary(
-//            uniqueKeysWithValues: muscleGroupNames.map { ($0, uniqueKeysWithValues: muscleGroupNames.map { ($0, false) }) }
-//        )
-//        
-//        for day in days {
-//            for (muscle, isWorked) in day.muscleGroups {
-//                if isWorked {
-//                    muscleGroupsCovered[muscle].value = true
-//                }
-//            }
-//
-//        }
-//        return !muscleGroupsCovered.values.values.contains(false)
-//    }
+    //    func isThereCorrectMuscleRepetition(in days: [WorkoutDay]) -> Bool {
+    //        var muscleGroupsCovered = Dictionary(
+    //            uniqueKeysWithValues: muscleGroupNames.map { ($0, uniqueKeysWithValues: muscleGroupNames.map { ($0, false) }) }
+    //        )
+    //
+    //        for day in days {
+    //            for (muscle, isWorked) in day.muscleGroups {
+    //                if isWorked {
+    //                    muscleGroupsCovered[muscle].value = true
+    //                }
+    //            }
+    //
+    //        }
+    //        return !muscleGroupsCovered.values.values.contains(false)
+    //    }
 }

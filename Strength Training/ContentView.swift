@@ -10,7 +10,7 @@ import SwiftData
 
 
 struct ContentView: View {
-
+    
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
     
@@ -21,7 +21,11 @@ struct ContentView: View {
     @State var year = 0
     let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
     
+    
     var body: some View {
+        
+        let weekCount = MonthView(calendar: calendar, month: month, year: year).getNumberOfWeeks()
+        
         ZStack{
             bgBrown
             NavigationStack{
@@ -30,7 +34,7 @@ struct ContentView: View {
                         .border(Color.brown, width: 2)
                     
                         .padding(.leading, 25)
-
+                    
                         .padding(.trailing, 25)
                     
                         .padding(.bottom, 25)
@@ -39,7 +43,13 @@ struct ContentView: View {
                     
                         .border(Color.brown, width:2)
                     
-                    NotificationView(calendar:calendar)
+                    NotificationView(calendar:calendar, weekCount: weekCount)
+                        .border(Color.brown, width: 2)
+                        .padding(.leading, 25)
+                        .padding(.trailing, 25)
+                        .padding(.bottom, 25)
+                        .padding(.top, 25)
+                        .border(Color.brown, width:2)
                 }
                 
             }

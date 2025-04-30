@@ -19,7 +19,6 @@ struct MonthView: View {
     
     var body: some View {
         
-        let flaggedDays = WorkoutEvaluator.getAllBackToBack(in: calendar.days)
         let firstWeekday = getFirstDayOfWeek()
         let totalMonthDay = getLastDayofMonth()
         let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
@@ -56,7 +55,7 @@ struct MonthView: View {
                                                 destination:
                                                     DayView(dayNumber: day.dayNumber, calendar: calendar),
                                                 label: {
-                                                    DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
+                                                    DayCell(day: day, calendar: calendar)
                                                     
                                                         .border(Color.brown, width: 1)
                                                         .frame(alignment: .bottom)
@@ -70,7 +69,7 @@ struct MonthView: View {
                                                 })
                                         } else {
                                             
-                                            DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
+                                            DayCell(day: day, calendar: calendar)
                                             
                                                 .border(Color.brown, width: 1)
                                                 .frame(alignment: .bottom)
@@ -89,7 +88,7 @@ struct MonthView: View {
                                                 destination:
                                                     DayView(dayNumber: day.dayNumber, calendar: calendar),
                                                 label: {
-                                                    DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
+                                                    DayCell(day: day, calendar: calendar)
                                                     
                                                         .border(Color.brown, width: 1)
                                                         .frame(alignment: .bottom)
@@ -103,7 +102,7 @@ struct MonthView: View {
                                                 })
                                         } else {
                                             
-                                            DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
+                                            DayCell(day: day, calendar: calendar)
                                             
                                                 .border(Color.brown, width: 1)
                                                 .frame(alignment: .bottom)
@@ -123,7 +122,7 @@ struct MonthView: View {
                                                 destination:
                                                     DayView(dayNumber: day.dayNumber, calendar: calendar),
                                                 label: {
-                                                    DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
+                                                    DayCell(day: day, calendar: calendar)
                                                     
                                                         .border(Color.brown, width: 1)
 //                                                        .frame(alignment: .bottom)
@@ -137,7 +136,7 @@ struct MonthView: View {
                                                 })
                                         } else {
                                             
-                                            DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
+                                            DayCell(day: day, calendar: calendar)
                                             
                                                 .border(Color.brown, width: 1)
 //                                                .frame(alignment: .bottom)
@@ -235,6 +234,11 @@ struct MonthView: View {
         
     }
     
+    func getNumberOfWeeks() -> Int {
+        let firstWeekday = getFirstDayOfWeek()
+        let totalDays = getLastDayofMonth()
+        return (firstWeekday + totalDays + 6) / 7
+    }
 }
 
 
@@ -242,7 +246,6 @@ struct MonthView: View {
 struct DayCell: View {
     var day: WorkoutDay
     @ObservedObject var calendar: WorkoutCalendar
-    var isFlagged: Bool
     var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 //    let bgBlue = Color(red: 167/255, green: 192/255, blue: 196/255)
     var body: some View {
@@ -255,8 +258,7 @@ struct DayCell: View {
                 ForEach(groups, id: \.self) { group in
                     if calendar.days[index].muscleGroups[group] == true {
                         Text("•\(group)")
-                            .background(RoundedRectangle(cornerRadius: 5)
-                                .fill(isFlagged ? Color.red.opacity(0.5) : Color.clear))
+                            .background(RoundedRectangle(cornerRadius: 5))
                     }
                 }
             }
