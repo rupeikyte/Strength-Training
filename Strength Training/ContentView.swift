@@ -42,8 +42,6 @@ struct ContentView: View {
                     
                     NotificationView(calendar:calendar)
                 }
-
-                
             }
         }
     }

@@ -15,8 +15,6 @@ struct DayCard: View {
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
     let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
     
-//    @State var cycleWorkout: [String] = ["bicep curl", "plank", "other specific workout"]
-
     let muscleGroup: String
     
     var body: some View {
@@ -26,7 +24,6 @@ struct DayCard: View {
         
             .border(Color.brown, width:2)
             .foregroundStyle(bgBlue.opacity(0.7))
-        //            .clipShape(Rectangle())
         
             .overlay(
                 VStack(spacing: 50) {
@@ -43,7 +40,6 @@ struct DayView: View {
     @ObservedObject var calendar: WorkoutCalendar
     @State private var showModificationOptions = false;
 
-//    let bgBlue = Color(red: 121/255, green: 190/255, blue: 242/255)
 let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
     var body: some View {
@@ -65,7 +61,6 @@ let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
                                         .border(Color.brown, width:2)
                                         .background(Color(white: 0.85))
                                         
-//                                        .clipShape(Rectangle())
                                 }
                         }
                         
