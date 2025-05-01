@@ -257,20 +257,8 @@ struct DayCell: View {
             VStack {
                 ForEach(groups, id: \.self) { group in
                     if calendar.days[index].muscleGroups[group] == true {
-<<<<<<< Updated upstream
                         Text("•\(group)")
                             .background(RoundedRectangle(cornerRadius: 5))
-=======
-<<<<<<< HEAD
-                        Text("\(group)")
-                            .padding(1)
-                            .background(RoundedRectangle(cornerRadius: 5)
-                                .fill(isFlagged ? Color.red.opacity(0.5) : Color.clear))
-=======
-                        Text("•\(group)")
-                            .background(RoundedRectangle(cornerRadius: 5))
->>>>>>> 9dd8510a11b712159dcc5c417b042ee12717fd42
->>>>>>> Stashed changes
                     }
                 }
             }
