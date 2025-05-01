@@ -257,7 +257,7 @@ struct DayCell: View {
             VStack {
                 ForEach(groups, id: \.self) { group in
                     if calendar.days[index].muscleGroups[group] == true {
-                        Text("•\(group)")
+                        Text("\(group)")
                             .background(RoundedRectangle(cornerRadius: 5))
                     }
                 }

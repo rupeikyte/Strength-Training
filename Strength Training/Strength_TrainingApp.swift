@@ -15,9 +15,9 @@ struct Strength_TrainingApp: App {
                 .frame(
                                     minWidth: 1250, maxWidth: 1250,
                                     minHeight: 700, maxHeight: 700)
-                }
+                }
         .windowResizability(.contentSize)
-            }
+            }
         }
     
     
