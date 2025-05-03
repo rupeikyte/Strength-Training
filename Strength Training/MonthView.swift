@@ -33,18 +33,18 @@ struct MonthView: View {
                     //next to a right button. The left and right buttons are for scrolling
                     //through months
                     HStack {
-
+                        
                         Button {
-//                            var dateComponents = DateComponents()
-//                            dateComponents.month = 1
-//                            
-//                            daysCalendar.date(byAdding: dateComponents, to:Date())! == Date()
+                            //                            var dateComponents = DateComponents()
+                            //                            dateComponents.month = 1
+                            //
+                            //                            daysCalendar.date(byAdding: dateComponents, to:Date())! == Date()
                         } label: {
                             Image(systemName: "chevron.left")
                                 .font(.largeTitle)
                         }
                         .buttonStyle(PlainButtonStyle())
-
+                        
                         
                         Text(calendarTitle())
                             .font(.custom("Georgia", size: 35))
@@ -86,7 +86,6 @@ struct MonthView: View {
                                                 label: {
                                                     
                                                     DayCell(day: dayLocation, calendar: calendar)
-                                                    
                                                         .border(Color.brown, width: 1)
                                                         .overlay(alignment: .bottomTrailing) {
                                                             Text("\(dayLocation.dayNumber-firstWeekday)")
@@ -97,7 +96,7 @@ struct MonthView: View {
                                                 })
                                         } else {
                                             emptyCell(day: dayLocation, calendar: calendar)
-
+                                            
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -116,9 +115,8 @@ struct MonthView: View {
                                                 destination:
                                                     DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
                                                 label: {
-
-                                                    DayCell(day: dayLocation, calendar: calendar)
                                                     
+                                                    DayCell(day: dayLocation, calendar: calendar)
                                                         .border(Color.brown, width: 1)
                                                         .overlay(alignment: .bottomTrailing) {
                                                             Text("\(dayLocation.dayNumber-firstWeekday)")
@@ -130,7 +128,7 @@ struct MonthView: View {
                                             
                                         } else {
                                             emptyCell(day: dayLocation, calendar: calendar)
-
+                                            
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -148,9 +146,8 @@ struct MonthView: View {
                                                 destination:
                                                     DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
                                                 label: {
-
-                                                    DayCell(day: dayLocation, calendar: calendar)
                                                     
+                                                    DayCell(day: dayLocation, calendar: calendar)
                                                         .border(Color.brown, width: 1)
                                                         .overlay(alignment: .bottomTrailing) {
                                                             Text("\(dayLocation.dayNumber-firstWeekday)")
@@ -161,7 +158,6 @@ struct MonthView: View {
                                                 })
                                         } else {
                                             emptyCell(day: dayLocation, calendar: calendar)
-                                            
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -174,7 +170,6 @@ struct MonthView: View {
             }
         }
     }
-    
     
     //Extracts the current month and year as a string so it can be displayed on the homescreen
     func calendarTitle() -> String {
@@ -212,9 +207,8 @@ struct MonthView: View {
         return lastDay.startIndex.distance(to: lastDay.endIndex)
     }
     
-    //Determines the first day of the week of the current month and year.
-    //However, this reverses the order of the days of the week, so that the first day displayed on the calendar,
-    //sunday, is the number "7", and the last day, saturday, is "1." This helps with calendar calculations.
+    //Determines the first day of the week of the current month and year. So that the first day displayed on the calendar,
+    //sunday, is "7", and the last day, saturday, is "1." This helps with calendar calculations.
     func getFirstDayOfWeekReverse() -> Int {
         let weekShown = daysCalendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
         //        let weekShown = DateComponents(year: 2015, month: 2, weekOfMonth: 1)
@@ -249,13 +243,12 @@ struct DayCell: View {
                     if calendar.days[index].muscleGroups[group] == true {
                         
                         Text("\(group)")
-//                            .font(.custom("Georgia", size: 20))
-                            .background(RoundedRectangle(cornerRadius: 5))
+                            .font(.custom("Georgia", size: 20))
                     }
                 }
             }
-//            .background(RoundedRectangle(cornerRadius: 5)
-//                .fill(isFlagged ? Color.red.opacity(0.5) : Color.clear))
+            .background(RoundedRectangle(cornerRadius: 5)
+                .fill( Color.green.opacity(0.5) ))
         }
     }
 }
