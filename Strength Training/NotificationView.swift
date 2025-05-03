@@ -15,21 +15,23 @@ import SwiftUI
 ///
 struct NotificationView: View {
     @ObservedObject var calendar: WorkoutCalendar
+    var weekCount: Int
     
     var body: some View {
-        let weeks = splitDaysIntoWeeks(days: calendar.days)
+        let weeks = splitDaysIntoWeeks(days: calendar.days, numberOfWeeks: weekCount)
         
         GeometryReader { geometry in
+            
             VStack(spacing: 0) {
                 Text("Notifications")
                     .font(.largeTitle)
-                    .frame(height: 98)
+                    .frame(height: 95)
                     .frame(width: geometry.size.width)
                     .background(Color.brown.opacity(0.2))
                     .border(Color.brown, width: 1)
                 
                 VStack(spacing: 0) {
-                    ForEach(0..<weeks.count, id: \.self) { weekIndex in
+                    ForEach(0..<weekCount, id: \.self) { weekIndex in
                         NotificationCell(thisWeeksDays: weeks[weekIndex])
                     }
                 }
@@ -38,22 +40,19 @@ struct NotificationView: View {
         .frame(width: 200)
     }
     
-    
-    // Split the days into 6 weeks
-    func splitDaysIntoWeeks(days: [WorkoutDay]) -> [[WorkoutDay]] {
-        
+    func splitDaysIntoWeeks(days: [WorkoutDay], numberOfWeeks: Int) -> [[WorkoutDay]] {
         var weeks: [[WorkoutDay]] = []
-        
-        for weekIndex in 0..<6 {
+        for weekIndex in 0..<numberOfWeeks {
             let start = weekIndex * 7 + 1
             let end = min(start + 7, days.count)
-            let week = Array(days[start..<end])
-            weeks.append(week)
+            if start < end {
+                weeks.append(Array(days[start..<end]))
+            }
         }
-        
         return weeks
     }
 }
+
 
 
 /// Tile showing notifications for a corresponding week
@@ -64,13 +63,11 @@ struct NotificationCell: View {
     var bgColor = Color(red: 167/255, green: 192/255, blue: 196/255)
     
     var body: some View {
-        
         ZStack {
             bgColor.opacity(0.5)
-            
             VStack(spacing: 2) {
-                ForEach(Array(generateNotifications()), id: \.self.key) { key, value in
-                    Text("\(key): \(value)")
+                ForEach(generateNotifications(), id: \.self) { notification in
+                    Text(notification)
                         .font(.caption)
                         .multilineTextAlignment(.center)
                         .padding(2)
@@ -84,24 +81,30 @@ struct NotificationCell: View {
     
     
     // Creates notifications using the WorkoutEvalutator
-    func generateNotifications() -> [String: String] {
-        var notifications: [String: String] = [:]
+    func generateNotifications() -> [String] {
+        var notifications: [String] = []
         
-        let backToBackDays = WorkoutEvaluator.getAllBackToBack(in: thisWeeksDays)
-        if !backToBackDays.isEmpty {
-            let daysList = backToBackDays.sorted().map { "Day \($0)" }.joined(separator: ", ")
-            notifications["BackToBack"] = daysList
+        let backToBack = WorkoutEvaluator.getAllBackToBack(in: thisWeeksDays)
+        
+        for (muscleGroup, streaks) in backToBack {
+            for streak in streaks {
+                let daysList = streak.sorted().map { dayNumberToWeekdayName(dayNumber: $0) }.joined(separator: ", ")
+                notifications.append("\(muscleGroup): \(daysList) (back-to-back)")
+            }
         }
         
         if WorkoutEvaluator().dayOverload(in: thisWeeksDays) {
-            notifications["Overloaded"] = "Less is more!"
+            notifications.append("Overload Week")
         }
         
-        //        if !WorkoutEvaluator().isEverythingGettingTrained(in: weekDays) {
-        //            notifications["MissingMuscles"] = " (\group) missing"
-        //        }
-        
         return notifications
+    }
+    
+    
+    func dayNumberToWeekdayName(dayNumber: Int) -> String {
+        let weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+        let weekdayIndex = (dayNumber - 1) % 7
+        return weekdayNames[weekdayIndex]
     }
 }
 

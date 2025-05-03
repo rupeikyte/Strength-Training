@@ -18,6 +18,7 @@ struct Strength_TrainingApp: App {
         .windowResizability(.automatic)
     }
 }
+         
     
 
     

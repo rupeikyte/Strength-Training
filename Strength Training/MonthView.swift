@@ -21,7 +21,6 @@ struct MonthView: View {
     
     var body: some View {
         
-        let flaggedDays = WorkoutEvaluator.getAllBackToBack(in: calendar.days)
         let firstWeekday = getFirstDayOfWeek()
         let totalMonthDay = getLastDayofMonth()
         let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
@@ -36,10 +35,10 @@ struct MonthView: View {
                     HStack {
 
                         Button {
-                            var dateComponents = DateComponents()
-                            dateComponents.month = 1
-                            
-                            daysCalendar.date(byAdding: dateComponents, to:Date())! == Date()
+//                            var dateComponents = DateComponents()
+//                            dateComponents.month = 1
+//                            
+//                            daysCalendar.date(byAdding: dateComponents, to:Date())! == Date()
                         } label: {
                             Image(systemName: "chevron.left")
                                 .font(.largeTitle)
@@ -85,7 +84,9 @@ struct MonthView: View {
                                                 destination:
                                                     DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
                                                 label: {
-                                                    DayCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
+                                                    
+                                                    DayCell(day: dayLocation, calendar: calendar)
+                                                    
                                                         .border(Color.brown, width: 1)
                                                         .overlay(alignment: .bottomTrailing) {
                                                             Text("\(dayLocation.dayNumber-firstWeekday)")
@@ -95,7 +96,8 @@ struct MonthView: View {
                                                         }
                                                 })
                                         } else {
-                                            emptyCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
+                                            emptyCell(day: dayLocation, calendar: calendar)
+
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -114,7 +116,9 @@ struct MonthView: View {
                                                 destination:
                                                     DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
                                                 label: {
-                                                    DayCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
+
+                                                    DayCell(day: dayLocation, calendar: calendar)
+                                                    
                                                         .border(Color.brown, width: 1)
                                                         .overlay(alignment: .bottomTrailing) {
                                                             Text("\(dayLocation.dayNumber-firstWeekday)")
@@ -125,7 +129,8 @@ struct MonthView: View {
                                                 })
                                             
                                         } else {
-                                            emptyCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
+                                            emptyCell(day: dayLocation, calendar: calendar)
+
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -143,8 +148,8 @@ struct MonthView: View {
                                                 destination:
                                                     DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
                                                 label: {
-                                                    
-                                                    DayCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
+
+                                                    DayCell(day: dayLocation, calendar: calendar)
                                                     
                                                         .border(Color.brown, width: 1)
                                                         .overlay(alignment: .bottomTrailing) {
@@ -155,7 +160,8 @@ struct MonthView: View {
                                                         }
                                                 })
                                         } else {
-                                            emptyCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
+                                            emptyCell(day: dayLocation, calendar: calendar)
+                                            
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -219,20 +225,18 @@ struct MonthView: View {
         return (reversedDays.firstIndex(of: firstWeekday)!+1)
     }
     
-//    func getNextMonth() -> Date {
-//        let calendar = Locale.current.calendar
-//        var dateComponents = DateComponents()
-//        dateComponents.month = 1
-//        return calendar.date(byAdding: dateComponents, to: Date())!
-//        
-//    }
+
+    func getNumberOfWeeks() -> Int {
+        let firstWeekday = getFirstDayOfWeek()
+        let totalDays = getLastDayofMonth()
+        return (firstWeekday + totalDays + 6) / 7
+    }
 }
 
 // The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
 struct DayCell: View {
     var day: WorkoutDay
     @ObservedObject var calendar: WorkoutCalendar
-    var isFlagged: Bool
     var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
     var body: some View {
         let index = calendar.days.firstIndex { $0.dayNumber == day.dayNumber }!
@@ -244,13 +248,14 @@ struct DayCell: View {
                 ForEach(groups, id: \.self) { group in
                     if calendar.days[index].muscleGroups[group] == true {
                         
-                        Text("•\(group)")
-                            .font(.custom("Georgia", size: 20))
+                        Text("\(group)")
+//                            .font(.custom("Georgia", size: 20))
+                            .background(RoundedRectangle(cornerRadius: 5))
                     }
                 }
             }
-            .background(RoundedRectangle(cornerRadius: 5)
-                .fill(isFlagged ? Color.red.opacity(0.5) : Color.clear))
+//            .background(RoundedRectangle(cornerRadius: 5)
+//                .fill(isFlagged ? Color.red.opacity(0.5) : Color.clear))
         }
     }
 }
@@ -258,10 +263,9 @@ struct DayCell: View {
 struct emptyCell: View {
     var day: WorkoutDay
     @ObservedObject var calendar: WorkoutCalendar
-    var isFlagged: Bool
     
     var body: some View {
-        DayCell(day: day, calendar: calendar, isFlagged: isFlagged)
+        DayCell(day: day, calendar: calendar)
             .border(Color.brown, width: 1)
             .background(Color.brown.opacity(0.5))
     }
