@@ -22,6 +22,7 @@ struct ContentView: View {
     let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
     
     var body: some View {
+        
         ZStack{
             bgBrown
             NavigationStack{
@@ -44,6 +45,9 @@ struct ContentView: View {
                 }
             }
         }
+        
+        
+        
     }
 }
 

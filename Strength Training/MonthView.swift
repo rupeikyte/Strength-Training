@@ -7,22 +7,20 @@
 
 import SwiftUI
 
+//TODO: database of workouts linked to a date
 
 // A 5x6 grouping of days/rectangles on the homescreen. Also sets the days's daynumber appropriately.
 // Highlights days that repeat the same muscle group back-to-back in red.
 struct MonthView: View {
     
     @ObservedObject var calendar: WorkoutCalendar
+    let daysCalendar = Locale.current.calendar
     
     @State var month: Int
     @State var year: Int
     
     var body: some View {
         
-        let calendar2 = Locale.current.calendar
-//               var dateComponents = DateComponents()
-//               dateComponents.month = 1
-//               return calendar.date(byAdding: dateComponents, to: Date())!
         let flaggedDays = WorkoutEvaluator.getAllBackToBack(in: calendar.days)
         let firstWeekday = getFirstDayOfWeek()
         let totalMonthDay = getLastDayofMonth()
@@ -36,13 +34,18 @@ struct MonthView: View {
                     //next to a right button. The left and right buttons are for scrolling
                     //through months
                     HStack {
+
                         Button {
-//                            calendar2.date(byAdding: .month, value: -1, to: Date())!
+                            var dateComponents = DateComponents()
+                            dateComponents.month = 1
+                            
+                            daysCalendar.date(byAdding: dateComponents, to:Date())! == Date()
                         } label: {
                             Image(systemName: "chevron.left")
                                 .font(.largeTitle)
                         }
                         .buttonStyle(PlainButtonStyle())
+
                         
                         Text(calendarTitle())
                             .font(.custom("Georgia", size: 35))
@@ -92,16 +95,11 @@ struct MonthView: View {
                                                         }
                                                 })
                                         } else {
-                                            
-                                            DayCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
-                                                .border(Color.brown, width: 1)
-                                                .background(Color.brown.opacity(0.5))
-                                            
-//                                            emptyCell
-                                            
+                                            emptyCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
+                                    
                                     
                                     //Second conditional checks if there are less days in the current month than
                                     //in four weeks (28 days) plus whichever day is the first
@@ -127,17 +125,11 @@ struct MonthView: View {
                                                 })
                                             
                                         } else {
-                                            
-                                            DayCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
-                                                .border(Color.brown, width: 1)
-                                                .background(Color.brown.opacity(0.5))
-                                            
-//                                            emptyCell
-                                            
+                                            emptyCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
-                                    //
+                                    
                                     //Third conditional checks is used if there are more days in the current month than
                                     //in four weeks (28 days) plus whichever day is the first
                                     //day of the week this month. Therefore, 6 weeks must be displayed to show every
@@ -163,10 +155,7 @@ struct MonthView: View {
                                                         }
                                                 })
                                         } else {
-                                            DayCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
-                                                .border(Color.brown, width: 1)
-                                                .background(Color.brown.opacity(0.5))
-//                                            emptyCell
+                                            emptyCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
                                         }
                                     }
                                     .buttonStyle(PlainButtonStyle())
@@ -181,49 +170,10 @@ struct MonthView: View {
     }
     
     
-    struct emptyCell: View {
-        @ObservedObject var calendar: WorkoutCalendar
-        var body: some View {
-            let firstWeekday = getFirstDayOfWeek()
-            let flaggedDays = WorkoutEvaluator.getAllBackToBack(in: calendar.days)
-            ForEach(0..<7) { day in
-                ForEach(0..<6) { week in
-                    let index = (week * 7 + day+1) - firstWeekday
-                    let dayLocation = calendar.days[index+firstWeekday]
-                    
-                    DayCell(day: dayLocation, calendar: calendar, isFlagged: flaggedDays.contains(dayLocation.dayNumber))
-                        .border(Color.brown, width: 1)
-                        .background(Color.brown.opacity(0.5))
-                }
-            }
-        }
-                
-        func getFirstDayOfWeek() -> Int {
-            let calendar = Locale.current.calendar
-            let weekShown = calendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
-            //let weekShown = DateComponents(year: 2015, month: 2, weekOfMonth: 1)
-            let firstWeekday = calendar.date(from: weekShown)!
-                .formatted(
-                    .dateTime.weekday(.wide))
-            return getAllWeekDays().firstIndex(of: firstWeekday)!
-        }
-        
-        //Holds all the days of the week
-        func getAllWeekDays() -> [String] {
-            let calendar = Locale.current.calendar
-            var allWeekDays: [String] = []
-            for i in 0...6 {
-                allWeekDays.append(calendar.weekdaySymbols[i])
-            }
-            return allWeekDays
-        }
-    }
-    
     //Extracts the current month and year as a string so it can be displayed on the homescreen
     func calendarTitle() -> String {
-        let calendar = Locale.current.calendar
-        let monthShown = calendar.dateComponents([.year, .month], from: Date())
-        return calendar.date(from: monthShown)!
+        let monthShown = daysCalendar.dateComponents([.year, .month], from: Date())
+        return daysCalendar.date(from: monthShown)!
             .formatted(
                 .dateTime.month(.wide).year())
     }
@@ -231,10 +181,9 @@ struct MonthView: View {
     //Determines the first day of the week of the current month and year. This is used for calendar calculations
     //so that the current month and year are displayed accurately on the homescreen.
     func getFirstDayOfWeek() -> Int {
-        let calendar = Locale.current.calendar
-        let weekShown = calendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
+        let weekShown = daysCalendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
         //let weekShown = DateComponents(year: 2015, month: 2, weekOfMonth: 1)
-        let firstWeekday = calendar.date(from: weekShown)!
+        let firstWeekday = daysCalendar.date(from: weekShown)!
             .formatted(
                 .dateTime.weekday(.wide))
         return getAllWeekDays().firstIndex(of: firstWeekday)!
@@ -242,20 +191,18 @@ struct MonthView: View {
     
     //Holds all the days of the week
     func getAllWeekDays() -> [String] {
-        let calendar = Locale.current.calendar
         var allWeekDays: [String] = []
         for i in 0...6 {
-            allWeekDays.append(calendar.weekdaySymbols[i])
+            allWeekDays.append(daysCalendar.weekdaySymbols[i])
         }
         return allWeekDays
     }
     
     //Determines how many total days there are in the current month and year.
     func getLastDayofMonth() -> Int {
-        let calendar = Locale.current.calendar
-        let monthShown = calendar.dateComponents([.year, .month], from: Date())
+        let monthShown = daysCalendar.dateComponents([.year, .month], from: Date())
         //        let monthShown = DateComponents(year: 2015, month: 2)
-        let lastDay = calendar.range(of: .day, in: .month, for: calendar.date(from: monthShown)!)!
+        let lastDay = daysCalendar.range(of: .day, in: .month, for: daysCalendar.date(from: monthShown)!)!
         return lastDay.startIndex.distance(to: lastDay.endIndex)
     }
     
@@ -263,10 +210,9 @@ struct MonthView: View {
     //However, this reverses the order of the days of the week, so that the first day displayed on the calendar,
     //sunday, is the number "7", and the last day, saturday, is "1." This helps with calendar calculations.
     func getFirstDayOfWeekReverse() -> Int {
-        let calendar = Locale.current.calendar
-        let weekShown = calendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
+        let weekShown = daysCalendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
         //        let weekShown = DateComponents(year: 2015, month: 2, weekOfMonth: 1)
-        let firstWeekday = calendar.date(from: weekShown)!
+        let firstWeekday = daysCalendar.date(from: weekShown)!
             .formatted(
                 .dateTime.weekday(.wide))
         let reversedDays = Array(getAllWeekDays().reversed())
@@ -309,42 +255,17 @@ struct DayCell: View {
     }
 }
 
-//struct emptyCell: View {
-//    @ObservedObject var calendar: WorkoutCalendar
-//    
-//    var body: some View {
-//        let firstWeekday = getFirstDayOfWeek()
-//        let flaggedDays = WorkoutEvaluator.getAllBackToBack(in: calendar.days)
-//        let day = calendar.days[0]
-//        
-//        DayCell(day: day, calendar: calendar, isFlagged: flaggedDays.contains(day.dayNumber))
-//            .border(Color.brown, width: 1)
-//            .background(Color.brown.opacity(0.5))
-//    }
-//    func getFirstDayOfWeek() -> Int {
-//        let calendar = Locale.current.calendar
-//        let weekShown = calendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
-//        //let weekShown = DateComponents(year: 2015, month: 2, weekOfMonth: 1)
-//        let firstWeekday = calendar.date(from: weekShown)!
-//            .formatted(
-//                .dateTime.weekday(.wide))
-//        return getAllWeekDays().firstIndex(of: firstWeekday)!
-//    }
-//    //Holds all the days of the week
-//    func getAllWeekDays() -> [String] {
-//        let calendar = Locale.current.calendar
-//        var allWeekDays: [String] = []
-//        for i in 0...6 {
-//            allWeekDays.append(calendar.weekdaySymbols[i])
-//        }
-//        return allWeekDays
-//    }
-//    
-//}
-
-
-//Index first vstack --> Find the first Hstack that is associated index of firstWeekday's int --> put associated dayNumber to be the origin (1) --> loop through remaining 'day/daynumbers', incrementing, stopping at maxDayNum
-
+struct emptyCell: View {
+    var day: WorkoutDay
+    @ObservedObject var calendar: WorkoutCalendar
+    var isFlagged: Bool
+    
+    var body: some View {
+        DayCell(day: day, calendar: calendar, isFlagged: isFlagged)
+            .border(Color.brown, width: 1)
+            .background(Color.brown.opacity(0.5))
+    }
+}
 
 
 

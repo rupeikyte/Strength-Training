@@ -10,12 +10,16 @@ import SwiftUI
 @main
 struct Strength_TrainingApp: App {
     var body: some Scene {
-            WindowGroup {
-                ContentView()
-            }
+        WindowGroup {
+            ContentView()
+                .frame(minWidth: 1510, maxWidth: 1510, minHeight: 860, maxHeight: 860)
+                .fixedSize()
         }
+        .windowResizability(.automatic)
     }
+}
     
+
     
     // mystery algorithm
     
