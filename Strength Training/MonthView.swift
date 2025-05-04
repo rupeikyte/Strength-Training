@@ -35,21 +35,18 @@ struct MonthView: View {
                     HStack {
                         
                         Button {
-                            month += 1
-                            
-//                            if month > 12 {
-//                                month = 1
-//                                year += 1
-//                            }
-                            
-                            //                            var dateComponents = DateComponents()
-                            //                            dateComponents.month = 1
-                            //
-                            //                            daysCalendar.date(byAdding: dateComponents, to:Date())! == Date()
-                        } label: {
-                            Image(systemName: "chevron.left")
-                                .font(.largeTitle)
-                        }
+                                if month == 1 {
+                                    month = 12
+                                    year -= 1
+                                } else {
+                                    month -= 1
+                                }
+                                calendar.generateDays(forMonth: month, year: year)
+                            } label: {
+                                Image(systemName: "chevron.left")
+                                    .font(.largeTitle)
+                            }
+
                         .buttonStyle(PlainButtonStyle())
                         
                         
@@ -57,6 +54,13 @@ struct MonthView: View {
                             .font(.custom("Georgia", size: 35))
                         
                         Button {
+                            if month == 12 {
+                                month = 1
+                                year += 1
+                            } else {
+                                month += 1
+                            }
+                            calendar.generateDays(forMonth: month, year: year)
                         } label: {
                             Image(systemName: "chevron.right")
                                 .font(.largeTitle)
