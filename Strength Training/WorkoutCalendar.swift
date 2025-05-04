@@ -20,22 +20,39 @@ let specificDay = daysCalendar.date(from: daysCalendar.dateComponents([.year, .m
 ///
 /// Represents one day in the workout calendar with toggles for each muscle group.
 struct WorkoutDay: Identifiable, Codable {
-    var dayNumber: Int
-    var muscleGroups: [String: Bool] = Dictionary(
-        uniqueKeysWithValues: muscleGroupNames.map { ($0, false) }
-    )
-    var id: Int { dayNumber }
+    var date: Date
+    var muscleGroups: [String: Bool] = Dictionary(uniqueKeysWithValues: muscleGroupNames.map { ($0, false) })
+    var id: Date { date }
+    
+    var dayNumber: Int {
+        Calendar.current.component(.day, from: date)
+    }
 }
-
 
 /// A calendar of days with its associated workouts
 class WorkoutCalendar: ObservableObject {
-    @State var month  = daysCalendar.component(.month, from: specificDay)
+    var month  = daysCalendar.component(.month, from: specificDay)
     
-//    @Published var days: [WorkoutDay] = (0...42).map { WorkoutDay(dayNumber: $0) }
+    @Published var days: DayDictionary = [:]
     
     typealias DayDictionary = [Date: WorkoutDay]
-    @Published var days: DayDictionary = [specificDay: WorkoutDay(dayNumber: day)]
+
+    
+    func generateDays(forMonth month: Int, year: Int) {
+        days = [:]  ///clear previous days
+        let calendar = Calendar.current
+        let components = DateComponents(year: year, month: month)
+        if let date = calendar.date(from: components),
+           let range = calendar.range(of: .day, in: .month, for: date) {
+            for day in range {
+                let dateComponents = DateComponents(year: year, month: month, day: day)
+                if let date = calendar.date(from: dateComponents) {
+                    days[date] = WorkoutDay(date: date)
+                }
+            }
+        }
+    }
+    
 //    @Published var days: DayDictionary = [:]
     
 //    private let saveKey = "WorkoutCalendarSaveKey"
