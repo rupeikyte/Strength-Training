@@ -118,7 +118,20 @@ struct MonthView: View {
                                     let index = (week * 7 + day+1) - firstWeekday
 //                                    let dayLocation = calendar.days.values[index+firstWeekday]
 //                                    calendar.days.values
-                                    Text("\(calendar.days)")
+                                    if index >= 1 && index <= (totalMonthDay) {
+//                                        
+//                                        var dateComponents = DateComponents()
+//                                        dateComponents.day = 1
+//                                        let today = calendar.days.keys.first!
+//                                        daysCalendar.date(byAdding: dateComponents, to: today)!
+//                                        
+                                        Text("\(index)")
+                                        
+                                        Text("\(calendar.days.keys)")
+                                            .padding(10)
+                                        
+                                        Text("\(calendar.days.values)")
+                                    }
 //                                    if index >= 1 && index <= (totalMonthDay) {
 //                                        NavigationLink(
 //                                            destination:

@@ -18,6 +18,13 @@ struct NotificationView: View {
 //        let weeks = splitDaysIntoWeeks(days: calendar.days, numberOfWeeks: weekCount)
         let weeks: [[WorkoutDay]] = [] // TODO: make this workagain! splitDaysIntoWeeks(days: calendar.days)
         
+        ///
+       
+        
+//        calendar.days.keys.var
+        ///
+
+        
         GeometryReader { geometry in
             
             VStack(spacing: 0) {
