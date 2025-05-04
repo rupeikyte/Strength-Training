@@ -9,8 +9,8 @@ import SwiftUI
 
 //TODO: database of workouts linked to a date
 
-// A 5x6 grouping of days/rectangles on the homescreen. Also sets the days's daynumber appropriately.
-// Highlights days that repeat the same muscle group back-to-back in red.
+/// A grouping of days on the homescreen based on the number of days in the current month-year pair.
+/// Highlights days that repeat the same muscle group back-to-back in red.
 struct MonthView: View {
     
     @ObservedObject var calendar: WorkoutCalendar
@@ -35,6 +35,13 @@ struct MonthView: View {
                     HStack {
                         
                         Button {
+                            month += 1
+                            
+//                            if month > 12 {
+//                                month = 1
+//                                year += 1
+//                            }
+                            
                             //                            var dateComponents = DateComponents()
                             //                            dateComponents.month = 1
                             //
@@ -75,93 +82,95 @@ struct MonthView: View {
                                 //This first conditional checks if there are 28 days in the month,
                                 //and the first day starts on sunday. Therefore, four weeks
                                 //will be displayed.
-                                if ((getFirstDayOfWeekReverse()) + 21 == totalMonthDay){
-                                    ForEach(0..<4) { week in
-                                        let index = (week * 7 + day+1) - firstWeekday
-                                        let dayLocation = calendar.days[index+firstWeekday]
-                                        if index >= 1 && index <= (totalMonthDay) {
-                                            NavigationLink(
-                                                destination:
-                                                    DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
-                                                label: {
-                                                    
-                                                    DayCell(day: dayLocation, calendar: calendar)
-                                                        .border(Color.brown, width: 1)
-                                                        .overlay(alignment: .bottomTrailing) {
-                                                            Text("\(dayLocation.dayNumber-firstWeekday)")
-                                                                .font(.custom("Georgia", size: 20))
-                                                                .padding(.trailing, 5)
-                                                                .padding(.bottom, 5)
-                                                        }
-                                                })
-                                        } else {
-                                            emptyCell(day: dayLocation, calendar: calendar)
-                                            
-                                        }
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    
-                                    
-                                    //Second conditional checks if there are less days in the current month than
-                                    //in four weeks (28 days) plus whichever day is the first
-                                    //day of the week this current month.
-                                    //Therefore, 5 weeks is sufficient to display all days in the month.
-                                } else if ((getFirstDayOfWeekReverse()) + 28 >= totalMonthDay) {
-                                    ForEach(0..<5) { week in
-                                        let index = (week * 7 + day+1) - firstWeekday
-                                        let dayLocation = calendar.days[index+firstWeekday]
-                                        if index >= 1 && index <= (totalMonthDay) {
-                                            NavigationLink(
-                                                destination:
-                                                    DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
-                                                label: {
-                                                    
-                                                    DayCell(day: dayLocation, calendar: calendar)
-                                                        .border(Color.brown, width: 1)
-                                                        .overlay(alignment: .bottomTrailing) {
-                                                            Text("\(dayLocation.dayNumber-firstWeekday)")
-                                                                .font(.custom("Georgia", size: 20))
-                                                                .padding(.trailing, 5)
-                                                                .padding(.bottom, 5)
-                                                        }
-                                                })
-                                            
-                                        } else {
-                                            emptyCell(day: dayLocation, calendar: calendar)
-                                            
-                                        }
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    
-                                    //Third conditional checks is used if there are more days in the current month than
-                                    //in four weeks (28 days) plus whichever day is the first
-                                    //day of the week this month. Therefore, 6 weeks must be displayed to show every
-                                    // day in the month.
-                                } else {
-                                    ForEach(0..<6) { week in
-                                        let index = (week * 7 + day+1) - firstWeekday
-                                        let dayLocation = calendar.days[index+firstWeekday]
-                                        if index >= 1 && index <= (totalMonthDay) {
-                                            NavigationLink(
-                                                destination:
-                                                    DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
-                                                label: {
-                                                    
-                                                    DayCell(day: dayLocation, calendar: calendar)
-                                                        .border(Color.brown, width: 1)
-                                                        .overlay(alignment: .bottomTrailing) {
-                                                            Text("\(dayLocation.dayNumber-firstWeekday)")
-                                                                .font(.custom("Georgia", size: 20))
-                                                                .padding(.trailing, 5)
-                                                                .padding(.bottom, 5)
-                                                        }
-                                                })
-                                        } else {
-                                            emptyCell(day: dayLocation, calendar: calendar)
-                                        }
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
+                                //                                if ((getFirstDayOfWeekReverse()) + 21 == totalMonthDay){
+                                //                                    ForEach(0..<4) { week in
+                                //                                        let index = (week * 7 + day+1) - firstWeekday
+                                //                                        let dayLocation = calendar.days[index+firstWeekday]
+                                //                                        if index >= 1 && index <= (totalMonthDay) {
+                                //                                            NavigationLink(
+                                //                                                destination:
+                                //                                                    DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
+                                //                                                label: {
+                                //
+                                //                                                    DayCell(day: dayLocation, calendar: calendar)
+                                //                                                        .border(Color.brown, width: 1)
+                                //                                                        .overlay(alignment: .bottomTrailing) {
+                                //                                                            Text("\(dayLocation.dayNumber-firstWeekday)")
+                                //                                                                .font(.custom("Georgia", size: 20))
+                                //                                                                .padding(.trailing, 5)
+                                //                                                                .padding(.bottom, 5)
+                                //                                                        }
+                                //                                                })
+                                //                                        } else {
+                                //                                            emptyCell(day: dayLocation, calendar: calendar)
+                                //
+                                //                                        }
+                                //                                    }
+                                //                                    .buttonStyle(PlainButtonStyle())
+                                //
+                                //
+                                //                                    //Second conditional checks if there are less days in the current month than
+                                //                                    //in four weeks (28 days) plus whichever day is the first
+                                //                                    //day of the week this current month.
+                                //                                    //Therefore, 5 weeks is sufficient to display all days in the month.
+                                //                                } else if ((getFirstDayOfWeekReverse()) + 28 >= totalMonthDay) {
+                                ForEach(0..<5) { week in
+                                    let index = (week * 7 + day+1) - firstWeekday
+//                                    let dayLocation = calendar.days.values[index+firstWeekday]
+//                                    calendar.days.values
+                                    Text("\(calendar.days)")
+//                                    if index >= 1 && index <= (totalMonthDay) {
+//                                        NavigationLink(
+//                                            destination:
+//                                                DayView(dayNumber: dayLocation.dayNumber, calendar: calendar.values),
+//                                            label: {
+//                                                
+//                                                DayCell(day: dayLocation, calendar: calendar.values)
+//                                                    .border(Color.brown, width: 1)
+//                                                    .overlay(alignment: .bottomTrailing) {
+//                                                        Text("\(dayLocation.dayNumber-firstWeekday)")
+//                                                            .font(.custom("Georgia", size: 20))
+//                                                            .padding(.trailing, 5)
+//                                                            .padding(.bottom, 5)
+//                                                    }
+//                                            })
+//                                        
+//                                    } else {
+//                                        emptyCell(day: dayLocation, calendar: calendar)
+//                                        
+//                                    }
                                 }
+                                .buttonStyle(PlainButtonStyle())
+                                
+                                //Third conditional checks is used if there are more days in the current month than
+                                //in four weeks (28 days) plus whichever day is the first
+                                //day of the week this month. Therefore, 6 weeks must be displayed to show every
+                                // day in the month.
+//                                } else {
+//                                    ForEach(0..<6) { week in
+//                                        let index = (week * 7 + day+1) - firstWeekday
+//                                        let dayLocation = calendar.days[index+firstWeekday]
+//                                        if index >= 1 && index <= (totalMonthDay) {
+//                                            NavigationLink(
+//                                                destination:
+//                                                    DayView(dayNumber: dayLocation.dayNumber, calendar: calendar),
+//                                                label: {
+//                                                    
+//                                                    DayCell(day: dayLocation, calendar: calendar)
+//                                                        .border(Color.brown, width: 1)
+//                                                        .overlay(alignment: .bottomTrailing) {
+//                                                            Text("\(dayLocation.dayNumber-firstWeekday)")
+//                                                                .font(.custom("Georgia", size: 20))
+//                                                                .padding(.trailing, 5)
+//                                                                .padding(.bottom, 5)
+//                                                        }
+//                                                })
+//                                        } else {
+//                                            emptyCell(day: dayLocation, calendar: calendar)
+//                                        }
+//                                    }
+//                                    .buttonStyle(PlainButtonStyle())
+//                                }
                             }
                         }
                     }
@@ -233,14 +242,16 @@ struct DayCell: View {
     @ObservedObject var calendar: WorkoutCalendar
     var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
     var body: some View {
-        let index = calendar.days.firstIndex { $0.dayNumber == day.dayNumber }!
+//        let index = calendar.days.firstIndex { $0.dayNumber == day.dayNumber }!
+        
+        let index = calendar.days.values.firstIndex { $0.dayNumber == day.dayNumber }!
         let groups = muscleGroupNames
         
         ZStack {
             bgBlue.opacity(0.7)
             VStack {
                 ForEach(groups, id: \.self) { group in
-                    if calendar.days[index].muscleGroups[group] == true {
+                    if calendar.days.values[index].muscleGroups[group] == true {
                         
                         Text("\(group)")
                             .font(.custom("Georgia", size: 20))

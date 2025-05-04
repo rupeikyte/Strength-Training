@@ -8,23 +8,18 @@
 import SwiftUI
 
 
-//The destination that clicking on a daycell showcases. This includes the buttons to add muscle group information to the day, and the corresponding text from the day of the WorkoutCalendar.
-
+///The destination that clicking on a daycell showcases. This includes the buttons to add muscle group information to the day, and the corresponding text from the day of the WorkoutCalendar.
 struct DayCard: View {
-    
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
     let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
-    
     let muscleGroup: String
     
     var body: some View {
         
         RoundedRectangle(cornerRadius: 10)
             .padding(.top, 50)
-        
             .border(Color.brown, width:2)
             .foregroundStyle(bgBlue.opacity(0.7))
-        
             .overlay(
                 VStack(spacing: 50) {
                     ForEach(workouts(for: muscleGroup), id: \.self) { oneWorkout in
@@ -39,17 +34,18 @@ struct DayView: View {
     let dayNumber: Int
     @ObservedObject var calendar: WorkoutCalendar
     @State private var showModificationOptions = false;
-
-let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
+    let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
     var body: some View {
-        let index = calendar.days.firstIndex { $0.dayNumber == dayNumber }!
+//        let index = calendar.days.firstIndex { $0.dayNumber == dayNumber }!
+//        let index = Date() //calendar.days.firstIndex { $0. dayNumber == dayNumber }!
+        let index = calendar.days.values.firstIndex { $0.dayNumber == dayNumber }!
         let groups = muscleGroupNames
         VStack(spacing: 20) {
             
             HStack(spacing:20) {
                 ForEach(groups, id: \.self) { group in
-                    if calendar.days[index].muscleGroups[group] == true {
+                    if calendar.days.values[index].muscleGroups[group] == true {
                         ZStack{
                             
                             DayCard(muscleGroup: group)
@@ -75,8 +71,8 @@ let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
                 HStack {
                     ForEach(groups, id: \.self) { group in
                         Button {
-                            calendar.days[index].muscleGroups[group]!.toggle()
-                            calendar.save()
+                            calendar.days.values[index].muscleGroups[group]!.toggle()
+//                            calendar.save()
                                 
                         } label: {
                             Text(group)
@@ -90,7 +86,7 @@ let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
                         .buttonStyle(.borderedProminent)
                         .buttonStyle(PlainButtonStyle())
                         .controlSize(.extraLarge)
-                        .tint((calendar.days[index].muscleGroups[group] == true ? Color.red : Color.green))
+                        .tint((calendar.days.values[index].muscleGroups[group] == true ? Color.red : Color.green))
                     }
                 }
                 .buttonStyle(.borderedProminent)

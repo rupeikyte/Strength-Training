@@ -10,15 +10,13 @@
 import SwiftUI
 
 
-
 /// Sidebar showing weekly workout suggestions and issues
-///
 struct NotificationView: View {
     @ObservedObject var calendar: WorkoutCalendar
     var weekCount: Int
-    
     var body: some View {
-        let weeks = splitDaysIntoWeeks(days: calendar.days, numberOfWeeks: weekCount)
+//        let weeks = splitDaysIntoWeeks(days: calendar.days, numberOfWeeks: weekCount)
+        let weeks: [[WorkoutDay]] = [] // TODO: make this workagain! splitDaysIntoWeeks(days: calendar.days)
         
         GeometryReader { geometry in
             
