@@ -46,11 +46,12 @@ struct MonthView: View {
                                 Image(systemName: "chevron.left")
                                     .font(.largeTitle)
                             }
+                        
 
                         .buttonStyle(PlainButtonStyle())
                         
                         
-                        Text(calendarTitle())
+                        Text(calendarTitle(for: month, year: year))
                             .font(.custom("Georgia", size: 35))
                         
                         Button {
@@ -184,10 +185,12 @@ struct MonthView: View {
         }
     }
     
-    //Extracts the current month and year as a string so it can be displayed on the homescreen
-    func calendarTitle() -> String {
-        let monthShown = daysCalendar.dateComponents([.year, .month], from: Date())
-        return daysCalendar.date(from: monthShown)!
+    ///extracts the current month and year as a string so it can be displayed on the homescreen
+    func calendarTitle(for month: Int, year: Int) -> String {
+        let components = DateComponents(year: year, month: month)
+        guard let date = daysCalendar
+            .date(from: components) else { return "" }
+        return date
             .formatted(
                 .dateTime.month(.wide).year())
     }
