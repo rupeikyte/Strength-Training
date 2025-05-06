@@ -94,8 +94,8 @@ struct MonthView: View {
                                        
                                         NavigationLink(
                                             destination:
-//                                                DayView(calendar: calendar, date: date),
-                                                Text("nothing"),
+                                                DayView(calendar: calendar, date: date),
+                                                
                                             label: {
 
                                                 DayCell(calendar: calendar, date: date)

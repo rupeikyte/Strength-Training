@@ -31,43 +31,45 @@ struct DayCard: View {
 }
 
 struct DayView: View {
-    let dayNumber: Int
     @ObservedObject var calendar: WorkoutCalendar
-    @State private var showModificationOptions = false;
+    var date: Date?
+
+    @State private var showModificationOptions = false
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
+    var day: WorkoutDay? {
+        guard let date else {
+            return nil
+        }
+        return calendar.workoutDay(forDate: date)
+    }
 
     var body: some View {
-        Text("hi")
-//
-//        let index = calendar.days.values.firstIndex { $0.dayNumber == dayNumber }!
-//        let groups = muscleGroupNames
-//        VStack(spacing: 20) {
-//            
-//            HStack(spacing:20) {
-//                ForEach(groups, id: \.self) { group in
-//                    if calendar.days.values[index].muscleGroups[group] == true {
-//                        ZStack{
-//                            
-//                            DayCard(muscleGroup: group)
-//                            
-//                                .overlay(alignment: .top) {
-//                                    Text(group)
-//                                        .font(.custom("Georgia", size: 30))
-//                                        .frame(maxWidth: .infinity, maxHeight: 50)
-//                                        .border(Color.brown, width:2)
-//                                        .background(Color(white: 0.85))
-//                                        
-//                                }
-//                        }
-//                        
-//                        .padding(.leading, 60)
-//                        .padding([.top, .bottom], 80)
-//
-//                    }
-//                }
-//            }
-//            .padding(.trailing, 60)
-//
+        VStack(spacing: 20) {
+            HStack(spacing:20) {
+                ForEach(muscleGroupNames, id: \.self) { group in
+                    if day?.muscleGroups.contains(group) ?? false {
+                        ZStack{
+                            
+                            DayCard(muscleGroup: group)
+                            
+                                .overlay(alignment: .top) {
+                                    Text(group)
+                                        .font(.custom("Georgia", size: 30))
+                                        .frame(maxWidth: .infinity, maxHeight: 50)
+                                        .border(Color.brown, width:2)
+                                        .background(Color(white: 0.85))
+                                        
+                                }
+                        }
+                        
+                        .padding(.leading, 60)
+                        .padding([.top, .bottom], 80)
+
+                    }
+                }
+            }
+            .padding(.trailing, 60)
+
 //                HStack {
 //                    ForEach(groups, id: \.self) { group in
 //                        Button {
@@ -91,8 +93,8 @@ struct DayView: View {
 //                }
 //                .buttonStyle(.borderedProminent)
 //                .buttonStyle(PlainButtonStyle())
-//        }
-//        .clipShape(Rectangle())
+        }
+        //.clipShape(Rectangle())
 
     }
         
