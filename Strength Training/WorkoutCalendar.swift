@@ -25,29 +25,28 @@ struct WorkoutDay: Identifiable, Codable {
     var id: Date { date }
     
     var dayNumber: Int {
-        Calendar.current.component(.day, from: date)
+       daysCalendar.component(.day, from: date)
     }
 }
 
 /// A calendar of days with its associated workouts
 class WorkoutCalendar: ObservableObject {
-    var month  = daysCalendar.component(.month, from: specificDay)
+//    var month  = daysCalendar.component(.month, from: specificDay)
     
     @Published var days: DayDictionary = [:]
     
     typealias DayDictionary = [Date: WorkoutDay]
 
     
-    func generateDays(forMonth month: Int, year: Int) {
+    func generateDays(forMonth month: Int, year: Int, day: Int) {
         days = [:]  ///clear previous days
-        let calendar = Calendar.current
-        let components = DateComponents(year: year, month: month)
-        if let date = calendar.date(from: components),
-           let range = calendar.range(of: .day, in: .month, for: date) {
+        let components = DateComponents(year: year, month: month, day: day)
+        if let date = daysCalendar.date(from: components),
+           let range = daysCalendar.range(of: .day, in: .month, for: date) {
             for day in range {
                 let dateComponents = DateComponents(year: year, month: month, day: day)
-                if let date = calendar.date(from: dateComponents) {
-                    days[date] = WorkoutDay(date: date)
+                if let date2 = daysCalendar.date(from: dateComponents) {
+                    days[daysCalendar.date(from: daysCalendar.dateComponents([.year, .month, .day], from: date2))!] = WorkoutDay(date: date2)
                 }
             }
         }
@@ -56,17 +55,17 @@ class WorkoutCalendar: ObservableObject {
 //    @Published var days: DayDictionary = [:]
     
 //    private let saveKey = "WorkoutCalendarSaveKey"
-//    
+//
 //    init() {
 //        load()
 //    }
-//    
+//
 //    func save() {
 //        if let encoded = try? JSONEncoder().encode(days) {
 //            UserDefaults.standard.set(encoded, forKey: saveKey)
 //        }
 //    }
-//    
+//
 //    func load() {
 //        if let savedData = UserDefaults.standard.data(forKey: saveKey),
 //           let decoded = try? JSONDecoder().decode([DayDictionary].self, from: savedData) {

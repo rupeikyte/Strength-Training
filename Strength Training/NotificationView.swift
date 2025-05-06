@@ -21,11 +21,12 @@ struct NotificationView: View {
         ///
        
         
-//        calendar.days.keys.var
-        ///
-
+//        calendar.days.keys.contains(where: { $0.year == 2025 && $0.month == 4 && $0.day == 21 })
         
         GeometryReader { geometry in
+//
+//           let aDate = calendar.days.keys.first(where: { calendar.days[$0]?.dayNumber == index+firstWeekday })
+//            let datesText = aDate!.formatted(.dateTime.day())
             
             VStack(spacing: 0) {
                 Text("Notifications")

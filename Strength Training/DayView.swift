@@ -72,7 +72,7 @@ struct DayView: View {
                     ForEach(groups, id: \.self) { group in
                         Button {
                             calendar.days.values[index].muscleGroups[group]!.toggle()
-//                            calendar.save()
+                            calendar.save()
                                 
                         } label: {
                             Text(group)
