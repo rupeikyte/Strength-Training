@@ -44,6 +44,7 @@ struct DayView: View {
     }
 
     var body: some View {
+        
         VStack(spacing: 20) {
             HStack(spacing:20) {
                 ForEach(muscleGroupNames, id: \.self) { group in
@@ -70,29 +71,30 @@ struct DayView: View {
             }
             .padding(.trailing, 60)
 
-//                HStack {
-//                    ForEach(groups, id: \.self) { group in
-//                        Button {
+                HStack {
+                    ForEach(muscleGroupNames, id: \.self) { group in
+                        Button {
+                            day?.muscleGroups.contains(group) ?? false
 //                            calendar.days.values[index].muscleGroups[group]!.toggle()
 //                            calendar.save()
-//                                
-//                        } label: {
-//                            Text(group)
-//                                
-//                                .frame(width: 150, height: 60)
-//                                .font(.custom("Georgia", size: 25))
-//                        }
-//                        
-//                        .padding([.leading, .trailing], 36)
-//                        .padding(.bottom, 15)
-//                        .buttonStyle(.borderedProminent)
-//                        .buttonStyle(PlainButtonStyle())
-//                        .controlSize(.extraLarge)
+                                
+                        } label: {
+                            Text(group)
+                                
+                                .frame(width: 150, height: 60)
+                                .font(.custom("Georgia", size: 25))
+                        }
+                        
+                        .padding([.leading, .trailing], 36)
+                        .padding(.bottom, 15)
+                        .buttonStyle(.borderedProminent)
+                        .buttonStyle(PlainButtonStyle())
+                        .controlSize(.extraLarge)
 //                        .tint((calendar.days.values[index].muscleGroups[group] == true ? Color.red : Color.green))
-//                    }
-//                }
-//                .buttonStyle(.borderedProminent)
-//                .buttonStyle(PlainButtonStyle())
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .buttonStyle(PlainButtonStyle())
         }
         //.clipShape(Rectangle())
 
