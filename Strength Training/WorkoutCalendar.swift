@@ -19,7 +19,7 @@ struct WorkoutDay: Identifiable, Codable {
     var muscleGroups: Set<String> = []
     var id: Date { date }
     
-    var dayNumber: Int {  // TODO: rename to dayOfMonth
+    var dayOfMonth: Int {
        daysCalendar.component(.day, from: date)
     }
 }
