@@ -10,21 +10,16 @@ import SwiftUI
 // All muscle groups tracked in the app.
 let muscleGroupNames = ["Arms", "Shoulder", "Leg", "Back", "Chest", "Abs"]
 
-// a potential calendar day
 let daysCalendar = Locale.current.calendar
-let specificDay = daysCalendar.date(from: daysCalendar.dateComponents([.year, .month, .day], from: Date()))!
-// var month  = daysCalendar.component(.month, from: specificDay)
-// var year = daysCalendar.component(.year, from: specificDay)
- var day = daysCalendar.component(.day, from: specificDay)
 
 ///
 /// Represents one day in the workout calendar with toggles for each muscle group.
 struct WorkoutDay: Identifiable, Codable {
     var date: Date
-    var muscleGroups: [String: Bool] = Dictionary(uniqueKeysWithValues: muscleGroupNames.map { ($0, false) })
+    var muscleGroups: Set<String> = []
     var id: Date { date }
     
-    var dayNumber: Int {
+    var dayNumber: Int {  // TODO: rename to dayOfMonth
        daysCalendar.component(.day, from: date)
     }
 }
@@ -33,24 +28,33 @@ struct WorkoutDay: Identifiable, Codable {
 class WorkoutCalendar: ObservableObject {
 //    var month  = daysCalendar.component(.month, from: specificDay)
     
-    @Published var days: DayDictionary = [:]
+    private var days: DayDictionary = [:]
     
     typealias DayDictionary = [Date: WorkoutDay]
-
     
-    func generateDays(forMonth month: Int, year: Int, day: Int) {
-        days = [:]  ///clear previous days
-        let components = DateComponents(year: year, month: month, day: day)
-        if let date = daysCalendar.date(from: components),
-           let range = daysCalendar.range(of: .day, in: .month, for: date) {
-            for day in range {
-                let dateComponents = DateComponents(year: year, month: month, day: day)
-                if let date2 = daysCalendar.date(from: dateComponents) {
-                    days[daysCalendar.date(from: daysCalendar.dateComponents([.year, .month, .day], from: date2))!] = WorkoutDay(date: date2)
-                }
-            }
+    func workoutDay(forDate date: Date) -> WorkoutDay {
+        if let dayWorkout = days[date] {
+            return dayWorkout
         }
+        let newWorkout = WorkoutDay(date: date)
+        days[date] = newWorkout
+        return newWorkout
     }
+
+//    
+//    func generateDays(forMonth month: Int, year: Int, day: Int) {
+//        days = [:]  ///clear previous days
+//        let components = DateComponents(year: year, month: month, day: day)
+//        if let date = daysCalendar.date(from: components),
+//           let range = daysCalendar.range(of: .day, in: .month, for: date) {
+//            for day in range {
+//                let dateComponents = DateComponents(year: year, month: month, day: day)
+//                if let date2 = daysCalendar.date(from: dateComponents) {
+//                    days[daysCalendar.date(from: daysCalendar.dateComponents([.year, .month, .day], from: date2))!] = WorkoutDay(date: date2)
+//                }
+//            }
+//        }
+//    }
     
 //    @Published var days: DayDictionary = [:]
     

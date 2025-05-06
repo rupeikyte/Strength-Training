@@ -60,10 +60,6 @@ struct ContentView: View {
                 }
 
             }
-            
-            .onAppear {
-                calendar.generateDays(forMonth: month, year: year, day: day)
-            }
         }
         
         

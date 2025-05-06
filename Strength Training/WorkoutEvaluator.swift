@@ -16,16 +16,16 @@ struct WorkoutEvaluator {
             var currentStreak: [Int] = []
             
             for i in 0..<days.count {
-                if days[i].muscleGroups[muscle] == true {
-                    if currentStreak.isEmpty || days[i].dayNumber == currentStreak.last! + 1 {
-                        currentStreak.append(days[i].dayNumber)
-                    } else {
-                        if currentStreak.count > 1 {
-                            result[muscle, default: []].append(currentStreak)
-                        }
-                        currentStreak = [days[i].dayNumber]
-                    }
-                }
+//                if days[i].muscleGroups[muscle] == true {
+//                    if currentStreak.isEmpty || days[i].dayNumber == currentStreak.last! + 1 {
+//                        currentStreak.append(days[i].dayNumber)
+//                    } else {
+//                        if currentStreak.count > 1 {
+//                            result[muscle, default: []].append(currentStreak)
+//                        }
+//                        currentStreak = [days[i].dayNumber]
+//                    }
+//                }
             }
             
             if currentStreak.count > 1 {
@@ -42,7 +42,7 @@ struct WorkoutEvaluator {
         
         for day in days {
             //check if any muscle group is trained on this day
-            let isWorkoutDay = day.muscleGroups.values.contains(true)
+            let isWorkoutDay = !day.muscleGroups.isEmpty
             
             if isWorkoutDay {
                 consecutiveWorkoutDays += 1
@@ -65,10 +65,8 @@ struct WorkoutEvaluator {
         
         //check each day's muscle groups
         for day in days {
-            for (muscle, isWorked) in day.muscleGroups {
-                if isWorked {
-                    muscleGroupsCovered[muscle] = true
-                }
+            for muscle in day.muscleGroups {
+                muscleGroupsCovered[muscle] = true
             }
         }
         

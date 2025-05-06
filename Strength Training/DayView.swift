@@ -37,62 +37,62 @@ struct DayView: View {
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
     var body: some View {
-//        let index = calendar.days.firstIndex { $0.dayNumber == dayNumber }!
-//        let index = Date() //calendar.days.firstIndex { $0. dayNumber == dayNumber }!
-        let index = calendar.days.values.firstIndex { $0.dayNumber == dayNumber }!
-        let groups = muscleGroupNames
-        VStack(spacing: 20) {
-            
-            HStack(spacing:20) {
-                ForEach(groups, id: \.self) { group in
-                    if calendar.days.values[index].muscleGroups[group] == true {
-                        ZStack{
-                            
-                            DayCard(muscleGroup: group)
-                            
-                                .overlay(alignment: .top) {
-                                    Text(group)
-                                        .font(.custom("Georgia", size: 30))
-                                        .frame(maxWidth: .infinity, maxHeight: 50)
-                                        .border(Color.brown, width:2)
-                                        .background(Color(white: 0.85))
-                                        
-                                }
-                        }
-                        
-                        .padding(.leading, 60)
-                        .padding([.top, .bottom], 80)
-
-                    }
-                }
-            }
-            .padding(.trailing, 60)
-
-                HStack {
-                    ForEach(groups, id: \.self) { group in
-                        Button {
-                            calendar.days.values[index].muscleGroups[group]!.toggle()
-                            calendar.save()
-                                
-                        } label: {
-                            Text(group)
-                                
-                                .frame(width: 150, height: 60)
-                                .font(.custom("Georgia", size: 25))
-                        }
-                        
-                        .padding([.leading, .trailing], 36)
-                        .padding(.bottom, 15)
-                        .buttonStyle(.borderedProminent)
-                        .buttonStyle(PlainButtonStyle())
-                        .controlSize(.extraLarge)
-                        .tint((calendar.days.values[index].muscleGroups[group] == true ? Color.red : Color.green))
-                    }
-                }
-                .buttonStyle(.borderedProminent)
-                .buttonStyle(PlainButtonStyle())
-        }
-        .clipShape(Rectangle())
+        Text("hi")
+//
+//        let index = calendar.days.values.firstIndex { $0.dayNumber == dayNumber }!
+//        let groups = muscleGroupNames
+//        VStack(spacing: 20) {
+//            
+//            HStack(spacing:20) {
+//                ForEach(groups, id: \.self) { group in
+//                    if calendar.days.values[index].muscleGroups[group] == true {
+//                        ZStack{
+//                            
+//                            DayCard(muscleGroup: group)
+//                            
+//                                .overlay(alignment: .top) {
+//                                    Text(group)
+//                                        .font(.custom("Georgia", size: 30))
+//                                        .frame(maxWidth: .infinity, maxHeight: 50)
+//                                        .border(Color.brown, width:2)
+//                                        .background(Color(white: 0.85))
+//                                        
+//                                }
+//                        }
+//                        
+//                        .padding(.leading, 60)
+//                        .padding([.top, .bottom], 80)
+//
+//                    }
+//                }
+//            }
+//            .padding(.trailing, 60)
+//
+//                HStack {
+//                    ForEach(groups, id: \.self) { group in
+//                        Button {
+//                            calendar.days.values[index].muscleGroups[group]!.toggle()
+//                            calendar.save()
+//                                
+//                        } label: {
+//                            Text(group)
+//                                
+//                                .frame(width: 150, height: 60)
+//                                .font(.custom("Georgia", size: 25))
+//                        }
+//                        
+//                        .padding([.leading, .trailing], 36)
+//                        .padding(.bottom, 15)
+//                        .buttonStyle(.borderedProminent)
+//                        .buttonStyle(PlainButtonStyle())
+//                        .controlSize(.extraLarge)
+//                        .tint((calendar.days.values[index].muscleGroups[group] == true ? Color.red : Color.green))
+//                    }
+//                }
+//                .buttonStyle(.borderedProminent)
+//                .buttonStyle(PlainButtonStyle())
+//        }
+//        .clipShape(Rectangle())
 
     }
         
