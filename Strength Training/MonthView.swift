@@ -113,7 +113,7 @@ struct MonthView: View {
                                         
                                     }
                                 }
-                                //                                    .buttonStyle(PlainButtonStyle())
+                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                     }
@@ -214,7 +214,6 @@ struct DayCell: View {
             .background(RoundedRectangle(cornerRadius: 5)
                 .fill( Color.green.opacity(0.5) ))
         }
-        Text("nope")
     }
 }
 
