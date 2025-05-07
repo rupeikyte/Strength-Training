@@ -72,8 +72,12 @@ struct DayView: View {
             HStack {
                 ForEach(muscleGroupNames, id: \.self) { group in
                     Button(action: {
-                        if let day = day {
-                            day.muscleGroups.insert(group)
+                        if let day {
+                            if day.muscleGroups.contains(group) {
+                                day.muscleGroups.remove(group)
+                            } else {
+                                day.muscleGroups.insert(group)
+                            }
                             calendar.days[date!] = day /// calendar reassigns the date
                         }
                     }) {
@@ -83,10 +87,10 @@ struct DayView: View {
                     }
                     
                     .padding([.leading, .trailing], 15)
-//                    .padding(.bottom, 15)
+                    .padding(.bottom, 15)
                     .buttonStyle(.borderedProminent)
                     .buttonStyle(PlainButtonStyle())
-//                    .tint((day.muscleGroups[group] == true ? Color.red : Color.green))
+                    .tint(day?.muscleGroups.contains(group) == true ? Color.red : Color.green)
                 }
             }
             .buttonStyle(.borderedProminent)
