@@ -20,15 +20,36 @@ struct DayCard: View {
             .border(Color.brown, width:2)
             .foregroundStyle(bgBlue.opacity(0.7))
             .overlay(
-                VStack(spacing: 50) {
-                    ForEach(workouts(for: muscleGroup), id: \.self) { oneWorkout in
-                        Text("\(oneWorkout)")
-                            .font(.custom("Georgia", size: 25))
-                    }
-                    .padding([.leading, .trailing], 5)
+                VStack(spacing: 0) {
+                    Text(muscleGroup)
+                        .font(.custom("Georgia", size: 20))
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color(white: 0.85))
+                        .border(Color.brown, width: 2)
                     
-
-                })
+                    ScrollView {
+                        VStack(spacing: 15) {
+                            ForEach(workouts(for: muscleGroup)) { workout in
+                                VStack(alignment: .leading, spacing: 5) {
+                                    Text(workout.name)
+                                        .font(.custom("Georgia", size: 20))
+                                        .fontWeight(.bold)
+                                    Text(workout.description)
+                                        .font(.custom("Georgia", size: 14))
+                                        .foregroundColor(.secondary)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal, 10)
+                                .padding(.vertical, 5)
+                                .background(Color.white.opacity(0.1))
+                                .cornerRadius(8)
+                            }
+                        }
+                        .padding(.vertical, 10)
+                    }
+                }
+            )
     }
 }
 
@@ -48,7 +69,7 @@ struct DayView: View {
                             DayCard(muscleGroup: group)
                                 .overlay(alignment: .top) {
                                     Text(group)
-                                        .font(.custom("Georgia", size: 30))
+                                        .font(.custom("Georgia", size: 20))
                                         .frame(maxWidth: .infinity, maxHeight: 50)
                                         .border(Color.brown, width:2)
                                         .background(Color(white: 0.85))
