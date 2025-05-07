@@ -17,7 +17,7 @@ let daysCalendar = Locale.current.calendar
 class WorkoutDay: Identifiable, ObservableObject
 //, Codable
 {
-    
+        
     @Published var muscleGroups: Set<String> = []
     var date: Date
     var id: Date { date }
@@ -29,7 +29,6 @@ class WorkoutDay: Identifiable, ObservableObject
         self.muscleGroups = muscleGroups
         self.date = date
     }
-    
     
 }
 
