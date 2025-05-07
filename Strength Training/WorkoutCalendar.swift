@@ -45,7 +45,6 @@ class WorkoutCalendar {
         days[date] = newWorkout
         return newWorkout
     }
-
     
 //    private let saveKey = "WorkoutCalendarSaveKey"
 //

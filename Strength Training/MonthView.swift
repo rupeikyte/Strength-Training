@@ -50,6 +50,7 @@ struct MonthView: View {
                         
                         Text(calendarTitle(for: month, year: year))
                             .font(.custom("Georgia", size: 35))
+                            
                         
                         Button {
                             if month == 12 {
@@ -73,7 +74,8 @@ struct MonthView: View {
                             VStack(spacing: 0) {
                                 Text("\(getAllWeekDays()[dayOfWeek])")
                                     .font(.custom("Georgia", size: 25))
-                                    .frame(width: geometry.size.width/7)
+                                    .frame(width: geometry.size.width/7, height: 30)
+                                    .truncationMode(.tail)
                                     .padding(.bottom, 10)
                                     .padding(.top, 10)
                                     .border(Color.brown, width: 1)
@@ -209,8 +211,8 @@ struct EmptyCell: View {
         ZStack {
             bgBlue.opacity(0.7)
         }
-            .border(Color.brown, width: 1)
-            .background(Color.brown.opacity(0.5))
+        .border(Color.brown, width: 1)
+        .background(Color.brown.opacity(0.5))
     }
 }
 

@@ -15,20 +15,12 @@ struct ContentView: View {
     @Query private var items: [Item]
     var calendar = WorkoutCalendar()
 
-    
-
-    
-
-    
     @State var month = Calendar.current.component(.month, from: Date())
     @State var year = Calendar.current.component(.year, from: Date())
 
     let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
     
-    
     var body: some View {
-        
-        
 
 //        let weekCount = MonthView(calendar: calendar, month: month, year: year).getNumberOfWeeks()
         
@@ -58,12 +50,8 @@ struct ContentView: View {
 //                        .padding(.top, 25)
 //                        .border(Color.brown, width:2)
                 }
-
             }
         }
-        
-        
-        
     }
 }
 

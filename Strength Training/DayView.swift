@@ -26,9 +26,9 @@ struct DayCard: View {
                             .font(.custom("Georgia", size: 25))
                     }
                     .padding([.leading, .trailing], 5)
+                    
 
                 })
-//            .multilineTextAlignment(.leading)
     }
 }
 

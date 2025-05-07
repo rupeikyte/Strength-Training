@@ -12,25 +12,8 @@ struct Strength_TrainingApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .frame(minWidth: 1510, maxWidth: 1510, minHeight: 860, maxHeight: 860)
-                .fixedSize()
+                .frame(minWidth: 1000, minHeight: 600)
         }
         .windowResizability(.automatic)
     }
 }
-         
-    
-
-    
-    // mystery algorithm
-    
-    //takes in a month of workouts
-    
-    // for day in month
-    // if day.hasWorkout
-    //   check if day has <=  3 workouts
-    //   for (2 consecutive days){check if the muscle group is not touched again} if false, error
-    //   for (3){check if the next three days .hasWorkout}  if true, error
-    //   for (6){check if muscle group hit again} if not, error
-    //  check all muscle groups that have been hit in this day (putIfAbsent like in maps)
-
