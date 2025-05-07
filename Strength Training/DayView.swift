@@ -36,6 +36,7 @@ struct DayView: View {
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
     @ObservedObject var day: WorkoutDay
+    var onChange: () -> Void
     
     var body: some View {
         
@@ -68,6 +69,7 @@ struct DayView: View {
                         } else {
                             day.muscleGroups.insert(group)
                         }
+                        onChange()
                     }) {
                         Text(group)
                             .frame(maxWidth: .infinity, minHeight: 60)
