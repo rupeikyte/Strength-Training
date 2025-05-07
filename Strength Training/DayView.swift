@@ -33,25 +33,16 @@ struct DayCard: View {
 }
 
 struct DayView: View {
-    @ObservedObject var calendar: WorkoutCalendar
-    var date: Date?
-
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
-    var day: WorkoutDay? {
-        guard let date else {
-            return nil
-        }
-        return calendar.workoutDay(forDate: date)
-    }
+    @ObservedObject var day: WorkoutDay
     
     var body: some View {
         
         VStack(spacing: 20) {
             HStack(spacing:20) {
                 ForEach(muscleGroupNames, id: \.self) { group in
-                    if day?.muscleGroups.contains(group) == true {
-                        
+                    if day.muscleGroups.contains(group) {
                         ZStack{
                             DayCard(muscleGroup: group)
                                 .overlay(alignment: .top) {
@@ -72,13 +63,10 @@ struct DayView: View {
             HStack {
                 ForEach(muscleGroupNames, id: \.self) { group in
                     Button(action: {
-                        if let day {
-                            if day.muscleGroups.contains(group) {
-                                day.muscleGroups.remove(group)
-                            } else {
-                                day.muscleGroups.insert(group)
-                            }
-                            calendar.days[date!] = day /// calendar reassigns the date
+                        if day.muscleGroups.contains(group) {
+                            day.muscleGroups.remove(group)
+                        } else {
+                            day.muscleGroups.insert(group)
                         }
                     }) {
                         Text(group)
@@ -90,7 +78,7 @@ struct DayView: View {
                     .padding(.bottom, 15)
                     .buttonStyle(.borderedProminent)
                     .buttonStyle(PlainButtonStyle())
-                    .tint(day?.muscleGroups.contains(group) == true ? Color.red : Color.green)
+                    .tint(day.muscleGroups.contains(group) ? Color.red : Color.green)
                 }
             }
             .buttonStyle(.borderedProminent)

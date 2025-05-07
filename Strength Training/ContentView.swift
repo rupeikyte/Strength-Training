@@ -13,7 +13,7 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
-    @StateObject var calendar = WorkoutCalendar()
+    var calendar = WorkoutCalendar()
 
     
 

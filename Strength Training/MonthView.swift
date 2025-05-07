@@ -12,7 +12,7 @@ import SwiftUI
 /// Highlights days that repeat the same muscle group back-to-back in red.
 struct MonthView: View {
     
-    @ObservedObject var calendar: WorkoutCalendar
+    var calendar: WorkoutCalendar
     let daysCalendar = Locale.current.calendar
     
     @State var month: Int
@@ -90,12 +90,13 @@ struct MonthView: View {
                                     if dayOfMonth >= 1 && dayOfMonth <= totalMonthDay,
                                        let date = daysCalendar.date(from: DateComponents(year: year, month: month, day: dayOfMonth))
                                     {
+                                        let workoutDay = calendar.workoutDay(forDate: date)
                                         NavigationLink(
                                             destination:
-                                                DayView(calendar: calendar, date: date),
+                                                DayView(day: workoutDay),
                                             
                                             label: {
-                                                DayCell(calendar: calendar, date: date)
+                                                DayCell(day: workoutDay)
                                                     .border(Color.brown, width: 1)
                                                     .overlay(alignment: .bottomTrailing) {
                                                         Text("\(dayOfMonth)")
@@ -105,7 +106,7 @@ struct MonthView: View {
                                                     }
                                             })
                                     } else {
-                                        emptyCell(calendar: calendar)
+                                        EmptyCell()
                                     }
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -171,34 +172,26 @@ struct MonthView: View {
         
         if (firstWeekday + 21 == totalDays) {
             return 4
-        } else if firstWeekday + 28 >= totalDays {
+        } else if (firstWeekday + 28 >= totalDays) {
             return 5
         } else {
             return 6
         }
-        
     }
 }
-    
+
+var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
 /// The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
 struct DayCell: View {
-    @ObservedObject var calendar: WorkoutCalendar
-    var date: Date?
-    var day: WorkoutDay? {
-        guard let date else {
-            return nil
-        }
-        return calendar.workoutDay(forDate: date)
-    }
-    var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
-    
+    @ObservedObject var day: WorkoutDay
+        
     var body: some View {
         ZStack {
             bgBlue.opacity(0.7)
             VStack {
                 ForEach(muscleGroupNames, id: \.self) { group in
-                    if day?.muscleGroups.contains(group) ?? false {
+                    if day.muscleGroups.contains(group) {
                         Text("\(group)")
                             .font(.custom("Georgia", size: 20))
                     }
@@ -210,11 +203,12 @@ struct DayCell: View {
     }
 }
 
-struct emptyCell: View {
-    @ObservedObject var calendar: WorkoutCalendar
+struct EmptyCell: View {
     
     var body: some View {
-        DayCell(calendar: calendar, date: nil)
+        ZStack {
+            bgBlue.opacity(0.7)
+        }
             .border(Color.brown, width: 1)
             .background(Color.brown.opacity(0.5))
     }

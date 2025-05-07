@@ -12,7 +12,7 @@ import SwiftUI
 
 /// Sidebar showing weekly workout suggestions and issues
 struct NotificationView: View {
-    @ObservedObject var calendar: WorkoutCalendar
+    var calendar: WorkoutCalendar
     var weekCount: Int
     var body: some View {
 //        let weeks = splitDaysIntoWeeks(days: calendar.days, numberOfWeeks: weekCount)
