@@ -14,17 +14,23 @@ let daysCalendar = Locale.current.calendar
 
 ///
 /// Represents one day in the workout calendar with toggles for each muscle group.
-struct WorkoutDay: Identifiable
+class WorkoutDay: Identifiable, ObservableObject
 //, Codable
 {
     
-    @State var muscleGroups: Set<String> = []
+    @Published var muscleGroups: Set<String> = []
     var date: Date
     var id: Date { date }
     
     var dayOfMonth: Int {
        daysCalendar.component(.day, from: date)
     }
+    init(muscleGroups: Set<String> = [], date: Date) {
+        self.muscleGroups = muscleGroups
+        self.date = date
+    }
+    
+    
 }
 
 /// A calendar of days with its associated workouts

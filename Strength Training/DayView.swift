@@ -17,7 +17,6 @@ struct DayCard: View {
     var body: some View {
         
         RoundedRectangle(cornerRadius: 10)
-            .padding(.top, 50)
             .border(Color.brown, width:2)
             .foregroundStyle(bgBlue.opacity(0.7))
             .overlay(
@@ -26,10 +25,10 @@ struct DayCard: View {
                         Text("\(oneWorkout)")
                             .font(.custom("Georgia", size: 25))
                     }
-                    .padding([.leading, .trailing, .top, .bottom], 0)
-                    
+                    .padding([.leading, .trailing], 5)
 
                 })
+//            .multilineTextAlignment(.leading)
     }
 }
 
@@ -63,56 +62,40 @@ struct DayView: View {
                                         .background(Color(white: 0.85))
                                 }
                         }
-                        .padding(.leading, 10)
-                        .padding([.top, .bottom], 20)
+//                        .padding(.leading, 10)
+//                        .padding([.top, .bottom], 10)
                     }
                 }
             }
-            .padding(.trailing, 10)
+//            .padding(.trailing, 10)
             
             HStack {
                 ForEach(muscleGroupNames, id: \.self) { group in
                     Button(action: {
                         day!.muscleGroups.insert(group)
                         
+//                        calendar.days.values[index].muscleGroups[group]!.toggle()
+
                         print(day!.muscleGroups)
+                        
                     }) {
                         Text(group)
+                            .frame(maxWidth: .infinity, minHeight: 60)
+                            .font(.custom("Georgia", size: 25))
                     }
-                
-                           
-//                    Button {
-//                        
-////                        day!.muscleGroups.insert(group).inserted.toggle()
-////                        day?.self.muscleGroups.update(with: group)
-//                        day!.self.muscleGroups == ["hi"]
-//
-//                        print(day!.self.muscleGroups )
-//                        
-//                        //                            calendar.days.values[index].muscleGroups[group]!.toggle()
-//                        //                            calendar.save()
-//                        //                            DayCard(muscleGroup: group)
-//                        
-//                    } label: {
-//                        Text(group)
-//                        
-//                        //                                .frame(width: 150, height: 60)
-//                            .frame(maxWidth: .infinity, minHeight: 60)
-//                        
-//                            .font(.custom("Georgia", size: 25))
-//                    }
                     
-                    .padding([.leading, .trailing], 10)
-                    .padding(.bottom, 15)
+                    .padding([.leading, .trailing], 15)
+//                    .padding(.bottom, 15)
                     .buttonStyle(.borderedProminent)
                     .buttonStyle(PlainButtonStyle())
-                    //                        .tint((day.muscleGroups[group] == true ? Color.red : Color.green))
+//                    .tint((day.muscleGroups[group] == true ? Color.red : Color.green))
                 }
             }
             .buttonStyle(.borderedProminent)
             .buttonStyle(PlainButtonStyle())
         }
-        //.clipShape(Rectangle())
+        .padding([.leading, .trailing, .top, .bottom], 10)
+
 
     }
         
