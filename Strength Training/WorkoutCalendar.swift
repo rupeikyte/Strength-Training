@@ -36,7 +36,7 @@ class WorkoutDay: Identifiable, ObservableObject
 /// A calendar of days with its associated workouts
 class WorkoutCalendar: ObservableObject {
     
-    @State private var days: DayDictionary = [:]
+    @Published var days: DayDictionary = [:]
     
     typealias DayDictionary = [Date: WorkoutDay]
     

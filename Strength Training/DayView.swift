@@ -72,12 +72,10 @@ struct DayView: View {
             HStack {
                 ForEach(muscleGroupNames, id: \.self) { group in
                     Button(action: {
-                        day!.muscleGroups.insert(group)
-                        
-//                        calendar.days.values[index].muscleGroups[group]!.toggle()
-
-                        print(day!.muscleGroups)
-                        
+                        if let day = day {
+                            day.muscleGroups.insert(group)
+                            calendar.days[date!] = day /// calendar reassigns the date
+                        }
                     }) {
                         Text(group)
                             .frame(maxWidth: .infinity, minHeight: 60)
