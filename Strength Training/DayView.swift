@@ -50,7 +50,7 @@ struct DayView: View {
         VStack(spacing: 20) {
             HStack(spacing:20) {
                 ForEach(muscleGroupNames, id: \.self) { group in
-                    if day?.muscleGroups.contains(group) == false {
+                    if day?.muscleGroups.contains(group) == true {
                         
                         ZStack{
                             DayCard(muscleGroup: group)
