@@ -23,6 +23,7 @@ struct MonthView: View {
         let firstWeekday = getFirstDayOfWeek()
         let totalMonthDay = getLastDayofMonth()
         let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
+        let numOfWeeks = getNumberOfWeeks()
         
         ZStack {
             GeometryReader { geometry in
@@ -45,10 +46,7 @@ struct MonthView: View {
                             Image(systemName: "chevron.left")
                                 .font(.largeTitle)
                         }
-                        
-                        
                         .buttonStyle(PlainButtonStyle())
-                        
                         
                         Text(calendarTitle(for: month, year: year))
                             .font(.custom("Georgia", size: 35))
@@ -85,19 +83,18 @@ struct MonthView: View {
                                 //This first conditional checks if there are 28 days in the month,
                                 //and the first day starts on sunday. Therefore, four weeks
                                 //will be displayed.
-//
-                                ForEach(0..<6) { week in
+                                //
+                                ForEach(0..<numOfWeeks) { week in
+                                    
                                     let dayOfMonth = (week * 7 + dayOfWeek+1) - firstWeekday
                                     if dayOfMonth >= 1 && dayOfMonth <= totalMonthDay,
                                        let date = daysCalendar.date(from: DateComponents(year: year, month: month, day: dayOfMonth))
                                     {
-                                       
                                         NavigationLink(
                                             destination:
                                                 DayView(calendar: calendar, date: date),
-                                                
+                                            
                                             label: {
-
                                                 DayCell(calendar: calendar, date: date)
                                                     .border(Color.brown, width: 1)
                                                     .overlay(alignment: .bottomTrailing) {
@@ -107,10 +104,8 @@ struct MonthView: View {
                                                             .padding(.bottom, 5)
                                                     }
                                             })
-//
                                     } else {
                                         emptyCell(calendar: calendar)
-                                        
                                     }
                                 }
                                 .buttonStyle(PlainButtonStyle())
@@ -123,7 +118,6 @@ struct MonthView: View {
         }
     }
     
-    
     ///extracts the current month and year as a string so it can be displayed on the homescreen
     func calendarTitle(for month: Int, year: Int) -> String {
         let components = DateComponents(year: year, month: month)
@@ -134,19 +128,17 @@ struct MonthView: View {
                 .dateTime.month(.wide).year())
     }
     
-    //Determines the first day of the week of the current month and year. This is used for calendar calculations
-    //so that the current month and year are displayed accurately on the homescreen.
+    ///Determines the first day of the week of the current month and year. This is used for calendar calculations
+    ///so that the current month and year are displayed accurately on the homescreen.
     func getFirstDayOfWeek() -> Int {
         let weekShown = DateComponents(year: year, month: month, weekOfMonth: 1)
-//        let weekShown = daysCalendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
-        //let weekShown = DateComponents(year: 2015, month: 2, weekOfMonth: 1)
         let firstWeekday = daysCalendar.date(from: weekShown)!
             .formatted(
                 .dateTime.weekday(.wide))
         return getAllWeekDays().firstIndex(of: firstWeekday)!
     }
     
-    //Holds all the days of the week
+    ///Holds all the days of the week
     func getAllWeekDays() -> [String] {
         var allWeekDays: [String] = []
         for i in 0...6 {
@@ -155,22 +147,17 @@ struct MonthView: View {
         return allWeekDays
     }
     
-    //Determines how many total days there are in the current month and year.
+    ///Determines how many total days there are in the current month and year.
     func getLastDayofMonth() -> Int {
         let monthShown = DateComponents(year: year, month: month)
-
-        //        let monthShown = DateComponents(year: 2015, month: 2)
         let lastDay = daysCalendar.range(of: .day, in: .month, for: daysCalendar.date(from: monthShown)!)!
         return lastDay.startIndex.distance(to: lastDay.endIndex)
     }
     
-    //Determines the first day of the week of the current month and year. So that the first day displayed on the calendar,
-    //sunday, is "7", and the last day, saturday, is "1." This helps with calendar calculations.
+    ///Determines the first day of the week of the current month and year. So that the first day displayed on the calendar,
+    ///sunday, is "7", and the last day, saturday, is "1." This helps with calendar calculations.
     func getFirstDayOfWeekReverse() -> Int {
-//        let weekShown = daysCalendar.dateComponents([.year, .month, .weekOfMonth], from: Date())
         let weekShown = DateComponents(year: year, month: month, weekOfMonth: 1)
-
-        //        let weekShown = DateComponents(year: 2015, month: 2, weekOfMonth: 1)
         let firstWeekday = daysCalendar.date(from: weekShown)!
             .formatted(
                 .dateTime.weekday(.wide))
@@ -178,28 +165,34 @@ struct MonthView: View {
         return (reversedDays.firstIndex(of: firstWeekday)!+1)
     }
     
-    
     func getNumberOfWeeks() -> Int {
-        let firstWeekday = getFirstDayOfWeek()
+        let firstWeekday = getFirstDayOfWeekReverse()
         let totalDays = getLastDayofMonth()
-        return (firstWeekday + totalDays + 6) / 7
+        
+        if (firstWeekday + 21 == totalDays) {
+            return 4
+        } else if firstWeekday + 28 >= totalDays {
+            return 5
+        } else {
+            return 6
+        }
+        
     }
 }
     
 
-// The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
+/// The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
 struct DayCell: View {
     @ObservedObject var calendar: WorkoutCalendar
     var date: Date?
-    
     var day: WorkoutDay? {
         guard let date else {
             return nil
         }
         return calendar.workoutDay(forDate: date)
     }
-
     var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
+    
     var body: some View {
         ZStack {
             bgBlue.opacity(0.7)
