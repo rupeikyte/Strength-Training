@@ -9,6 +9,7 @@
 // Currently keeps track of days with back to back programming of identical muscle groups
 struct WorkoutEvaluator {
     
+    ///function that catches if a user chooses to workout the same muscle group on back to back days
     static func getAllBackToBack(in days: [WorkoutDay]) -> [String: [[Int]]] {
         var result: [String: [[Int]]] = [:]
         
@@ -36,7 +37,7 @@ struct WorkoutEvaluator {
         return result
     }
     
-    ///Function that catches if users choose the same muscle groups on back to back days
+    ///Function that catches if users choose too many workouts in a row, not accounting for a rest day.
     func dayOverload(in days: [WorkoutDay]) -> Bool {
         var consecutiveWorkoutDays = 0
         
