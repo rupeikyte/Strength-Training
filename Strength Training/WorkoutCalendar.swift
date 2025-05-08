@@ -12,7 +12,7 @@ let muscleGroupNames = ["Arms", "Shoulder", "Leg", "Back", "Chest", "Abs"]
 
 let daysCalendar = Locale.current.calendar
 
-///
+
 /// Represents one day in the workout calendar with toggles for each muscle group.
 class WorkoutDay: Identifiable, ObservableObject, Codable {
     @Published var muscleGroups: Set<String> = []

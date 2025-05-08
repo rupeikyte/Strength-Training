@@ -115,7 +115,11 @@ struct MonthView: View {
         }
     }
     
-    ///extracts the current month and year as a string so it can be displayed on the homescreen
+    /// extracts the current month and year as a string so it can be displayed on the homescreen
+    /// - Parameters:
+    ///   - month: integer that gives us month
+    ///   - year: integer that gives us corresponding year
+    /// - Returns: string of the month and year
     func calendarTitle(for month: Int, year: Int) -> String {
         let components = DateComponents(year: year, month: month)
         guard let date = daysCalendar
@@ -125,8 +129,9 @@ struct MonthView: View {
                 .dateTime.month(.wide).year())
     }
     
-    ///Determines the first day of the week of the current month and year. This is used for calendar calculations
-    ///so that the current month and year are displayed accurately on the homescreen.
+    /// Determines the first day of the week of the current month and year. This is used for calendar calculations
+    /// so that the current month and year are displayed accurately on the homescreen.
+    /// - Returns: Integer corresponding to first day of the week
     func getFirstDayOfWeek() -> Int {
         let weekShown = DateComponents(year: year, month: month, weekOfMonth: 1)
         let firstWeekday = daysCalendar.date(from: weekShown)!
@@ -135,7 +140,8 @@ struct MonthView: View {
         return getAllWeekDays().firstIndex(of: firstWeekday)!
     }
     
-    ///Holds all the days of the week
+    /// Holds all the days of the week
+    /// - Returns: array of strings, the days of the week
     func getAllWeekDays() -> [String] {
         var allWeekDays: [String] = []
         for i in 0...6 {
@@ -144,15 +150,17 @@ struct MonthView: View {
         return allWeekDays
     }
     
-    ///Determines how many total days there are in the current month and year.
+    /// Determines how many total days there are in the current month and year.
+    /// - Returns: Integer corresponding to last day of the month
     func getLastDayofMonth() -> Int {
         let monthShown = DateComponents(year: year, month: month)
         let lastDay = daysCalendar.range(of: .day, in: .month, for: daysCalendar.date(from: monthShown)!)!
         return lastDay.startIndex.distance(to: lastDay.endIndex)
     }
     
-    ///Determines the first day of the week of the current month and year. So that the first day displayed on the calendar,
-    ///sunday, is "7", and the last day, saturday, is "1." This helps with calendar calculations.
+    /// Determines the first day of the week of the current month and year. So that the first day displayed on the calendar,
+    /// sunday, is "7", and the last day, saturday, is "1." This helps with calendar calculations.
+    /// - Returns: Integer for the first day of the week of current month and year
     func getFirstDayOfWeekReverse() -> Int {
         let weekShown = DateComponents(year: year, month: month, weekOfMonth: 1)
         let firstWeekday = daysCalendar.date(from: weekShown)!
@@ -162,7 +170,8 @@ struct MonthView: View {
         return (reversedDays.firstIndex(of: firstWeekday)!+1)
     }
     
-    ///Returns the number of calendar weeks Sunday-Saturday weeks covered by the days in the month
+    ///Helper function to get the number of weeks for each month
+    /// - Returns: Number of calendar weeks Sunday-Saturday weeks covered by the days in the month
     func getNumberOfWeeks() -> Int {
         let firstWeekday = getFirstDayOfWeekReverse()
         let totalDays = getLastDayofMonth()
@@ -200,7 +209,7 @@ struct DayCell: View {
     }
 }
 
-//The content of an individual rectangle that does not correspond to a day on our calendar.
+///The content of an individual rectangle that does not correspond to a day on our calendar.
 struct EmptyCell: View {
     
     var body: some View {

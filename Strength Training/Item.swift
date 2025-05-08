@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 @Model
-//Class helps saves the data for the user
+/// Class helps saves the data for the user
 final class Item {
     var timestamp: Date
         var muscleGroups: [String: Bool]

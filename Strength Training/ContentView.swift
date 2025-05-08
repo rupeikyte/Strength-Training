@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-///Renders the main UI of the Strength Training program
+/// Renders the main UI of the Strength Training program
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext

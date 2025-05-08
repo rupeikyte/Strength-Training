@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-///The destination that clicking on a daycell showcases. This includes the buttons to add muscle group information to the day, and the corresponding text from the day of the WorkoutCalendar.
+/// The destination that clicking on a daycell showcases. This includes the buttons to add muscle group information to the day, and the corresponding text from the day of the WorkoutCalendar.
 struct DayCard: View {
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
     let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
@@ -53,7 +53,7 @@ struct DayCard: View {
     }
 }
 
-//Structure that portrays each day of our calendar, works with what the user can click and see for each day, essentially the other screen that we have programmed.
+/// Structure that portrays each day of our calendar, works with what the user can click and see for each day, essentially the other screen that we have programmed.
 struct DayView: View {
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
