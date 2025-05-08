@@ -106,7 +106,7 @@ struct NotificationCell: View {
         return notifications
     }
     
-    
+    //Translates the day number of the month to the day of the week
     func dayNumberToWeekdayName(dayNumber: Int) -> String {
         let weekdayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
         let weekdayIndex = (dayNumber - 1) % 7

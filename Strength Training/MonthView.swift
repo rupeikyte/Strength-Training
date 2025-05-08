@@ -205,6 +205,7 @@ struct DayCell: View {
     }
 }
 
+//The content of an individual rectangle that does not correspond to a day on our calendar.
 struct EmptyCell: View {
     
     var body: some View {

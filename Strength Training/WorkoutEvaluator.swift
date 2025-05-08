@@ -36,7 +36,7 @@ struct WorkoutEvaluator {
         return result
     }
     
-    
+    //Function that catches if users choose the same muscle groups on back to back days
     func dayOverload(in days: [WorkoutDay]) -> Bool {
         var consecutiveWorkoutDays = 0
         
@@ -57,6 +57,7 @@ struct WorkoutEvaluator {
         return false
     }
     
+    //Function that looks throughout the user's month and catches if the user has not chosen every muscle group at least once throughout the month.
     func isEverythingGettingTrained(in days: [WorkoutDay]) -> Bool {
         //create a dictionary to track if each muscle group has been trained
         var muscleGroupsCovered = Dictionary(

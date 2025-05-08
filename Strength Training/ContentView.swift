@@ -8,7 +8,7 @@
 import SwiftUI
 import SwiftData
 
-
+//Renders the main UI of our program
 struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext

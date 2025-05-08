@@ -53,6 +53,7 @@ struct DayCard: View {
     }
 }
 
+//Structure that portrays each day of our calendar, works with what the user can click and see for each day, essentially the other screen that we have programmed.
 struct DayView: View {
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
