@@ -24,7 +24,18 @@ private let workoutsByMuscleGroup: [String: [Workout]] = [
     "Arms": [
         Workout(name: "Preacher Curls", muscleGroup: "Arms", description: "Bicep exercise using a preacher bench"),
         Workout(name: "Seated Concentration Curls", muscleGroup: "Arms", description: "Isolated bicep exercise"),
-        Workout(name: "Cable Curls", muscleGroup: "Arms", description: "Bicep exercise using cable machine")
+        Workout(name: "Cable Curls", muscleGroup: "Arms", description: "Bicep exercise using cable machine"),
+        Workout(name: "Tricep Machine", muscleGroup: "Arms", description: "Seated tricep extension press"),
+        Workout(name: "Hammer Curls", muscleGroup: "Arms", description: "Neutral-grip bicep strengthening"),
+        Workout(name: "Cable Pushdowns", muscleGroup: "Arms", description: "Controlled tricep rope extensions"),
+        Workout(name: "Standing Bicep Curls DB", muscleGroup: "Arms", description: "Upright dumbbell arm curls"),
+        Workout(name: "Dumbbell Pullover", muscleGroup: "Arms", description: "Chest and lats stretch"),
+        Workout(name: "Barbell Curl", muscleGroup: "Arms", description: "Standard heavy bicep curl"),
+        Workout(name: "Overhead Tricep Extensions", muscleGroup: "Arms", description: "Arms raised tricep stretch"),
+        Workout(name: "Bicep Curl Machine", muscleGroup: "Arms", description: "Guided bicep contraction workout"),
+        Workout(name: "Zottman Curls", muscleGroup: "Arms", description: "Curl with twist-down motion")
+
+        
     ],
     "Back": [
         Workout(name: "Neutral Grip Pulldowns", muscleGroup: "Back", description: "Lat exercise using cable machine"),
