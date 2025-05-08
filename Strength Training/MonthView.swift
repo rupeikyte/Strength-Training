@@ -23,7 +23,7 @@ struct MonthView: View {
         let firstWeekday = getFirstDayOfWeek()
         let totalMonthDay = getLastDayofMonth()
         let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
-        let numOfWeeks = getNumberOfWeeks()
+        @State var numOfWeeks = getNumberOfWeeks()
         
         ZStack {
             GeometryReader { geometry in
@@ -86,7 +86,7 @@ struct MonthView: View {
                                 //and the first day starts on sunday. Therefore, four weeks
                                 //will be displayed.
                                 //
-                                ForEach(0..<numOfWeeks) { week in
+                                ForEach(0..<numOfWeeks, id: \.self) { week in
                                     
                                     let dayOfMonth = (week * 7 + dayOfWeek+1) - firstWeekday
                                     if dayOfMonth >= 1 && dayOfMonth <= totalMonthDay,
