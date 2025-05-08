@@ -50,7 +50,7 @@ struct MonthView: View {
                         
                         Text(calendarTitle(for: month, year: year))
                             .font(.custom("Georgia", size: 35))
-                            
+                        
                         Button {
                             if month == 12 {
                                 month = 1
@@ -79,7 +79,7 @@ struct MonthView: View {
                                     .padding(.top, 10)
                                     .border(Color.brown, width: 1)
                                     .background(bgBrown)
-                            
+                                
                                 ///The code below adjust for how many weeks there are in the month, and creates the necessary empty cells to maintain the rectangle shape of the calendar
                                 ForEach(0..<numOfWeeks, id: \.self) { week in
                                     
@@ -191,7 +191,12 @@ var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 /// The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
 struct DayCell: View {
     @ObservedObject var day: WorkoutDay
-        
+    
+    
+    var notifications: [String] {
+        generateNotifications()
+    }
+    
     var body: some View {
         ZStack {
             bgBlue.opacity(0.7)
@@ -205,7 +210,20 @@ struct DayCell: View {
             }
             .background(RoundedRectangle(cornerRadius: 5)
                 .fill( Color.green.opacity(0.5) ))
+            
+            if !notifications.isEmpty {
+                Image(systemName: "exclamationmark.triangle.fill")
+                    .foregroundColor(.yellow)
+                    .position(x: 15, y: 15)
+                    .help(notifications.joined(separator: "\n"))
+            }
         }
+    }
+    
+    
+    func generateNotifications() -> [String] {
+        return ["MEssage 1", "Message 2", "Message 3"]
+        //    return []
     }
 }
 
@@ -220,7 +238,6 @@ struct EmptyCell: View {
         .background(Color.brown.opacity(0.5))
     }
 }
-
 
 
 
