@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-// All muscle groups tracked in the app.
+///All muscle groups tracked in the app.
 let muscleGroupNames = ["Arms", "Shoulder", "Leg", "Back", "Chest", "Abs"]
 
 let daysCalendar = Locale.current.calendar

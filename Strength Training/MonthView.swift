@@ -51,7 +51,6 @@ struct MonthView: View {
                         Text(calendarTitle(for: month, year: year))
                             .font(.custom("Georgia", size: 35))
                             
-                        
                         Button {
                             if month == 12 {
                                 month = 1
@@ -80,18 +79,13 @@ struct MonthView: View {
                                     .padding(.top, 10)
                                     .border(Color.brown, width: 1)
                                     .background(bgBrown)
-                                
-                                //Three conditionals below account for minimum number of weeks that should be displayed
-                                //This first conditional checks if there are 28 days in the month,
-                                //and the first day starts on sunday. Therefore, four weeks
-                                //will be displayed.
-                                //
+                            
+                                ///The code below adjust for how many weeks there are in the month, and creates the necessary empty cells to maintain the rectangle shape of the calendar
                                 ForEach(0..<numOfWeeks, id: \.self) { week in
                                     
                                     let dayOfMonth = (week * 7 + dayOfWeek+1) - firstWeekday
                                     if dayOfMonth >= 1 && dayOfMonth <= totalMonthDay,
-                                       let date = daysCalendar.date(from: DateComponents(year: year, month: month, day: dayOfMonth))
-                                    {
+                                       let date = daysCalendar.date(from: DateComponents(year: year, month: month, day: dayOfMonth)) {
                                         let workoutDay = calendar.workoutDay(forDate: date)
                                         NavigationLink(
                                             destination:
@@ -168,6 +162,7 @@ struct MonthView: View {
         return (reversedDays.firstIndex(of: firstWeekday)!+1)
     }
     
+    ///Returns the number of calendar weeks Sunday-Saturday weeks covered by the days in the month
     func getNumberOfWeeks() -> Int {
         let firstWeekday = getFirstDayOfWeekReverse()
         let totalDays = getLastDayofMonth()

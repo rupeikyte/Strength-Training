@@ -76,13 +76,9 @@ struct DayView: View {
                                         .background(Color(white: 0.85))
                                 }
                         }
-//                        .padding(.leading, 10)
-//                        .padding([.top, .bottom], 10)
                     }
                 }
             }
-//            .padding(.trailing, 10)
-            
             HStack {
                 ForEach(muscleGroupNames, id: \.self) { group in
                     Button(action: {
@@ -97,7 +93,6 @@ struct DayView: View {
                             .frame(maxWidth: .infinity, minHeight: 60)
                             .font(.custom("Georgia", size: 25))
                     }
-                    
                     .padding([.leading, .trailing], 15)
                     .padding(.bottom, 15)
                     .buttonStyle(.borderedProminent)
@@ -109,10 +104,7 @@ struct DayView: View {
             .buttonStyle(PlainButtonStyle())
         }
         .padding([.leading, .trailing, .top, .bottom], 10)
-
-
     }
-        
 }
 
 

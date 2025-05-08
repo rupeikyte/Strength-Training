@@ -36,42 +36,40 @@ struct WorkoutEvaluator {
         return result
     }
     
-    //Function that catches if users choose the same muscle groups on back to back days
+    ///Function that catches if users choose the same muscle groups on back to back days
     func dayOverload(in days: [WorkoutDay]) -> Bool {
         var consecutiveWorkoutDays = 0
         
         for day in days {
-            //check if any muscle group is trained on this day
+            ///check if any muscle group is trained on this day
             let isWorkoutDay = !day.muscleGroups.isEmpty
             
             if isWorkoutDay {
                 consecutiveWorkoutDays += 1
                 if consecutiveWorkoutDays >= 4 {
-                    return true //overload detected
+                    return true ///overload detected
                 }
             } else {
-                consecutiveWorkoutDays = 0 //reset counter on rest day
+                consecutiveWorkoutDays = 0 ///reset counter on rest day
             }
         }
-        
         return false
     }
     
-    //Function that looks throughout the user's month and catches if the user has not chosen every muscle group at least once throughout the month.
+    ///Function that looks throughout the user's month and catches if the user has not chosen every muscle group at least once throughout the month.
     func isEverythingGettingTrained(in days: [WorkoutDay]) -> Bool {
-        //create a dictionary to track if each muscle group has been trained
+        ///create a dictionary to track if each muscle group has been trained
         var muscleGroupsCovered = Dictionary(
             uniqueKeysWithValues: muscleGroupNames.map { ($0, false) }
         )
         
-        //check each day's muscle groups
+        ///check each day's muscle groups
         for day in days {
             for muscle in day.muscleGroups {
                 muscleGroupsCovered[muscle] = true
             }
         }
-        
-        //return false if any muscle group hasn't been trained
+        ///return false if any muscle group hasn't been trained
         return !muscleGroupsCovered.values.contains(false)
     }
     

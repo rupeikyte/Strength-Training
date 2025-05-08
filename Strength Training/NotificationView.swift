@@ -15,11 +15,7 @@ struct NotificationView: View {
     var calendar: WorkoutCalendar
     var weekCount: Int
     var body: some View {
-//        let weeks = splitDaysIntoWeeks(days: calendar.days, numberOfWeeks: weekCount)
         let weeks: [[WorkoutDay]] = [] // TODO: make this workagain! splitDaysIntoWeeks(days: calendar.days)
-        
-        ///
-       
         
 //        calendar.days.keys.contains(where: { $0.year == 2025 && $0.month == 4 && $0.day == 21 })
         

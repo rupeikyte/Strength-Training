@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//Structure that allows us to make workouts to display for the user.
+///Structure that allows us to make workouts to display for the user.
 struct Workout: Identifiable {
     let name: String
     let muscleGroup: String
@@ -17,7 +17,7 @@ struct Workout: Identifiable {
     
 }
 
-//Function that takes in a certain muscle group and will return a workout, for the DayCard so that when user chooses a muscle group they can see workouts attached to it.
+///Function that takes in a certain muscle group and will return a workout, for the DayCard so that when user chooses a muscle group they can see workouts attached to it.
 func workouts(for muscleGroup: String) -> [Workout] {
     return workoutsByMuscleGroup[muscleGroup] ?? []
 }
