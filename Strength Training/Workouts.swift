@@ -70,6 +70,14 @@ private let workoutsByMuscleGroup: [String: [Workout]] = [
         Workout(name: "Left Side Plank", muscleGroup: "Abs", description: "Core and oblique exercise"),
         Workout(name: "Lower Ab Crunches", muscleGroup: "Abs", description: "Lower abdominal exercise"),
         Workout(name: "Bicycle Crunches", muscleGroup: "Abs", description: "Dynamic core exercise"),
+        Workout(name: "Sit Ups", muscleGroup: "Abs", description: "Classic abdominal crunch motion"),
+        Workout(name: "Abs Machine", muscleGroup: "Abs", description: "Weighted core contraction machine"),
+        Workout(name: "Knee Tucks", muscleGroup: "Abs", description: "Tucked-leg abdominal movement"),
+        Workout(name: "Heel Taps", muscleGroup: "Abs", description: "Side-to-side oblique taps"),
+        Workout(name: "Deadbug", muscleGroup: "Abs", description: "Core-stabilizing limb extensions"),
+        Workout(name: "Flutter Kicks", muscleGroup: "Abs", description: "Rapid alternating leg kicks"),
+        Workout(name: "Half Wipers", muscleGroup: "Abs", description: "Rotational leg core twists"),
+        Workout(name: "Hand Plank with Shoulder Taps", muscleGroup: "Abs", description: "Plank with alternating taps"),
         Workout(name: "Ukrainian Twists", muscleGroup: "Abs", description: "Rotational core exercise"),
         Workout(name: "High Boat to Low Boat", muscleGroup: "Abs", description: "Core stability exercise")
     ]
