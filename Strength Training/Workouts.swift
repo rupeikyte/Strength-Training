@@ -17,7 +17,9 @@ struct Workout: Identifiable {
     
 }
 
-///Function that takes in a certain muscle group and will return a workout, for the DayCard so that when user chooses a muscle group they can see workouts attached to it.
+/// Function that helps users see workouts for each muscle group
+/// - Parameter muscleGroup: muscle group
+/// - Returns: Array of workouts
 func workouts(for muscleGroup: String) -> [Workout] {
     return workoutsByMuscleGroup[muscleGroup] ?? []
 }
