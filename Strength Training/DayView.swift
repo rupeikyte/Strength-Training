@@ -71,6 +71,7 @@ struct DayView: View {
                                 .overlay(alignment: .top) {
                                     Text(group)
                                         .font(.custom("Georgia", size: 20))
+                                        .fontWeight(.bold)
                                         .frame(maxWidth: .infinity, maxHeight: 50)
                                         .border(Color.brown, width:2)
                                         .background(Color(white: 0.85))
