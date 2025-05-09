@@ -47,7 +47,7 @@ class WorkoutDay: Identifiable, ObservableObject, Codable {
 }
 
 /// A calendar of days with its associated workouts
-class WorkoutCalendar {
+class WorkoutCalendar: ObservableObject {
     private var days: DayDictionary = [:]
     typealias DayDictionary = [Date: WorkoutDay]
     
@@ -58,6 +58,10 @@ class WorkoutCalendar {
         let newWorkout = WorkoutDay(date: date)
         days[date] = newWorkout
         return newWorkout
+    }
+    
+    func notifyAll() {
+        objectWillChange.send()
     }
     
     private let saveKey = "WorkoutCalendarSaveKey"
@@ -82,9 +86,26 @@ class WorkoutCalendar {
         }
     }
     
-    
-    func getAllDays() -> DayDictionary {
-            return days
+    func getAllBackToBack() -> [Date: [String]] {
+        let sortedDays = days.sorted(by: { $0.key < $1.key })
+            var result: [Date: [String]] = [:]
+
+            for i in 1..<sortedDays.count {
+                let prev = sortedDays[i - 1]
+                let curr = sortedDays[i]
+
+                ///heck if they are consecutive dates
+                let dayAfterPrev = daysCalendar.date(byAdding: .day, value: 1, to: daysCalendar.startOfDay(for: prev.key))!
+                let currDay = daysCalendar.startOfDay(for: curr.key)
+
+                if currDay == dayAfterPrev {
+                                let repeated = prev.value.muscleGroups.intersection(curr.value.muscleGroups)
+                                if !repeated.isEmpty {
+                                    result[curr.key] = Array(repeated)
+                                }
+                }
+            }
+            return result
         }
 }
 
