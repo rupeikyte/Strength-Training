@@ -12,7 +12,7 @@ import SwiftUI
 /// Highlights days that repeat the same muscle group back-to-back in red.
 struct MonthView: View {
     
-    var calendar: WorkoutCalendar
+    @ObservedObject var calendar: WorkoutCalendar
     let daysCalendar = Locale.current.calendar
     
     @State var month: Int
@@ -90,7 +90,7 @@ struct MonthView: View {
                                         let workoutDay = calendar.workoutDay(forDate: date)
                                         NavigationLink(
                                             destination:
-                                                DayView(day: workoutDay, onChange: { calendar.save() }),
+                                                DayView(day: workoutDay, onChange: { calendar.save();calendar.notifyAll()  }),
                                             
                                             
                                             label: {
@@ -202,7 +202,7 @@ var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 /// The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
 struct DayCell: View {
     @ObservedObject var day: WorkoutDay
-    var calendar: WorkoutCalendar
+    @ObservedObject var calendar: WorkoutCalendar
     
     var notifications: [String] {
         generateNotifications()
@@ -238,8 +238,7 @@ struct DayCell: View {
 //    }
     
     func generateNotifications() -> [String] {
-        let allDays = calendar.getAllDays()
-        let backToBack = WorkoutEvaluator.getAllBackToBack(in: Array(allDays.values))
+        let backToBack = calendar.getAllBackToBack()
 
         if let muscleGroups = backToBack[day.date] {
             return muscleGroups.map { "\($0) is programmed on too many days in a row!" }

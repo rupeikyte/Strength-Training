@@ -14,33 +14,28 @@ struct WorkoutEvaluator {
     /// function that catches if a user chooses to workout the same muscle group on back to back days
     /// - Parameter days: Array of workout days
     /// - Returns: An array of an array of integers giving us two integers per array
-    static func getAllBackToBack(in workoutDays: [WorkoutDay]) -> [Date: [String]] {
-        var result: [Date: [String]] = [:]
-        
-        for muscleGroup in muscleGroupNames {
-            var dayBeforeWithThisMuscle: WorkoutDay? = nil
-            
-            let sortedWorkoutDays = workoutDays.sorted(by: { $0.date < $1.date })
-            for currentWorkoutDay in sortedWorkoutDays {
-                if currentWorkoutDay.muscleGroups.contains(muscleGroup) {
-                    if let previousWorkout = dayBeforeWithThisMuscle {
-                        let calendar = Calendar.current
-                        if let nextDay = calendar.date(byAdding: .day, value: 1, to: previousWorkout.date) {
-                            if calendar.isDate(nextDay, inSameDayAs: currentWorkoutDay.date) {
-                                result[currentWorkoutDay.date, default: []].append(muscleGroup)
-                                result[previousWorkout.date, default: []].append(muscleGroup)
-                            }
-                        }
-                    }
-                    dayBeforeWithThisMuscle = currentWorkoutDay
-                } else {
-                    dayBeforeWithThisMuscle = nil
-                }
-            }
-        }
-        
-        return result
-    }
+//    static func getAllBackToBack(in days: [WorkoutDay]) -> [Date: [String]] {
+//            let sortedDays = days.sorted(by: { $0.date < $1.date })
+//            var result: [Date: [String]] = [:]
+//
+//            for i in 1..<sortedDays.count {
+//                let prev = sortedDays[i - 1]
+//                let curr = sortedDays[i]
+//
+//                ///heck if they are consecutive dates
+//                let calendar = Calendar.current
+//                let dayAfterPrev = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: prev.date))!
+//                let currDay = calendar.startOfDay(for: curr.date)
+//
+//                if currDay == dayAfterPrev {
+//                    let repeated = prev.muscleGroups.intersection(curr.muscleGroups)
+//                    if !repeated.isEmpty {
+//                        result[curr.date] = Array(repeated)
+//                    }
+//                }
+//            }
+//            return result
+//        }
     
     //    static func getAllBackToBack(in days: [WorkoutDay]) -> [String: [[Int]]] {
     //        var result: [String: [[Int]]] = [:]
