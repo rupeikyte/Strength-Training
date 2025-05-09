@@ -12,9 +12,7 @@ struct Workout: Identifiable {
     let name: String
     let muscleGroup: String
     let description: String
-    
     let id = UUID()
-    
 }
 
 /// Function that helps users see workouts for each muscle group

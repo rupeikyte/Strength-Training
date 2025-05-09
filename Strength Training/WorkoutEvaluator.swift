@@ -112,6 +112,12 @@ struct WorkoutEvaluator {
     }
     
     
+    ///Function that looks through a period of seven days, and checks if a certain muscle group has been trained within the next seven days twice.
+//    func groupTwicePerWeek(in workoutDays: [WorkoutDay]) -> [Date: [String]] {
+//        
+//    }
+    
+    
     //    func isThereCorrectMuscleRepetition(in days: [WorkoutDay]) -> Bool {
     //        var muscleGroupsCovered = Dictionary(
     //            uniqueKeysWithValues: muscleGroupNames.map { ($0, uniqueKeysWithValues: muscleGroupNames.map { ($0, false) }) }
