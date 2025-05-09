@@ -5,6 +5,8 @@
 //  Created by Noel Raehl on 4/11/25.
 //
 
+import SwiftUI
+
 // Provides logic for evaluating workout patterns across days.
 // Currently keeps track of days with back to back programming of identical muscle groups
 struct WorkoutEvaluator {
@@ -12,32 +14,61 @@ struct WorkoutEvaluator {
     /// function that catches if a user chooses to workout the same muscle group on back to back days
     /// - Parameter days: Array of workout days
     /// - Returns: An array of an array of integers giving us two integers per array
-    static func getAllBackToBack(in days: [WorkoutDay]) -> [String: [[Int]]] {
-        var result: [String: [[Int]]] = [:]
+    static func getAllBackToBack(in workoutDays: [WorkoutDay]) -> [Date: [String]] {
+        var result: [Date: [String]] = [:]
         
-        for muscle in muscleGroupNames {
-            var currentStreak: [Int] = []
+        for muscleGroup in muscleGroupNames {
+            var dayBeforeWithThisMuscle: WorkoutDay? = nil
             
-            for i in 0..<days.count {
-//                if days[i].muscleGroups[muscle] == true {
-//                    if currentStreak.isEmpty || days[i].dayNumber == currentStreak.last! + 1 {
-//                        currentStreak.append(days[i].dayNumber)
-//                    } else {
-//                        if currentStreak.count > 1 {
-//                            result[muscle, default: []].append(currentStreak)
-//                        }
-//                        currentStreak = [days[i].dayNumber]
-//                    }
-//                }
-            }
-            
-            if currentStreak.count > 1 {
-                result[muscle, default: []].append(currentStreak)
+            let sortedWorkoutDays = workoutDays.sorted(by: { $0.date < $1.date })
+            for currentWorkoutDay in sortedWorkoutDays {
+                if currentWorkoutDay.muscleGroups.contains(muscleGroup) {
+                    if let previousWorkout = dayBeforeWithThisMuscle {
+                        let calendar = Calendar.current
+                        if let nextDay = calendar.date(byAdding: .day, value: 1, to: previousWorkout.date) {
+                            if calendar.isDate(nextDay, inSameDayAs: currentWorkoutDay.date) {
+                                result[currentWorkoutDay.date, default: []].append(muscleGroup)
+                                result[previousWorkout.date, default: []].append(muscleGroup)
+                            }
+                        }
+                    }
+                    dayBeforeWithThisMuscle = currentWorkoutDay
+                } else {
+                    dayBeforeWithThisMuscle = nil
+                }
             }
         }
         
         return result
     }
+    
+    //    static func getAllBackToBack(in days: [WorkoutDay]) -> [String: [[Int]]] {
+    //        var result: [String: [[Int]]] = [:]
+    //
+    //        for muscle in muscleGroupNames {
+    //            var currentStreak: [Int] = []
+    //
+    //            for i in 0..<days.count {
+    ////                if days[i].muscleGroups[muscle] == true {
+    ////                    if currentStreak.isEmpty || days[i].dayNumber == currentStreak.last! + 1 {
+    ////                        currentStreak.append(days[i].dayNumber)
+    ////                    } else {
+    ////                        if currentStreak.count > 1 {
+    ////                            result[muscle, default: []].append(currentStreak)
+    ////                        }
+    ////                        currentStreak = [days[i].dayNumber]
+    ////                    }
+    ////                }
+    //            }
+    //
+    //            if currentStreak.count > 1 {
+    //                result[muscle, default: []].append(currentStreak)
+    //            }
+    //        }
+    //
+    //        return result
+    //    }
+    
     
     /// Function that catches if users choose too many workouts in a row, not accounting for a rest day.
     /// - Parameter days: Array of workout days

@@ -92,7 +92,7 @@ struct MonthView: View {
                                                 DayView(day: workoutDay, onChange: { calendar.save() }),
                                             
                                             label: {
-                                                DayCell(day: workoutDay)
+                                                DayCell(day: workoutDay, calendar: calendar)
                                                     .border(Color.brown, width: 1)
                                                     .overlay(alignment: .bottomTrailing) {
                                                         Text("\(dayOfMonth)")
@@ -191,7 +191,7 @@ var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 /// The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
 struct DayCell: View {
     @ObservedObject var day: WorkoutDay
-    
+    var calendar: WorkoutCalendar
     
     var notifications: [String] {
         generateNotifications()
@@ -220,10 +220,22 @@ struct DayCell: View {
         }
     }
     
+//    TODO: remove this test func
+//    func generateNotifications() -> [String] {
+//        return ["MEssage 1", "Message 2", "Message 3"]
+//        //    return []
+//    }
+    
     
     func generateNotifications() -> [String] {
-        return ["MEssage 1", "Message 2", "Message 3"]
-        //    return []
+        let allDays = calendar.getAllDays()
+        let backToBack = WorkoutEvaluator.getAllBackToBack(in: Array(allDays.values))
+
+        if let muscleGroups = backToBack[day.date] {
+            return muscleGroups.map { "\($0) is programmed on too many days in a row!" }
+        } else {
+            return []
+        }
     }
 }
 
