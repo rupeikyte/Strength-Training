@@ -94,14 +94,19 @@ struct MonthView: View {
                                             
                                             
                                             label: {
-                                                DayCell(day: workoutDay)
-                                                    
+//<<<<<<< HEAD
+//                                                DayCell(day: workoutDay)
+//                                                    
+//=======
+                                                DayCell(day: workoutDay, calendar: calendar)
+
                                                     .border(Color.brown, width: 1)
                                                     .overlay(alignment: .bottomTrailing) {
                                                         Text("\(dayOfMonth)")
                                                             .font(.custom("Georgia", size: 20))
                                                             .padding(.trailing, 5)
                                                             .padding(.bottom, 5)
+                                                            .minimumScaleFactor(0.01)
                                                     }
 //                                                    .lineLimit(1)
                                                     .minimumScaleFactor(0.5)
@@ -200,6 +205,8 @@ var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 struct DayCell: View {
     @ObservedObject var day: WorkoutDay
 
+    var calendar: WorkoutCalendar
+    
     var notifications: [String] {
         generateNotifications()
     }
@@ -213,13 +220,10 @@ struct DayCell: View {
                     if day.muscleGroups.contains(group) {
                         Text("\(group)")
                             .font(.custom("Georgia", size: 20))
+                            .minimumScaleFactor(0.01)
                     }
                 }
             }
-            
-//            .background(RoundedRectangle(cornerRadius: 5)
-//                .fill( Color.green.opacity(0.5) ))
-            
             
             if !notifications.isEmpty {
                 Image(systemName: "exclamationmark.triangle.fill")
@@ -228,27 +232,26 @@ struct DayCell: View {
                     .help(notifications.joined(separator: "\n"))
             }
         }
-//        .overlay(content: {
-//            VStack {
-//                ForEach(muscleGroupNames, id: \.self) { group in
-//                    if day.muscleGroups.contains(group) {
-//                        Text("\(group)")
-//                            .font(.custom("Georgia", size: 17))
-////                            .frame(height:10)
-//                    }
-//                }
-//            }
-////            .padding(30)
-////            .frame(height:50)
-//        })
-        
     }
     
 
 
+//    TODO: remove this test func
+//    func generateNotifications() -> [String] {
+//        return ["MEssage 1", "Message 2", "Message 3"]
+//        //    return []
+//    }
+    
+    
     func generateNotifications() -> [String] {
-        return ["MEssage 1", "Message 2", "Message 3"]
-        //    return []
+        let allDays = calendar.getAllDays()
+        let backToBack = WorkoutEvaluator.getAllBackToBack(in: Array(allDays.values))
+
+        if let muscleGroups = backToBack[day.date] {
+            return muscleGroups.map { "\($0) is programmed on too many days in a row!" }
+        } else {
+            return []
+        }
     }
 }
 

@@ -81,5 +81,10 @@ class WorkoutCalendar {
             days = decoded
         }
     }
+    
+    
+    func getAllDays() -> DayDictionary {
+            return days
+        }
 }
 
