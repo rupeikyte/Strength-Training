@@ -65,6 +65,7 @@ struct MonthView: View {
                         .buttonStyle(PlainButtonStyle())
                     }
                     .frame(width: geometry.size.width)
+                    
                     .padding(.vertical, 10)
                     .background(Color(white: 0.85))
                     
@@ -91,8 +92,10 @@ struct MonthView: View {
                                             destination:
                                                 DayView(day: workoutDay, onChange: { calendar.save() }),
                                             
+                                            
                                             label: {
                                                 DayCell(day: workoutDay)
+                                                    
                                                     .border(Color.brown, width: 1)
                                                     .overlay(alignment: .bottomTrailing) {
                                                         Text("\(dayOfMonth)")
@@ -100,12 +103,17 @@ struct MonthView: View {
                                                             .padding(.trailing, 5)
                                                             .padding(.bottom, 5)
                                                     }
+//                                                    .lineLimit(1)
+                                                    .minimumScaleFactor(0.5)
+//                                                    .navigationTitle(Text("hi"))
+                                                    
                                             })
                                     } else {
                                         EmptyCell()
                                     }
                                 }
                                 .buttonStyle(PlainButtonStyle())
+                                
                             }
                         }
                     }
@@ -171,7 +179,7 @@ struct MonthView: View {
     }
     
     ///Helper function to get the number of weeks for each month
-    /// - Returns: Number of calendar weeks Sunday-Saturday weeks covered by the days in the month
+    /// - Returns: Number of calendar Sunday-Saturday weeks covered by the days in the month
     func getNumberOfWeeks() -> Int {
         let firstWeekday = getFirstDayOfWeekReverse()
         let totalDays = getLastDayofMonth()
@@ -191,8 +199,7 @@ var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 /// The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
 struct DayCell: View {
     @ObservedObject var day: WorkoutDay
-    
-    
+
     var notifications: [String] {
         generateNotifications()
     }
@@ -200,6 +207,7 @@ struct DayCell: View {
     var body: some View {
         ZStack {
             bgBlue.opacity(0.7)
+            
             VStack {
                 ForEach(muscleGroupNames, id: \.self) { group in
                     if day.muscleGroups.contains(group) {
@@ -208,19 +216,36 @@ struct DayCell: View {
                     }
                 }
             }
-            .background(RoundedRectangle(cornerRadius: 5)
-                .fill( Color.green.opacity(0.5) ))
+            
+//            .background(RoundedRectangle(cornerRadius: 5)
+//                .fill( Color.green.opacity(0.5) ))
+            
             
             if !notifications.isEmpty {
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .foregroundColor(.yellow)
+                    .foregroundColor(.red.opacity(0.75))
                     .position(x: 15, y: 15)
                     .help(notifications.joined(separator: "\n"))
             }
         }
+//        .overlay(content: {
+//            VStack {
+//                ForEach(muscleGroupNames, id: \.self) { group in
+//                    if day.muscleGroups.contains(group) {
+//                        Text("\(group)")
+//                            .font(.custom("Georgia", size: 17))
+////                            .frame(height:10)
+//                    }
+//                }
+//            }
+////            .padding(30)
+////            .frame(height:50)
+//        })
+        
     }
     
-    
+
+
     func generateNotifications() -> [String] {
         return ["MEssage 1", "Message 2", "Message 3"]
         //    return []
