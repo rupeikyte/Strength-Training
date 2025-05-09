@@ -99,6 +99,7 @@ struct MonthView: View {
                                                             .font(.custom("Georgia", size: 20))
                                                             .padding(.trailing, 5)
                                                             .padding(.bottom, 5)
+                                                            .minimumScaleFactor(0.01)
                                                     }
                                             })
                                     } else {
@@ -205,6 +206,7 @@ struct DayCell: View {
                     if day.muscleGroups.contains(group) {
                         Text("\(group)")
                             .font(.custom("Georgia", size: 20))
+                            .minimumScaleFactor(0.01)
                     }
                 }
             }
