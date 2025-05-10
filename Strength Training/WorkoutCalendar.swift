@@ -149,5 +149,33 @@ class WorkoutCalendar: ObservableObject {
         return result
     }
     
+    
+    
+    func isEverythingGettignTrained(month: Int, year: Int) -> Set<String> {
+        let allMuscleGroupsSet = Set(muscleGroupNames)
+        
+        let workoutDaysInMonth = getWorkoutDays(days: Array(self.days.values), forMonth: month, year: year)
+        
+        var trainedMusccleGroups: Set<String> = []
+        
+        for day in workoutDaysInMonth{
+            trainedMusccleGroups.formUnion(day.muscleGroups)
+        }
+        let untrainedMuscleGroups = allMuscleGroupsSet.subtracting(trainedMusccleGroups)
+        
+        return untrainedMuscleGroups
+        
+        
+    }
+    
+    func getWorkoutDays(days: [WorkoutDay], forMonth month: Int, year: Int) -> [WorkoutDay]{
+        let daysCalendar = Locale.current.calendar
+        return days.filter { day in
+            let dayMonth = daysCalendar.component(.month, from: day.date)
+            let dayYear = daysCalendar.component(.year, from: day.date)
+            return dayMonth == month && dayYear == year
+        }
+    }
+    
 }
 
