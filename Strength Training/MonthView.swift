@@ -18,6 +18,10 @@ struct MonthView: View {
     @State var month: Int
     @State var year: Int
     
+    var monthNotification: String {
+            generateMonthNotification()
+        }
+    
     var body: some View {
         
         let firstWeekday = getFirstDayOfWeek()
@@ -33,6 +37,14 @@ struct MonthView: View {
                     //next to a right button. The left and right buttons are for scrolling
                     //through months
                     HStack {
+                        
+                        if !monthNotification.isEmpty {
+                                                   Image(systemName: "exclamationmark.triangle.fill")
+                                                       .resizable()
+                                                       .frame(width: 25.0, height: 25.0)
+                                                       .foregroundColor(.yellow)
+                                                       .help("\(monthNotification)")
+                                               }
                         
                         Button {
                             if month == 1 {
@@ -192,6 +204,22 @@ struct MonthView: View {
             return 6
         }
     }
+    
+    func generateMonthNotification() -> String {
+            var notification = ""
+            
+        let untrainedMuscleGroups = calendar.isEverythingGettignTrained(month: month, year: year)
+            let sortedUntrainedGroups = untrainedMuscleGroups.sorted()
+            
+            if !sortedUntrainedGroups.isEmpty {
+                let formattedGroups = sortedUntrainedGroups.joined(separator: ", ")
+                notification = "\(formattedGroups) is not getting trained this month."
+            } else {
+                notification = ""
+            }
+            
+            return notification
+        }
 }
 
 var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)

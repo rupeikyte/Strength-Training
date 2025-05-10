@@ -167,7 +167,6 @@ class WorkoutCalendar: ObservableObject {
         
         return untrainedMuscleGroups
         
-        
     }
     
     func getWorkoutDays(days: [WorkoutDay], forMonth month: Int, year: Int) -> [WorkoutDay]{
