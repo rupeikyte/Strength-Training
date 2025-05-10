@@ -10,9 +10,9 @@ To be able to install the Desktop App the user must download XCode through the A
 
 ___________________
 
-/files-pri/T0F19MNUD-F08RTEYV4D8/screenshot_2025-05-09_at_8.51.14___pm.png
+Users/NathanGumagay/Desktop/Strength-Training/files-pri/T0F19MNUD-F08RTEYV4D8/screenshot_2025-05-09_at_8.51.14___pm.png
 
-/files-pri/T0F19MNUD-F08RBEKTMU7/screenshot_2025-05-09_at_8.51.23___pm.png
+Users/NathanGumagay/Desktop/Strength-Training/files-pri/T0F19MNUD-F08RBEKTMU7/screenshot_2025-05-09_at_8.51.23___pm.png
 
 File Documentation
 

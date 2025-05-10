@@ -8,6 +8,7 @@
 import SwiftUI
 
 @main
+///The app
 struct Strength_TrainingApp: App {
     var body: some Scene {
         WindowGroup {
