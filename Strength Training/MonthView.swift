@@ -221,9 +221,11 @@ struct DayCell: View {
             
             if !notifications.isEmpty {
                 Image(systemName: "exclamationmark.triangle.fill")
+                    .font(.system(size: 26))
                     .foregroundColor(.red.opacity(0.75))
-                    .position(x: 15, y: 15)
+                    .position(x: 20, y: 20)
                     .help(notifications.joined(separator: "\n"))
+                                        
             }
         }
     }
@@ -235,7 +237,6 @@ struct DayCell: View {
         let dayOverload = calendar.dayOverload()
         var tempNotifications: [String] = []
 
-
         if let muscleGroups = backToBack[day.date] {
             tempNotifications += muscleGroups.map { "\($0) is programmed on two days in a row!" }
         }
@@ -246,7 +247,6 @@ struct DayCell: View {
 
         return tempNotifications
     }
-    
 }
 
 ///The content of an individual rectangle that does not correspond to a day on our calendar.

@@ -28,7 +28,7 @@ struct DayCard: View {
                         .background(Color(white: 0.85))
                         .border(Color.brown, width: 2)
                     
-                    ScrollView {
+                    ScrollView(.vertical, showsIndicators: true) {
                         VStack(spacing: 15) {
                             ForEach(workouts(for: muscleGroup)) { workout in
                                 VStack(alignment: .leading, spacing: 5) {
