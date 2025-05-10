@@ -5,6 +5,10 @@
 //  Created by Noel Raehl on 3/27/25.
 //  Code used for scaling the size of text in DayCells: https://stackoverflow.com/questions/57035746/how-to-scale-text-to-fit-parent-view-with-swiftui
 // Code used for guard let: https://www.hackingwithswift.com/forums/100-days-of-swiftui/guard-let-in-swiftui/24223
+// Code for changing background colors https://stackoverflow.com/questions/56437036/swiftui-how-do-i-change-the-background-color-of-a-view
+//Code for foreach loops https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-views-in-a-loop-using-foreach
+// Code for displaying rectangles as daycells https://www.hackingwithswift.com/quick-start/swiftui/how-to-display-solid-shapes
+// Code for using SF Symbols https://www.hackingwithswift.com/articles/237/complete-guide-to-sf-symbols
 
 import SwiftUI
 
