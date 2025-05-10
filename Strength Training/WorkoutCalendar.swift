@@ -93,6 +93,7 @@ class WorkoutCalendar: ObservableObject {
     /// - Returns: An array of an array of integers giving us two integers per array
     func getAllBackToBack() -> [Date: [String]] {
         let sortedDays = days.sorted(by: { $0.key < $1.key })
+
         var result: [Date: [String]] = [:]
         
         for i in 1..<sortedDays.count {
@@ -110,6 +111,7 @@ class WorkoutCalendar: ObservableObject {
                 }
             }
         }
+
         return result
     }
     
