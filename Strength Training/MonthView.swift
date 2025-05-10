@@ -191,6 +191,8 @@ struct MonthView: View {
         }
     }
     
+    /// Generates notifications to the user throughout a schedule,
+    /// - Returns: String, a message about which requirement is missing in a schedule
     func generateMonthNotification() -> String {
             var notification = ""
             
