@@ -230,24 +230,24 @@ struct DayCell: View {
             }
         }
     }
-
-//    TODO: remove this test func
-//    func generateNotifications() -> [String] {
-//        return ["MEssage 1", "Message 2", "Message 3"]
-//        //    return []
-//    }
     
     func generateNotifications() -> [String] {
         let backToBack = calendar.getAllBackToBack()
+        let dayOverload = calendar.dayOverload()
+        var tempNotifications: [String] = []
+
 
         if let muscleGroups = backToBack[day.date] {
-            return muscleGroups.map { "\($0) is programmed on too many days in a row!" }
-        } else {
-            return []
+            tempNotifications += muscleGroups.map { "\($0) is programmed on two days in a row!" }
         }
-        
-//        let oncePerWeek = WorkoutEvaluator.
+
+        if dayOverload[day.date] != nil {
+            tempNotifications.append("You are working out too many days in a row without rest!")
+        }
+
+        return tempNotifications
     }
+    
 }
 
 ///The content of an individual rectangle that does not correspond to a day on our calendar.

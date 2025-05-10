@@ -11,58 +11,9 @@ import SwiftUI
 // Currently keeps track of days with back to back programming of identical muscle groups
 struct WorkoutEvaluator {
     
-    /// function that catches if a user chooses to workout the same muscle group on back to back days
-    /// - Parameter days: Array of workout days
-    /// - Returns: An array of an array of integers giving us two integers per array
-//    static func getAllBackToBack(in days: [WorkoutDay]) -> [Date: [String]] {
-//            let sortedDays = days.sorted(by: { $0.date < $1.date })
-//            var result: [Date: [String]] = [:]
-//
-//            for i in 1..<sortedDays.count {
-//                let prev = sortedDays[i - 1]
-//                let curr = sortedDays[i]
-//
-//                ///heck if they are consecutive dates
-//                let calendar = Calendar.current
-//                let dayAfterPrev = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: prev.date))!
-//                let currDay = calendar.startOfDay(for: curr.date)
-//
-//                if currDay == dayAfterPrev {
-//                    let repeated = prev.muscleGroups.intersection(curr.muscleGroups)
-//                    if !repeated.isEmpty {
-//                        result[curr.date] = Array(repeated)
-//                    }
-//                }
-//            }
-//            return result
-//        }
+
+
     
-    //    static func getAllBackToBack(in days: [WorkoutDay]) -> [String: [[Int]]] {
-    //        var result: [String: [[Int]]] = [:]
-    //
-    //        for muscle in muscleGroupNames {
-    //            var currentStreak: [Int] = []
-    //
-    //            for i in 0..<days.count {
-    ////                if days[i].muscleGroups[muscle] == true {
-    ////                    if currentStreak.isEmpty || days[i].dayNumber == currentStreak.last! + 1 {
-    ////                        currentStreak.append(days[i].dayNumber)
-    ////                    } else {
-    ////                        if currentStreak.count > 1 {
-    ////                            result[muscle, default: []].append(currentStreak)
-    ////                        }
-    ////                        currentStreak = [days[i].dayNumber]
-    ////                    }
-    ////                }
-    //            }
-    //
-    //            if currentStreak.count > 1 {
-    //                result[muscle, default: []].append(currentStreak)
-    //            }
-    //        }
-    //
-    //        return result
-    //    }
     
     
     /// Function that catches if users choose too many workouts in a row, not accounting for a rest day.
