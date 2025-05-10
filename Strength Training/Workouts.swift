@@ -48,10 +48,10 @@ private let workoutsByMuscleGroup: [String: [Workout]] = [
         Workout(name:"Rear Delt Cable Flys", muscleGroup: "Back", description: "Cable single arm pull across body"),
         Workout(name: "Knee down Cable Pull", muscleGroup: "Back", description: "Lat excercise using cable (single arm)"),
         Workout(name: "T Bar Rows", muscleGroup: "Back", description: "Row using a T-Bar on 45 degree bench"),
-        Workout(name: "Chin Ups", muscleGroup: "Back", description: "Compound excercise targeting only lats"),
+        Workout(name: "Chin Ups (Assisted)", muscleGroup: "Back", description: "Compound excercise targeting only lats"),
         Workout(name: "Cable Pulldown", muscleGroup: "Back", description: "rope pulls with a 45 degree body angle"),
-        ///Workout(),
-        ///Workout()
+        Workout(name: "Reverse Grip Pulldown Machine", muscleGroup: "Back", description: "Machine targeting the lats with inverted grip"),
+        Workout(name: "Inverted Row", muscleGroup: "Back", description: "Targets the middle back and inverts the regular row excercise")
     ],
     "Leg": [
         Workout(name: "Back Squat", muscleGroup: "Leg", description: "Compound leg exercise"),
@@ -97,9 +97,9 @@ private let workoutsByMuscleGroup: [String: [Workout]] = [
         Workout(name: "Military Press", muscleGroup: "Shoulder", description: "Standing/restricted shoulder excercise"),
         Workout(name: "Upright Row", muscleGroup: "Shoulder", description: "Rear delt excercise bringing dumbbell up"),
         Workout(name: "Rear Delt Flys", muscleGroup: "Shoulder", description: "Machine rear delt excercise"),
-        Workout(name: "Face Pulls", muscleGroup: "Shoulder", description: "Rear delt excercise with cables")
-        ///Workout(),
-        ///Workout()
+        Workout(name: "Face Pulls", muscleGroup: "Shoulder", description: "Rear delt excercise with cables"),
+        Workout(name: "Front Raises", muscleGroup: "Shoulder", description: "Hard excercise that targets all three shoulder heads"),
+        Workout(name: "Machine Lateral Raise", muscleGroup: "Shoulder", description: "Machine excercise that targets all three shoulder heads")
     ],
     "Abs": [
         Workout(name: "Mountain Climbers", muscleGroup: "Abs", description: "Dynamic core exercise"),

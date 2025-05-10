@@ -228,6 +228,8 @@ struct DayCell: View {
         }
     }
     
+    /// Generates notifications for users when their schedule does not meet a requirement
+    /// - Returns: Array of strings, a message to the user to support them in the making of their schedule
     func generateNotifications() -> [String] {
         let backToBack = calendar.getAllBackToBack()
         let dayOverload = calendar.dayOverload()

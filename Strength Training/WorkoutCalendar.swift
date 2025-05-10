@@ -114,6 +114,8 @@ class WorkoutCalendar: ObservableObject {
     }
     
     
+    /// Catches if users choose workouts on 4 or more consecutive days, not accounting for rest
+    /// - Returns: A dicitionary, dates as keys and an array of strings/muscle groups
     func dayOverload() -> [Date: [String]] {
         let sortedDays = days.sorted(by: { $0.key < $1.key })
         var result: [Date: [String]] = [:]
