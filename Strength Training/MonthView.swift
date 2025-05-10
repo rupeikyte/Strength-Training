@@ -11,19 +11,14 @@ import SwiftUI
 /// A grouping of days on the homescreen based on the number of days in the current month-year pair.
 /// Highlights days that repeat the same muscle group back-to-back in red.
 struct MonthView: View {
-    
     @ObservedObject var calendar: WorkoutCalendar
     let daysCalendar = Locale.current.calendar
-    
     @State var month: Int
     @State var year: Int
-    
     var monthNotification: String {
             generateMonthNotification()
         }
-    
     var body: some View {
-        
         let firstWeekday = getFirstDayOfWeek()
         let totalMonthDay = getLastDayofMonth()
         let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
@@ -31,21 +26,18 @@ struct MonthView: View {
         
         ZStack {
             GeometryReader { geometry in
-                
                 VStack(spacing: 0) {
                     //The horizontal view of the left button, next to a month and year,
                     //next to a right button. The left and right buttons are for scrolling
                     //through months
                     HStack {
-                        
                         if !monthNotification.isEmpty {
-                                                   Image(systemName: "exclamationmark.triangle.fill")
-                                                       .resizable()
-                                                       .frame(width: 25.0, height: 25.0)
-                                                       .foregroundColor(.yellow)
-                                                       .help("\(monthNotification)")
-                                               }
-                        
+                            Image(systemName: "exclamationmark.triangle.fill")
+                                .resizable()
+                                .frame(width: 25.0, height: 25.0)
+                                .foregroundColor(.yellow)
+                                .help("\(monthNotification)")
+                        }
                         Button {
                             if month == 1 {
                                 month = 12
@@ -59,10 +51,8 @@ struct MonthView: View {
                                 .font(.largeTitle)
                         }
                         .buttonStyle(PlainButtonStyle())
-                        
                         Text(calendarTitle(for: month, year: year))
                             .font(.custom("Georgia", size: 35))
-                        
                         Button {
                             if month == 12 {
                                 month = 1
@@ -77,10 +67,8 @@ struct MonthView: View {
                         .buttonStyle(PlainButtonStyle())
                     }
                     .frame(width: geometry.size.width)
-                    
                     .padding(.vertical, 10)
                     .background(Color(white: 0.85))
-                    
                     HStack(spacing: 0) {
                         ForEach(0..<7) { dayOfWeek in
                             VStack(spacing: 0) {
@@ -93,9 +81,8 @@ struct MonthView: View {
                                     .border(Color.brown, width: 1)
                                     .background(bgBrown)
                                 
-                                ///The code below adjust for how many weeks there are in the month, and creates the necessary empty cells to maintain the rectangle shape of the calendar
+                                //The code below adjust for how many weeks there are in the month, and creates the necessary empty cells to maintain the rectangle shape of the calendar
                                 ForEach(0..<numOfWeeks, id: \.self) { week in
-                                    
                                     let dayOfMonth = (week * 7 + dayOfWeek+1) - firstWeekday
                                     if dayOfMonth >= 1 && dayOfMonth <= totalMonthDay,
                                        let date = daysCalendar.date(from: DateComponents(year: year, month: month, day: dayOfMonth)) {
@@ -103,12 +90,8 @@ struct MonthView: View {
                                         NavigationLink(
                                             destination:
                                                 DayView(day: workoutDay, onChange: { calendar.save();calendar.notifyAll()  }),
-                                            
-                                            
                                             label: {
-
                                                 DayCell(day: workoutDay, calendar: calendar)
-
                                                     .border(Color.brown, width: 1)
                                                     .overlay(alignment: .bottomTrailing) {
                                                         Text("\(dayOfMonth)")
@@ -118,14 +101,12 @@ struct MonthView: View {
                                                             .minimumScaleFactor(0.01)
                                                     }
                                                     .minimumScaleFactor(0.5)
-                                                    
                                             })
                                     } else {
                                         EmptyCell()
                                     }
                                 }
                                 .buttonStyle(PlainButtonStyle())
-                                
                             }
                         }
                     }
@@ -213,7 +194,7 @@ struct MonthView: View {
             
             if !sortedUntrainedGroups.isEmpty {
                 let formattedGroups = sortedUntrainedGroups.joined(separator: ", ")
-                notification = "\(formattedGroups) is not getting trained this month."
+                notification = "Consider training \(formattedGroups) this month!"
             } else {
                 notification = ""
             }
@@ -232,11 +213,10 @@ struct DayCell: View {
     var notifications: [String] {
         generateNotifications()
     }
-    
+
     var body: some View {
         ZStack {
             bgBlue.opacity(0.7)
-            
             VStack {
                 ForEach(muscleGroupNames, id: \.self) { group in
                     if day.muscleGroups.contains(group) {
@@ -246,14 +226,13 @@ struct DayCell: View {
                     }
                 }
             }
-            
             if !notifications.isEmpty {
                 Image(systemName: "exclamationmark.triangle.fill")
                     .font(.system(size: 26))
                     .foregroundColor(.red.opacity(0.75))
                     .position(x: 20, y: 20)
                     .help(notifications.joined(separator: "\n"))
-                                        
+                    .fontWeight(.bold)
             }
         }
     }
@@ -266,11 +245,11 @@ struct DayCell: View {
         var tempNotifications: [String] = []
 
         if let muscleGroups = backToBack[day.date] {
-            tempNotifications += muscleGroups.map { "\($0) is programmed on two days in a row!" }
+            tempNotifications += muscleGroups.map { "You work out \($0) two days in a row!" }
         }
 
         if dayOverload[day.date] != nil {
-            tempNotifications.append("You are working out too many days in a row without rest!")
+            tempNotifications.append("You are working out too many days in a row!")
         }
 
         return tempNotifications
@@ -279,7 +258,6 @@ struct DayCell: View {
 
 ///The content of an individual rectangle that does not correspond to a day on our calendar.
 struct EmptyCell: View {
-    
     var body: some View {
         ZStack {
             bgBlue.opacity(0.7)

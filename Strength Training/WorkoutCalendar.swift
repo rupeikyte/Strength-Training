@@ -10,36 +10,29 @@ import SwiftUI
 
 ///All muscle groups tracked in the app.
 let muscleGroupNames = ["Arms", "Shoulder", "Leg", "Back", "Chest", "Abs"]
-
 let daysCalendar = Locale.current.calendar
-
 
 /// Represents one day in the workout calendar with toggles for each muscle group.
 class WorkoutDay: Identifiable, ObservableObject, Codable {
     @Published var muscleGroups: Set<String> = []
     var date: Date
     var id: Date { date }
-    
     var dayOfMonth: Int {
        daysCalendar.component(.day, from: date)
     }
-    
     init(muscleGroups: Set<String> = [], date: Date) {
         self.muscleGroups = muscleGroups
         self.date = date
     }
-    
     enum CodingKeys: CodingKey {
         case muscleGroups
         case date
     }
-    
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         muscleGroups = try container.decode(Set.self, forKey: .muscleGroups)
         date = try container.decode(Date.self, forKey: .date)
     }
-    
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(muscleGroups, forKey: .muscleGroups)
@@ -51,7 +44,6 @@ class WorkoutDay: Identifiable, ObservableObject, Codable {
 class WorkoutCalendar: ObservableObject {
     private var days: DayDictionary = [:]
     typealias DayDictionary = [Date: WorkoutDay]
-    
     func workoutDay(forDate date: Date) -> WorkoutDay {
         if let dayWorkout = days[date] {
             return dayWorkout
@@ -60,13 +52,10 @@ class WorkoutCalendar: ObservableObject {
         days[date] = newWorkout
         return newWorkout
     }
-    
     func notifyAll() {
         objectWillChange.send()
     }
-    
     private let saveKey = "WorkoutCalendarSaveKey"
-
     init() {
         load()
     }
@@ -89,22 +78,17 @@ class WorkoutCalendar: ObservableObject {
         }
     }
     
-    
     /// function that catches if a user chooses to workout the same muscle group on back to back days
     /// - Returns: An array of an array of integers giving us two integers per array
     func getAllBackToBack() -> [Date: [String]] {
         let sortedDays = days.sorted(by: { $0.key < $1.key })
-
         var result: [Date: [String]] = [:]
-        
         for i in 1..<sortedDays.count {
             let prev = sortedDays[i - 1]
             let curr = sortedDays[i]
-            
-            ///heck if they are consecutive dates
+            ///check if they are consecutive dates
             let dayAfterPrev = daysCalendar.date(byAdding: .day, value: 1, to: daysCalendar.startOfDay(for: prev.key))!
             let currDay = daysCalendar.startOfDay(for: curr.key)
-            
             if currDay == dayAfterPrev {
                 let repeated = prev.value.muscleGroups.intersection(curr.value.muscleGroups)
                 if !repeated.isEmpty {
@@ -112,23 +96,19 @@ class WorkoutCalendar: ObservableObject {
                 }
             }
         }
-
         return result
     }
-    
-    
+        
     /// Catches if users choose workouts on 4 or more consecutive days, not accounting for rest
     /// - Returns: A dicitionary, dates as keys and an array of strings/muscle groups
     func dayOverload() -> [Date: [String]] {
         let sortedDays = days.sorted(by: { $0.key < $1.key })
         var result: [Date: [String]] = [:]
         var consecutiveCount = 0
-        
         for i in 0..<sortedDays.count {
             let curr = sortedDays[i]
             let currDay = daysCalendar.startOfDay(for: curr.key)
             let isWorkoutDay = !curr.value.muscleGroups.isEmpty
-            
             if i > 0 {
                 let prev = sortedDays[i - 1]
                 let expectedDay = daysCalendar.date(byAdding: .day, value: 1, to: daysCalendar.startOfDay(for: prev.key))!
@@ -145,17 +125,13 @@ class WorkoutCalendar: ObservableObject {
                 ///first day
                 consecutiveCount = isWorkoutDay ? 1 : 0
             }
-            
             if consecutiveCount >= 5 {
                 result[curr.key] = Array(curr.value.muscleGroups)
             }
         }
-        
         return result
     }
-    
-    
-    
+        
     /// Catches when user does not choose every muscle group at least once throughout the month
     /// - Parameters:
     ///   - month: An integer for the month
@@ -163,18 +139,13 @@ class WorkoutCalendar: ObservableObject {
     /// - Returns: Set of strings of the untrained muscle groups
     func isEverythingGettingTrained(month: Int, year: Int) -> Set<String> {
         let allMuscleGroupsSet = Set(muscleGroupNames)
-        
         let workoutDaysInMonth = getWorkoutDays(days: Array(self.days.values), forMonth: month, year: year)
-        
         var trainedMusccleGroups: Set<String> = []
-        
         for day in workoutDaysInMonth{
             trainedMusccleGroups.formUnion(day.muscleGroups)
         }
         let untrainedMuscleGroups = allMuscleGroupsSet.subtracting(trainedMusccleGroups)
-        
         return untrainedMuscleGroups
-        
     }
     
     /// Helper function to get days with workouts
@@ -191,6 +162,5 @@ class WorkoutCalendar: ObservableObject {
             return dayMonth == month && dayYear == year
         }
     }
-    
 }
 

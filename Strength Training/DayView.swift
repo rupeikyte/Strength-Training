@@ -7,15 +7,12 @@
 
 import SwiftUI
 
-
 /// The destination that clicking on a daycell showcases. This includes the buttons to add muscle group information to the day, and the corresponding text from the day of the WorkoutCalendar.
 struct DayCard: View {
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
     let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
     let muscleGroup: String
-    
     var body: some View {
-        
         RoundedRectangle(cornerRadius: 10)
             .border(Color.brown, width:2)
             .foregroundStyle(bgBlue.opacity(0.7))
@@ -48,20 +45,16 @@ struct DayCard: View {
                         }
                         .padding(.vertical, 10)
                     }
-                }
-            )
+                })
     }
 }
 
 /// Structure that portrays each day of our calendar, works with what the user can click and see for each day, essentially the other screen that we have programmed.
 struct DayView: View {
     let bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
-
     @ObservedObject var day: WorkoutDay
     var onChange: () -> Void
-    
     var body: some View {
-        
         VStack(spacing: 20) {
             HStack(spacing:20) {
                 ForEach(muscleGroupNames, id: \.self) { group in

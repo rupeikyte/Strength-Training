@@ -36,8 +36,6 @@ private let workoutsByMuscleGroup: [String: [Workout]] = [
         Workout(name: "Overhead Tricep Extensions", muscleGroup: "Arms", description: "Arms raised tricep stretch"),
         Workout(name: "Bicep Curl Machine", muscleGroup: "Arms", description: "Guided bicep contraction workout"),
         Workout(name: "Zottman Curls", muscleGroup: "Arms", description: "Curl with twist-down motion")
-
-        
     ],
     "Back": [
         Workout(name: "Neutral Grip Pulldowns", muscleGroup: "Back", description: "Lat exercise using cable machine"),
@@ -70,7 +68,6 @@ private let workoutsByMuscleGroup: [String: [Workout]] = [
         Workout(name: "DB Reverse Lunges", muscleGroup: "Leg",description: "Lunging back with dumbbells"),
         Workout(name: "DB Sumo Squat", muscleGroup: "Leg",description: "One arm with dumbbell hanging with sumo motion"),
         Workout(name: "Barbell Split Squat", muscleGroup: "Leg",description: "Lunging back with barbell on back")
-        
     ],
     "Chest": [
         Workout(name: "Bench Press Barbell", muscleGroup: "Chest", description: "Compound chest exercise"),

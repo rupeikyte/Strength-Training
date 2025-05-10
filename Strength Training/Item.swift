@@ -13,7 +13,6 @@ import SwiftData
 final class ItemForSaving {
     var timestamp: Date
         var muscleGroups: [String: Bool]
-        
         init(timestamp: Date = .now, muscleGroups: [String: Bool] = [:]) {
             self.timestamp = timestamp
             self.muscleGroups = muscleGroups
