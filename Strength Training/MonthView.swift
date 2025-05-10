@@ -94,10 +94,7 @@ struct MonthView: View {
                                             
                                             
                                             label: {
-//<<<<<<< HEAD
-//                                                DayCell(day: workoutDay)
-//                                                    
-//=======
+
                                                 DayCell(day: workoutDay, calendar: calendar)
 
                                                     .border(Color.brown, width: 1)
@@ -233,25 +230,22 @@ struct DayCell: View {
 
     
     func generateNotifications() -> [String] {
-//        let backToBack = calendar.getAllBackToBack()
-        
-        let trainedTwice = calendar.trainedTwicePerWeek()
+        let backToBack = calendar.getAllBackToBack()
+        let dayOverload = calendar.dayOverload()
+        var tempNotifications: [String] = []
 
-//        if let muscleGroups = backToBack[day.date] {
-//            return muscleGroups.map { "\($0) lacks 48 hrs rest" }
-//        } else {
-//            return []
-//        }
-        
-        
-        if let muscleGroups = trainedTwice[day.date] {
-            return muscleGroups.map { "\($0) should be trained once a week" }
-        } else {
-            return []
+
+        if let muscleGroups = backToBack[day.date] {
+            tempNotifications += muscleGroups.map { "\($0) is programmed on two days in a row!" }
         }
-        
-//        let oncePerWeek = WorkoutEvaluator.
+
+        if dayOverload[day.date] != nil {
+            tempNotifications.append("You are working out too many days in a row without rest!")
+        }
+
+        return tempNotifications
     }
+    
 }
 
 ///The content of an individual rectangle that does not correspond to a day on our calendar.

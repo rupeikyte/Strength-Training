@@ -86,61 +86,68 @@ class WorkoutCalendar: ObservableObject {
         }
     }
     
+    
+    /// function that catches if a user chooses to workout the same muscle group on back to back days
+    /// - Returns: An array of an array of integers giving us two integers per array
     func getAllBackToBack() -> [Date: [String]] {
         let sortedDays = days.sorted(by: { $0.key < $1.key })
-            var result: [Date: [String]] = [:]
 
-            for i in 1..<sortedDays.count {
-                let prev = sortedDays[i - 1]
-                let curr = sortedDays[i]
-
-                ///check if they are consecutive dates
-                let dayAfterPrev = daysCalendar.date(byAdding: .day, value: 1, to: daysCalendar.startOfDay(for: prev.key))!
-                let currDay = daysCalendar.startOfDay(for: curr.key)
-
-                if currDay == dayAfterPrev {
-                                let repeated = prev.value.muscleGroups.intersection(curr.value.muscleGroups)
-                                if !repeated.isEmpty {
-                                    result[curr.key] = Array(repeated)
-                                }
-                }
-            }
-            return result
-        }
-    
-    ///TODO: FIX BELOW
-    ///Function that gets the very first day someone input their workouts, and starts checking every seven days afterwards to test if a musclegroup has been trained. OR begins at the beginning of the month, looking only at a single month, checking every (AVAILABLE) seven days for each muscle group.
-    func trainedTwicePerWeek() -> [Date: [String]] {
-        let sortedDays = days.sorted(by: { $0.key < $1.key })
-            var result: [Date: [String]] = [:]
+        var result: [Date: [String]] = [:]
         
         for i in 1..<sortedDays.count {
+            let prev = sortedDays[i - 1]
             let curr = sortedDays[i]
-            let prev = sortedDays[i-1]
             
-//            for i in 1..<7 {
-                
-                
-//                ForEach(curr.value.muscleGroups, id: \.self) { muscleGroup in
-                    
-//                }
-//            }
-//            for i in 1..<7 {
-//                if sortedDays[i]
-                
+            ///heck if they are consecutive dates
+            let dayAfterPrev = daysCalendar.date(byAdding: .day, value: 1, to: daysCalendar.startOfDay(for: prev.key))!
+            let currDay = daysCalendar.startOfDay(for: curr.key)
+            
+            if currDay == dayAfterPrev {
                 let repeated = prev.value.muscleGroups.intersection(curr.value.muscleGroups)
-                if repeated.isEmpty {
+                if !repeated.isEmpty {
                     result[curr.key] = Array(repeated)
                 }
-//            }
-            
+            }
         }
+
         return result
-        
     }
     
     
-    
+    func dayOverload() -> [Date: [String]] {
+        let sortedDays = days.sorted(by: { $0.key < $1.key })
+        var result: [Date: [String]] = [:]
+        var consecutiveCount = 0
+        
+        for i in 0..<sortedDays.count {
+            let curr = sortedDays[i]
+            let currDay = daysCalendar.startOfDay(for: curr.key)
+            let isWorkoutDay = !curr.value.muscleGroups.isEmpty
+            
+            if i > 0 {
+                let prev = sortedDays[i - 1]
+                let expectedDay = daysCalendar.date(byAdding: .day, value: 1, to: daysCalendar.startOfDay(for: prev.key))!
+                let prevWasWorkoutDay = !prev.value.muscleGroups.isEmpty
+                
+                if currDay == expectedDay && isWorkoutDay && prevWasWorkoutDay {
+                    consecutiveCount += 1
+                } else if isWorkoutDay {
+                    consecutiveCount = 1
+                } else {
+                    consecutiveCount = 0
+                }
+            } else {
+                ///first day
+                consecutiveCount = isWorkoutDay ? 1 : 0
+            }
+            
+            if consecutiveCount >= 5 {
+                result[curr.key] = Array(curr.value.muscleGroups)
+            }
+        }
+        
+        return result
+    }
     
 }
 
