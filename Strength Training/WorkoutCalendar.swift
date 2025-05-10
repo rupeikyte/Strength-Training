@@ -7,6 +7,7 @@
 //  Code used for making WorkoutDay codable: https://www.hackingwithswift.com/books/ios-swiftui/adding-codable-conformance-for-published-properties
 // Code for starOfDay: https://stackoverflow.com/questions/78686270/why-does-date-and-calendar-current-startofdayfor-date-produce-different-d
 // Code used for intersection: https://stackoverflow.com/questions/69727288/swift-how-to-check-intersection-with-multiple-sets
+// Code used for date and calendar logic throughout this project: https://www.advancedswift.com/date-formatter-cheatsheet-formulas-swift/
 
 
 import SwiftUI

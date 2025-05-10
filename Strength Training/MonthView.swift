@@ -90,7 +90,7 @@ struct MonthView: View {
                                         let workoutDay = calendar.workoutDay(forDate: date)
                                         NavigationLink(
                                             destination:
-                                                DayView(day: workoutDay, onChange: { calendar.save();calendar.notifyAll()  }),
+                                                DayView(day: workoutDay, onChange: {calendar.save();calendar.notifyAll()}),
                                             label: {
                                                 DayCell(day: workoutDay, calendar: calendar)
                                                     .border(Color.brown, width: 1)
