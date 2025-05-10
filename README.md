@@ -5,14 +5,26 @@ This Desktop App was made to help beginners that want to start lifting weights. 
 give tips to the user to make the best out of their workout schedule. The app strives to solve the problem that many people trying to go to the gym face. Many people do not know where 
 to start and have no knowledge of a plan that they can start working with. Giving users the ability to make a plan as well as informing them of ways that allow a person that goes to the 
 gym to meet their goals will make the leap of starting to go to the gym a lot easier.
+To give users our feedback we decided to make notifications for a schedule in the shape of warning signs, when a user's schedule does not meet a requirement a warning sign will pop up. Users will be able to hover over the warning signs and read a message that will help guide them in the right direction. The hovering ability takes a few seconds to render as their is a delay with hovering and the warining message.
 
-To be able to install the Desktop App the user must download XCode through the App Store. The XCode programming language needed to build and run the project is Apple's SwiftUI.
+We decided on three requirements for the best workout schedule: 
+1. A user should not workout the same muscle group on back to back days
+2. A user should account for rest days and should not workout more than 3 days in a row
+3. The user should train every muscle group at least once throughout a month.
+
+To be able to install the Desktop App the user must download XCode through the App Store. The XCode programming language needed to build and run the project is Apple's SwiftUI. The app is only supported on a MacBook.
+
+Swift Documentation:
+https://developer.apple.com/documentation/swift/
 
 ___________________
 
-Users/NathanGumagay/Desktop/Strength-Training/files-pri/T0F19MNUD-F08RTEYV4D8/screenshot_2025-05-09_at_8.51.14___pm.png
 
-Users/NathanGumagay/Desktop/Strength-Training/files-pri/T0F19MNUD-F08RBEKTMU7/screenshot_2025-05-09_at_8.51.23___pm.png
+![Image](https://github.com/user-attachments/assets/969da67f-3890-4549-8ee7-d932755b01a8)
+
+<img width="1462" alt="Image" src="https://github.com/user-attachments/assets/ced00462-b5b8-4a14-b776-12341195c428" />
+
+___________________
 
 File Documentation
 
@@ -46,37 +58,19 @@ and then the DayCell and EmptyCell structures. MonthView Structure is built to h
 on our main screen. the functions combine together to help make the MonthView what it is, with each function being self explanatory to what it adds to our UI and screen that users can see. The
 DayCell and EmptyCell are each square/Day in the Calendar. DayCell displaying text of whichever muscle group that was chosen on the particular day and being clickable. While emptycell, displays
 an only colored square that is not clickable and a static cell displaying nothing. The DayCell is a portrayal of days of the month while emptycell is a portrayal of the extra squares that every calendar
-has.
-
-
-NotificationView File (subject to change?):
-
-Contains the NotificationView and NotificationCell Structure, as well as the splitDaysIntoWeeks, generateNotifications, and DayNumberToWeekdayName functions. The NotificationView is going to be
-aloow us to give users feedback to their schedules that they make. It serves to support users when they make a schedule as decisions made by the NotificationView is research that we did to give
-great advice. The spliDaysIntoWeekdays function allows all of our days to be split into weeks so our NotificationView can give feedback by the week for our calendar. The NotificationCell is subject
-to change as it is a cell that we decided as a vertical stack of rectangles on the side panel. But, it has changed towards a warning sign on each DayCell instead. This structure serves to be able to
-display messages that gives users feedback to their scheduled week. The generateNotifications function goes hand in hand with the NotificationCell as it allows us to be able to protray the text
-that the NotificationCell displays. dayNumberToWeekdayName function changes the problem of displaying daycell numbers, so the corresponding number of the month with the DayCell. But, being able to
-change it to a weekday makes it much easier for the user to be able to read our messages a lot easier by giving them the weekday name.
+has. The last function generateMonthNotifications generates warning signs as well as messages to the user in order to let them know that they are missing one of the requirements in their schedule.
 
 
 Strength_Training App File:
 
+This file calls the app.
 
 
 WorkoutCalendar File:
 
 Contains WorkoutDay Structure, WorkoutCalendar Class and generateDays function. The WorkoutDay Structure gives us each workout day which is separate from the DayView as it focuses more on
 the muscle group that is being displayed compared to the actual day of the month. Bringing us to the WorkoutCalendar class which is the month calendar but geared towards workouts, the class
-is highlighted by the dictionary that we used to track the date which is our key and the workouts on that date which are the values. The generateDays function gives us each day for the
-workoutCalendar class.
-
-
-WorkoutEvaluator File:
-
-Contains WorkoutEvaluator Structure, and dayOverload as well as isEverythingGettingTrained function. This WorkoutEvaluator is aimed to evaluate each week of workouts separately and give
-feedback to the user. dayOverload function is our function that catches if users workout the same musclegroup on consecutive days. While the isEverythingGettingTrained function checks if the
-user has chosen a every single muscle group at least once throughout the month.
+is highlighted by the dictionary that we used to track the date which is our key and the workouts on that date which are the values. Explain load and save here The next four functions are used for evaluating our WorkoutCalendar, with getAllBackToBack, dayOverload, isEverythingGettingTrained, and getWorkoutDays. The getAllBackToBack function checks the workouts throughout the year and generates a warning sign if a muscle group is scheduled to be trained on back to back days. The dayOverload function generates a warning when workouts are scheduled on more than 3 consecutive days. This lets users know that they should account for rest days in their schedule. isEverythingGettingTrained function checks if the user has chosen every muscle group at least once throughout the month. While the last function getWorkoutDays allows the calendar to get the workout days throughout the schedules.
 
 
 Workouts File:
