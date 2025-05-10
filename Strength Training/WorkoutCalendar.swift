@@ -69,7 +69,8 @@ class WorkoutCalendar: ObservableObject {
     init() {
         load()
     }
-
+    
+    /// Saves the data that is inputed into the calendar
     func save() {
         do {
             let encoded = try JSONEncoder().encode(days)
@@ -78,7 +79,8 @@ class WorkoutCalendar: ObservableObject {
             print("Unable to save workouts:", error)
         }
     }
-
+    
+    /// Loads the data that is inputed into the calendar
     func load() {
         if let savedData = UserDefaults.standard.data(forKey: saveKey),
            let decoded = try? JSONDecoder().decode(DayDictionary.self, from: savedData) {
