@@ -3,7 +3,7 @@
 //  Strength Training
 //
 //  Created by Noel Raehl on 3/27/25.
-//
+//  Code used for scaling the size of text in DayCells: https://stackoverflow.com/questions/57035746/how-to-scale-text-to-fit-parent-view-with-swiftui
 
 import SwiftUI
 
