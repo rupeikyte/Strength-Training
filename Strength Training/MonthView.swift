@@ -9,6 +9,10 @@
 //Code for foreach loops https://www.hackingwithswift.com/quick-start/swiftui/how-to-create-views-in-a-loop-using-foreach
 // Code for displaying rectangles as daycells https://www.hackingwithswift.com/quick-start/swiftui/how-to-display-solid-shapes
 // Code for using SF Symbols https://www.hackingwithswift.com/articles/237/complete-guide-to-sf-symbols
+// Code for joining items from a DS https://stackoverflow.com/questions/64950441/is-it-possible-to-loop-over-an-array-of-text-views-and-display-them
+//Code for setting up Navigation Stack: https://stackoverflow.com/questions/73923505/how-to-use-foreach-on-an-array-of-struct-in-swift
+
+
 
 import SwiftUI
 
@@ -38,8 +42,7 @@ struct MonthView: View {
                     HStack {
                         if !monthNotification.isEmpty {
                             Image(systemName: "exclamationmark.triangle.fill")
-                                .resizable()
-                                .frame(width: 25.0, height: 25.0)
+                                .font(.system(size: 26))
                                 .foregroundColor(.yellow)
                                 .help("\(monthNotification)")
                         }
