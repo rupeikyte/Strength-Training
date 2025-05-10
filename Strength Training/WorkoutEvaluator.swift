@@ -107,11 +107,7 @@ struct WorkoutEvaluator {
     }
     
     
-    /// TODO: FIX BELOW
-    ///Function that gets the very first day someone input their workouts, and starts checking every seven days afterwards to test if a musclegroup has been trained. OR begins at the beginning of the month, looking only at a single month, checking every (AVAILABLE) seven days for each muscle group. 
-//    func groupTwicePerWeek(in workoutDays: [WorkoutDay]) -> [Date: [String]] {
-//        
-//    }
+    
     
     
     //    func isThereCorrectMuscleRepetition(in days: [WorkoutDay]) -> Bool {

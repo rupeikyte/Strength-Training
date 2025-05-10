@@ -231,17 +231,21 @@ struct DayCell: View {
         }
     }
 
-//    TODO: remove this test func
-//    func generateNotifications() -> [String] {
-//        return ["MEssage 1", "Message 2", "Message 3"]
-//        //    return []
-//    }
     
     func generateNotifications() -> [String] {
-        let backToBack = calendar.getAllBackToBack()
+//        let backToBack = calendar.getAllBackToBack()
+        
+        let trainedTwice = calendar.trainedTwicePerWeek()
 
-        if let muscleGroups = backToBack[day.date] {
-            return muscleGroups.map { "\($0) is programmed on too many days in a row!" }
+//        if let muscleGroups = backToBack[day.date] {
+//            return muscleGroups.map { "\($0) lacks 48 hrs rest" }
+//        } else {
+//            return []
+//        }
+        
+        
+        if let muscleGroups = trainedTwice[day.date] {
+            return muscleGroups.map { "\($0) should be trained once a week" }
         } else {
             return []
         }
