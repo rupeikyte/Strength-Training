@@ -3,7 +3,8 @@
 //  Strength Training
 //
 //  Created by Noel Raehl on 4/11/25.
-//
+//  Code used for notifyAll function: https://stackoverflow.com/questions/72825281/objectwillchange-send-how-exactly-does-this-work#:~:text=SwiftUI%20uses%20the%20objectWillChange%20Publisher,to%20manually%20update%20the%20view
+//  Code used for making WorkoutDay codable: https://www.hackingwithswift.com/books/ios-swiftui/adding-codable-conformance-for-published-properties
 
 import SwiftUI
 
