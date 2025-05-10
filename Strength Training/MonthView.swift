@@ -4,6 +4,7 @@
 //
 //  Created by Noel Raehl on 3/27/25.
 //  Code used for scaling the size of text in DayCells: https://stackoverflow.com/questions/57035746/how-to-scale-text-to-fit-parent-view-with-swiftui
+// Code used for guard let: https://www.hackingwithswift.com/forums/100-days-of-swiftui/guard-let-in-swiftui/24223
 
 import SwiftUI
 
