@@ -155,7 +155,12 @@ class WorkoutCalendar: ObservableObject {
     
     
     
-    func isEverythingGettignTrained(month: Int, year: Int) -> Set<String> {
+    /// Catches when user does not choose every muscle group at least once throughout the month
+    /// - Parameters:
+    ///   - month: An integer for the month
+    ///   - year: An integer for the year
+    /// - Returns: Set of strings of the untrained muscle groups
+    func isEverythingGettingTrained(month: Int, year: Int) -> Set<String> {
         let allMuscleGroupsSet = Set(muscleGroupNames)
         
         let workoutDaysInMonth = getWorkoutDays(days: Array(self.days.values), forMonth: month, year: year)
@@ -171,6 +176,12 @@ class WorkoutCalendar: ObservableObject {
         
     }
     
+    /// Helper function to get days with workouts
+    /// - Parameters:
+    ///   - days: array of WorkoutDays
+    ///   - month: integer representing month
+    ///   - year: integer representing year
+    /// - Returns: Array of WorkoutDays
     func getWorkoutDays(days: [WorkoutDay], forMonth month: Int, year: Int) -> [WorkoutDay]{
         let daysCalendar = Locale.current.calendar
         return days.filter { day in

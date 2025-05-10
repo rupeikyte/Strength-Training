@@ -208,7 +208,7 @@ struct MonthView: View {
     func generateMonthNotification() -> String {
             var notification = ""
             
-        let untrainedMuscleGroups = calendar.isEverythingGettignTrained(month: month, year: year)
+        let untrainedMuscleGroups = calendar.isEverythingGettingTrained(month: month, year: year)
             let sortedUntrainedGroups = untrainedMuscleGroups.sorted()
             
             if !sortedUntrainedGroups.isEmpty {
