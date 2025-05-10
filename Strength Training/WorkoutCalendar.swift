@@ -113,7 +113,7 @@ class WorkoutCalendar: ObservableObject {
     
     
     func dayOverload() -> [Date: [String]] {
-        let sortedDays = days.sorted(by: { $0.key < $1.key }) // days: [Date: WorkoutDay]
+        let sortedDays = days.sorted(by: { $0.key < $1.key })
         var result: [Date: [String]] = [:]
         var consecutiveCount = 0
         

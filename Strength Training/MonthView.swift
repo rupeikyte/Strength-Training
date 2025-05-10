@@ -94,10 +94,7 @@ struct MonthView: View {
                                             
                                             
                                             label: {
-//<<<<<<< HEAD
-//                                                DayCell(day: workoutDay)
-//                                                    
-//=======
+
                                                 DayCell(day: workoutDay, calendar: calendar)
 
                                                     .border(Color.brown, width: 1)
