@@ -8,16 +8,13 @@
 import SwiftUI
 import SwiftData
 
-/// Renders the main UI of the Strength Training program
+/// Renders the main UI of the Strength Training program. This is the homescreen with the main calendar.
 struct ContentView: View {
-    
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [ItemForSaving]
     var calendar = WorkoutCalendar()
-
     @State var month = Calendar.current.component(.month, from: Date())
     @State var year = Calendar.current.component(.year, from: Date())
-
     let bgBrown = Color(hue: 30/360, saturation: 0.3, brightness: 0.8)
     
     var body: some View {
@@ -42,7 +39,6 @@ struct ContentView: View {
         }
     }
 }
-
 
 #Preview {
     ContentView()
