@@ -69,5 +69,7 @@ Workouts File:
 Contains the workouts function as well as a workoutsByMuscleGroup dictionary. The workouts function is used for our DayCard structure as we each of our DayCard portrays a workout that we researched.
 The workouts function takes from the workoutsByMuscleGroup dictionary where each muscle group is a key and a string of workouts as each of the values.
 
+We did not include official tests in the files because most of our testing was either visual, occured while writing code or was done by users.
+
 A special thanks to professor Paul Cantrell and our COMP225 preceptors Jim Marigmen and Kaliana Andriamananjara for all their help in bringing this project to life. 
 
