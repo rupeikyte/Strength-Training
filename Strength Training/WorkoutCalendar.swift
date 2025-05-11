@@ -8,8 +8,8 @@
 // Code for starOfDay: https://stackoverflow.com/questions/78686270/why-does-date-and-calendar-current-startofdayfor-date-produce-different-d
 // Code used for intersection: https://stackoverflow.com/questions/69727288/swift-how-to-check-intersection-with-multiple-sets
 // Code used for date and calendar logic throughout this project: https://www.advancedswift.com/date-formatter-cheatsheet-formulas-swift/
-//Code used for operations on a Set: https://stackoverflow.com/questions/48814172/set-collection-insert-multiple-elements
-//Code used for operations on a Set: https://stackoverflow.com/questions/45134687/given-two-sets-how-can-i-determine-what-was-added-or-removed
+// Code used for operations on a Set: https://stackoverflow.com/questions/48814172/set-collection-insert-multiple-elements
+// Code used for operations on a Set: https://stackoverflow.com/questions/45134687/given-two-sets-how-can-i-determine-what-was-added-or-removed
 
 import SwiftUI
 

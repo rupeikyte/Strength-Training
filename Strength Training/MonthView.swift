@@ -26,6 +26,7 @@ struct MonthView: View {
     var monthNotification: String {
             generateMonthNotification()
         }
+    
     var body: some View {
         let firstWeekday = getFirstDayOfWeek()
         let totalMonthDay = getLastDayofMonth()
