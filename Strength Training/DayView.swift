@@ -4,6 +4,7 @@
 //
 //  Created by Rūta Rupeikytė on 3/27/25.
 //
+// Code used for ScrollView: https://www.hackingwithswift.com/quick-start/swiftui/how-to-add-horizontal-and-vertical-scrolling-using-scrollview
 
 import SwiftUI
 
