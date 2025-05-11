@@ -15,13 +15,14 @@ struct Workout: Identifiable {
     let id = UUID()
 }
 
-/// Function that helps users see workouts for each muscle group
+/// Function that helps users see workouts for each muscle group.
 /// - Parameter muscleGroup: muscle group
 /// - Returns: Array of workouts
 func workouts(for muscleGroup: String) -> [Workout] {
     return workoutsByMuscleGroup[muscleGroup] ?? []
 }
 
+///All the different potential workouts for each of the six muscle groups.
 private let workoutsByMuscleGroup: [String: [Workout]] = [
     "Arms": [
         Workout(name: "Preacher Curls", muscleGroup: "Arms", description: "Bicep exercise using a preacher bench"),

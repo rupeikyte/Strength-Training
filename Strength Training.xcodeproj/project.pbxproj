@@ -40,16 +40,6 @@
 			path = "Strength Training";
 			sourceTree = "<group>";
 		};
-		E55891792D7BA57B00851E9A /* Strength TrainingTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Strength TrainingTests";
-			sourceTree = "<group>";
-		};
-		E55891832D7BA57B00851E9A /* Strength TrainingUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Strength TrainingUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +71,6 @@
 			isa = PBXGroup;
 			children = (
 				E55891652D7BA57900851E9A /* Strength Training */,
-				E55891792D7BA57B00851E9A /* Strength TrainingTests */,
-				E55891832D7BA57B00851E9A /* Strength TrainingUITests */,
 				E55891642D7BA57900851E9A /* Products */,
 				6C51A0912DCEE9290059FD44 /* README.md */,
 			);
@@ -136,9 +124,6 @@
 			dependencies = (
 				E55891782D7BA57B00851E9A /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				E55891792D7BA57B00851E9A /* Strength TrainingTests */,
-			);
 			name = "Strength TrainingTests";
 			packageProductDependencies = (
 			);
@@ -158,9 +143,6 @@
 			);
 			dependencies = (
 				E55891822D7BA57B00851E9A /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				E55891832D7BA57B00851E9A /* Strength TrainingUITests */,
 			);
 			name = "Strength TrainingUITests";
 			packageProductDependencies = (
