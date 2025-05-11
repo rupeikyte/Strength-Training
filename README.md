@@ -9,7 +9,7 @@ To give users our feedback we decided to make notifications for a schedule in th
 
 We decided on three requirements for the best workout schedule: 
 1. A user should not workout the same muscle group on back to back days
-2. A user should account for rest days and should not workout more than 3 days in a row
+2. A user should account for rest days and should not workout more than 4 days in a row
 3. The user should train every muscle group at least once throughout a month.
 
 To be able to install the Desktop App the user must download XCode through the App Store. The XCode programming language needed to build and run the project is Apple's SwiftUI. The app is only supported on a MacBook.
@@ -43,14 +43,6 @@ showcasing buttons for each muscle group as well as a DayCard that will pop up w
 schedule the workout that they would want on the specific day. While the DayCard gives the users a pop up card filled with workouts that we decided to give the users as ideas to great workouts
 for the specific muscle group.
 
-
-
-Item File:
-
-Contains the Item class, which has two global variables that the program will save upon selection. The muscle groups variable which is a dictionary with keys of strings of the muscle group and
-values which are booleans. As well as the timestamp variable which is a Date, using the two together allows the app to save muscle group selections the user makes on each date of our calendar.
-
-
 Month View File:
 
 Contains the MonthView Structure, calendarTitle function, getFirstDayOfWeek function, getAllWeekDays function, getLastDayOfMonth function, getFirstDayOfWeekReverse function, getNumberOfWeeks function,
@@ -65,16 +57,17 @@ Strength_Training App File:
 
 This file calls the app.
 
-
 WorkoutCalendar File:
 
 Contains WorkoutDay Structure, WorkoutCalendar Class and generateDays function. The WorkoutDay Structure gives us each workout day which is separate from the DayView as it focuses more on
 the muscle group that is being displayed compared to the actual day of the month. Bringing us to the WorkoutCalendar class which is the month calendar but geared towards workouts, the class
-is highlighted by the dictionary that we used to track the date which is our key and the workouts on that date which are the values. Explain load and save here The next four functions are used for evaluating our WorkoutCalendar, with getAllBackToBack, dayOverload, isEverythingGettingTrained, and getWorkoutDays. The getAllBackToBack function checks the workouts throughout the year and generates a warning sign if a muscle group is scheduled to be trained on back to back days. The dayOverload function generates a warning when workouts are scheduled on more than 3 consecutive days. This lets users know that they should account for rest days in their schedule. isEverythingGettingTrained function checks if the user has chosen every muscle group at least once throughout the month. While the last function getWorkoutDays allows the calendar to get the workout days throughout the schedules.
+is highlighted by the dictionary that we used to track the date which is our key and the workouts on that date which are the values. Explain load and save here The next four functions are used for evaluating our WorkoutCalendar, with getAllBackToBack, dayOverload, isEverythingGettingTrained, and getWorkoutDays. The getAllBackToBack function checks the workouts throughout the year and generates a warning sign if a muscle group is scheduled to be trained on back to back days. The dayOverload function generates a warning when workouts are scheduled on more than 4 consecutive days. This lets users know that they should account for rest days in their schedule. isEverythingGettingTrained function checks if the user has chosen every muscle group at least once throughout the month. While the last function getWorkoutDays allows the calendar to get the workout days throughout the schedules.
 
 
 Workouts File:
 
 Contains the workouts function as well as a workoutsByMuscleGroup dictionary. The workouts function is used for our DayCard structure as we each of our DayCard portrays a workout that we researched.
 The workouts function takes from the workoutsByMuscleGroup dictionary where each muscle group is a key and a string of workouts as each of the values.
+
+A special thanks to professor Paul Cantrell and our COMP225 preceptors Jim Marigmen and Kaliana Andriamananjara for all their help in bringing this project to life. 
 
