@@ -17,8 +17,7 @@
 import SwiftUI
 
 
-/// A grouping of days on the homescreen based on the number of days in the current month-year pair.
-/// Highlights days that repeat the same muscle group back-to-back in red.
+/// A grouping of days on the homescreen based on the number of days in the current month-year pair. This is the main UI design for the homescreen.
 struct MonthView: View {
     @ObservedObject var calendar: WorkoutCalendar
     let daysCalendar = Locale.current.calendar
@@ -38,7 +37,7 @@ struct MonthView: View {
                 VStack(spacing: 0) {
                     //The horizontal view of the left button, next to a month and year,
                     //next to a right button. The left and right buttons are for scrolling
-                    //through months
+                    //through months.
                     HStack {
                         if !monthNotification.isEmpty {
                             Image(systemName: "exclamationmark.triangle.fill")
@@ -89,7 +88,8 @@ struct MonthView: View {
                                     .border(Color.brown, width: 1)
                                     .background(bgBrown)
                                 
-                                //The code below adjust for how many weeks there are in the month, and creates the necessary empty cells to maintain the rectangle shape of the calendar
+                                //The code below adjust for how many weeks there are in the month, and creates the necessary empty cells to maintain the rectangle shape of the calendar.
+                                //Also, this calendar display is organized as a navigation link, with the label being this DayCell rectangle, and its destination linked to the DayView struct.
                                 ForEach(0..<numOfWeeks, id: \.self) { week in
                                     let dayOfMonth = (week * 7 + dayOfWeek+1) - firstWeekday
                                     if dayOfMonth >= 1 && dayOfMonth <= totalMonthDay,
@@ -124,7 +124,7 @@ struct MonthView: View {
         }
     }
     
-    /// extracts the current month and year as a string so it can be displayed on the homescreen
+    /// Extracts the current month and year as a string so it can be displayed on the homescreen.
     /// - Parameters:
     ///   - month: integer that gives us month
     ///   - year: integer that gives us corresponding year
@@ -149,7 +149,7 @@ struct MonthView: View {
         return getAllWeekDays().firstIndex(of: firstWeekday)!
     }
     
-    /// Holds all the days of the week
+    /// Holds all the days of the week.
     /// - Returns: array of strings, the days of the week
     func getAllWeekDays() -> [String] {
         var allWeekDays: [String] = []
@@ -179,12 +179,11 @@ struct MonthView: View {
         return (reversedDays.firstIndex(of: firstWeekday)!+1)
     }
     
-    ///Helper function to get the number of weeks for each month
+    ///Helper function to get the number of weeks for each month.
     /// - Returns: Number of calendar Sunday-Saturday weeks covered by the days in the month
     func getNumberOfWeeks() -> Int {
         let firstWeekday = getFirstDayOfWeekReverse()
         let totalDays = getLastDayofMonth()
-        
         if (firstWeekday + 21 == totalDays) {
             return 4
         } else if (firstWeekday + 28 >= totalDays) {
@@ -194,11 +193,10 @@ struct MonthView: View {
         }
     }
     
-    /// Generates notifications to the user throughout a schedule,
+    /// Generates notifications to the user throughout a schedule of days, to be displayed in the triangle warning signs as a tooltip.
     /// - Returns: String, a message about which requirement is missing in a schedule
     func generateMonthNotification() -> String {
             var notification = ""
-            
         let untrainedMuscleGroups = calendar.isEverythingGettingTrained(month: month, year: year)
             let sortedUntrainedGroups = untrainedMuscleGroups.sorted()
             
@@ -215,15 +213,13 @@ struct MonthView: View {
 
 var bgBlue = Color(hue: 154/360, saturation: 0.3, brightness: 0.8)
 
-/// The content of an individual rectangle on the homescreen. This includes the day number to be set, and eventually its programmed workouts. This is organized as a navigation link, with the label being the day rectangle, and its destination linked to the DayView struct.
+/// The content of an individual rectangle on the homescreen. This includes the date to be set, and eventually its programmed workouts.
 struct DayCell: View {
     @ObservedObject var day: WorkoutDay
     @ObservedObject var calendar: WorkoutCalendar
-    
     var notifications: [String] {
         generateNotifications()
     }
-
     var body: some View {
         ZStack {
             bgBlue.opacity(0.7)
@@ -247,7 +243,7 @@ struct DayCell: View {
         }
     }
     
-    /// Generates notifications for users when their schedule does not meet a requirement
+    /// Generates notifications for users when their schedule does not meet a requirement.
     /// - Returns: Array of strings, a message to the user to support them in the making of their schedule
     func generateNotifications() -> [String] {
         let backToBack = calendar.getAllBackToBack()
@@ -266,7 +262,7 @@ struct DayCell: View {
     }
 }
 
-///The content of an individual rectangle that does not correspond to a day on our calendar.
+///The content of an individual rectangle that does not correspond to a day on our calendar. This is just a blue color with a brown border.
 struct EmptyCell: View {
     var body: some View {
         ZStack {

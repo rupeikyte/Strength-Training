@@ -11,8 +11,6 @@
 //Code used for operations on a Set: https://stackoverflow.com/questions/48814172/set-collection-insert-multiple-elements
 //Code used for operations on a Set: https://stackoverflow.com/questions/45134687/given-two-sets-how-can-i-determine-what-was-added-or-removed
 
-
-
 import SwiftUI
 
 ///All muscle groups tracked in the app.
@@ -47,10 +45,12 @@ class WorkoutDay: Identifiable, ObservableObject, Codable {
     }
 }
 
-/// A calendar of days with its associated workouts
+/// A dictionary of a calendar of days with its associated workouts. The keys are the date, and the set of workouts are the value.
 class WorkoutCalendar: ObservableObject {
     private var days: DayDictionary = [:]
     typealias DayDictionary = [Date: WorkoutDay]
+    
+    /// A way to get the workout set, if the function is given a date.
     func workoutDay(forDate date: Date) -> WorkoutDay {
         if let dayWorkout = days[date] {
             return dayWorkout
@@ -67,7 +67,7 @@ class WorkoutCalendar: ObservableObject {
         load()
     }
     
-    /// Saves the data that is inputed into the calendar
+    /// Saves the data that is inputed into the calendar.
     func save() {
         do {
             let encoded = try JSONEncoder().encode(days)
@@ -77,7 +77,7 @@ class WorkoutCalendar: ObservableObject {
         }
     }
     
-    /// Loads the data that is inputed into the calendar
+    /// Loads the data that is inputed into the calendar.
     func load() {
         if let savedData = UserDefaults.standard.data(forKey: saveKey),
            let decoded = try? JSONDecoder().decode(DayDictionary.self, from: savedData) {
@@ -85,7 +85,7 @@ class WorkoutCalendar: ObservableObject {
         }
     }
     
-    /// function that catches if a user chooses to workout the same muscle group on back to back days
+    /// Function that catches if a user chooses to workout the same muscle group on back to back days.
     /// - Returns: An array of an array of integers giving us two integers per array
     func getAllBackToBack() -> [Date: [String]] {
         let sortedDays = days.sorted(by: { $0.key < $1.key })
@@ -139,7 +139,7 @@ class WorkoutCalendar: ObservableObject {
         return result
     }
         
-    /// Catches when user does not choose every muscle group at least once throughout the month
+    /// Catches when user does not choose every muscle group at least once throughout the month.
     /// - Parameters:
     ///   - month: An integer for the month
     ///   - year: An integer for the year
@@ -155,7 +155,7 @@ class WorkoutCalendar: ObservableObject {
         return untrainedMuscleGroups
     }
     
-    /// Helper function to get days with workouts
+    /// Helper function to get days with workouts.
     /// - Parameters:
     ///   - days: array of WorkoutDays
     ///   - month: integer representing month

@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-///The app
+///The app. The frame of the app is restricted so that a user can only make the window size about half as big as the window screen. 
 struct Strength_TrainingApp: App {
     var body: some Scene {
         WindowGroup {
