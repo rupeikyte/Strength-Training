@@ -5,7 +5,7 @@ This Desktop App was made to help beginners that want to start lifting weights. 
 give tips to the user to make the best out of their workout schedule. The app strives to solve the problem that many people trying to go to the gym face. Many people do not know where 
 to start and have no knowledge of a plan that they can start working with. Giving users the ability to make a plan as well as informing them of ways that allow a person that goes to the 
 gym to meet their goals will make the leap of starting to go to the gym a lot easier.
-To give users our feedback we decided to make notifications for a schedule in the shape of warning signs, when a user's schedule does not meet a requirement a warning sign will pop up. Users will be able to hover over the warning signs and read a message that will help guide them in the right direction. The hovering ability takes a few seconds to render as their is a delay with hovering and the warining message.
+To give users our feedback we decided to make notifications for a schedule in the shape of warning signs, when a user's schedule does not meet a requirement a warning sign will pop up. Users will be able to hover over the warning signs and read a message that will help guide them in the right direction. The hovering ability takes a few seconds to render as their is a delay with hovering and the warning message.
 
 We decided on three requirements for the best workout schedule: 
 1. A user should not workout the same muscle group on back to back days
